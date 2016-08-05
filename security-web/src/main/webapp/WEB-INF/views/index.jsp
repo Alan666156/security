@@ -10,6 +10,6 @@
 <title>security</title>
 </head>
 <body>
-	<h1 style="color:red;">spring boot jar package run by jsp!</h1>
+	<h1 style="color:red;">spring boot jar package return jsp!</h1>
 </body>
 </html>
