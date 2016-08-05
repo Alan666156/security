@@ -1,0 +1,378 @@
+2016-08-05 09:25:30,691 [main] INFO  [com.security.Application] - Starting Application on ym-053101 with PID 5896 (D:\tools\security\security-web\target\classes started by YM10074 in D:\tools\security\security-web)
+2016-08-05 09:25:30,693 [main] INFO  [com.security.Application] - No active profile set, falling back to default profiles: default
+2016-08-05 09:25:30,774 [main] INFO  [org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1552a3b1: startup date [Fri Aug 05 09:25:30 CST 2016]; root of context hierarchy
+2016-08-05 09:25:31,072 [background-preinit] INFO  [org.hibernate.validator.internal.util.Version] - HV000001: Hibernate Validator 5.2.4.Final
+2016-08-05 09:25:32,319 [main] INFO  [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$83cb4454] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-08-05 09:25:32,787 [main] INFO  [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer] - Tomcat initialized with port(s): 8080 (http)
+2016-08-05 09:25:32,797 [main] INFO  [org.apache.catalina.core.StandardService] - Starting service Tomcat
+2016-08-05 09:25:32,798 [main] INFO  [org.apache.catalina.core.StandardEngine] - Starting Servlet Engine: Apache Tomcat/8.0.33
+2016-08-05 09:25:33,095 [localhost-startStop-1] INFO  [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2016-08-05 09:25:33,098 [localhost-startStop-1] INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2016-08-05 09:25:33,099 [localhost-startStop-1] INFO  [org.springframework.web.context.ContextLoader] - Root WebApplicationContext: initialization completed in 2327 ms
+2016-08-05 09:25:33,396 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-08-05 09:25:33,396 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-08-05 09:25:33,396 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-08-05 09:25:33,396 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'requestContextFilter' to: [/*]
+2016-08-05 09:25:33,397 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.DelegatingFilterProxyRegistrationBean] - Mapping filter: 'springSecurityFilterChain' to: [/*]
+2016-08-05 09:25:33,398 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.ServletRegistrationBean] - Mapping servlet: 'dispatcherServlet' to [/]
+2016-08-05 09:25:33,589 [localhost-startStop-1] INFO  [org.springframework.boot.autoconfigure.security.AuthenticationManagerConfiguration] - 
+
+Using default security password: 04ccbc23-ada7-448a-bc95-99c1fe58025a
+
+2016-08-05 09:25:33,630 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/css/**'], []
+2016-08-05 09:25:33,630 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/js/**'], []
+2016-08-05 09:25:33,630 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/images/**'], []
+2016-08-05 09:25:33,630 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/**/favicon.ico'], []
+2016-08-05 09:25:33,630 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/error'], []
+2016-08-05 09:25:33,671 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration$ApplicationNoWebSecurityConfigurerAdapter$1@2ea44654, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@23054cb8, org.springframework.security.web.context.SecurityContextPersistenceFilter@633abb2e, org.springframework.security.web.header.HeaderWriterFilter@3da0b822, org.springframework.security.web.csrf.CsrfFilter@53c2e04f, org.springframework.security.web.authentication.logout.LogoutFilter@6022f0a1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6b680257, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@18cb82cb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@30efd5fe, org.springframework.security.web.session.SessionManagementFilter@67504c1, org.springframework.security.web.access.ExceptionTranslationFilter@5f27e649]
+2016-08-05 09:25:33,702 [main] WARN  [org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private javax.sql.DataSource org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration.dataSource; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceAutoConfiguration$NonEmbeddedConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.sql.DataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Cannot determine embedded database driver class for database type NONE. If you want an embedded database please put a supported one on the classpath. If you have database settings to be loaded from a particular profile you may need to active it (no profiles are currently active).
+2016-08-05 09:25:33,712 [main] INFO  [org.apache.catalina.core.StandardService] - Stopping service Tomcat
+2016-08-05 09:25:33,743 [localhost-startStop-1] WARN  [org.apache.catalina.loader.WebappClassLoaderBase] - The web application [ROOT] appears to have started a thread named [Abandoned connection cleanup thread] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(Unknown Source)
+ com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:43)
+2016-08-05 09:25:33,764 [main] ERROR [org.springframework.boot.SpringApplication] - Application startup failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private javax.sql.DataSource org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration.dataSource; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceAutoConfiguration$NonEmbeddedConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.sql.DataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Cannot determine embedded database driver class for database type NONE. If you want an embedded database please put a supported one on the classpath. If you have database settings to be loaded from a particular profile you may need to active it (no profiles are currently active).
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:334) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1214) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:368) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1123) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1018) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1054) ~[spring-context-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:829) ~[spring-context-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:538) ~[spring-context-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:118) ~[spring-boot-1.3.5.RELEASE.jar:1.3.5.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:766) ~[spring-boot-1.3.5.RELEASE.jar:1.3.5.RELEASE]
+	at org.springframework.boot.SpringApplication.createAndRefreshContext(SpringApplication.java:361) [spring-boot-1.3.5.RELEASE.jar:1.3.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) [spring-boot-1.3.5.RELEASE.jar:1.3.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1191) [spring-boot-1.3.5.RELEASE.jar:1.3.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1180) [spring-boot-1.3.5.RELEASE.jar:1.3.5.RELEASE]
+	at com.security.Application.main(Application.java:10) [classes/:?]
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: private javax.sql.DataSource org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration.dataSource; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceAutoConfiguration$NonEmbeddedConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.sql.DataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Cannot determine embedded database driver class for database type NONE. If you want an embedded database please put a supported one on the classpath. If you have database settings to be loaded from a particular profile you may need to active it (no profiles are currently active).
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:573) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	... 26 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceAutoConfiguration$NonEmbeddedConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.sql.DataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Cannot determine embedded database driver class for database type NONE. If you want an embedded database please put a supported one on the classpath. If you have database settings to be loaded from a particular profile you may need to active it (no profiles are currently active).
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:599) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1123) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1018) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1192) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1116) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1014) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:545) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	... 26 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.sql.DataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Cannot determine embedded database driver class for database type NONE. If you want an embedded database please put a supported one on the classpath. If you have database settings to be loaded from a particular profile you may need to active it (no profiles are currently active).
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:189) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1123) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1018) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1192) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1116) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1014) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:545) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	... 26 more
+Caused by: org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Cannot determine embedded database driver class for database type NONE. If you want an embedded database please put a supported one on the classpath. If you have database settings to be loaded from a particular profile you may need to active it (no profiles are currently active).
+	at org.springframework.boot.autoconfigure.jdbc.DataSourceProperties.getDriverClassName(DataSourceProperties.java:180) ~[spring-boot-autoconfigure-1.3.5.RELEASE.jar:1.3.5.RELEASE]
+	at org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration$NonEmbeddedConfiguration.dataSource(DataSourceAutoConfiguration.java:121) ~[spring-boot-autoconfigure-1.3.5.RELEASE.jar:1.3.5.RELEASE]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.7.0_45]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.7.0_45]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.7.0_45]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.7.0_45]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:162) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1123) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1018) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:510) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1192) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1116) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1014) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:545) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331) ~[spring-beans-4.2.6.RELEASE.jar:4.2.6.RELEASE]
+	... 26 more
+2016-08-05 09:25:33,797 [main] WARN  [org.springframework.boot.SpringApplication] - Error handling failed (Error creating bean with name 'delegatingApplicationListener' defined in class path resource [org/springframework/security/config/annotation/web/configuration/WebSecurityConfiguration.class]: BeanPostProcessor before instantiation of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' is defined)
+2016-08-05 09:26:23,286 [main] INFO  [com.security.Application] - Starting Application on ym-053101 with PID 3940 (D:\tools\security\security-web\target\classes started by YM10074 in D:\tools\security\security-web)
+2016-08-05 09:26:23,287 [main] INFO  [com.security.Application] - No active profile set, falling back to default profiles: default
+2016-08-05 09:26:23,323 [main] INFO  [org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2fb1e76a: startup date [Fri Aug 05 09:26:23 CST 2016]; root of context hierarchy
+2016-08-05 09:26:23,560 [background-preinit] INFO  [org.hibernate.validator.internal.util.Version] - HV000001: Hibernate Validator 5.2.4.Final
+2016-08-05 09:26:24,721 [main] INFO  [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$650c5066] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-08-05 09:26:25,062 [main] INFO  [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer] - Tomcat initialized with port(s): 8080 (http)
+2016-08-05 09:26:25,072 [main] INFO  [org.apache.catalina.core.StandardService] - Starting service Tomcat
+2016-08-05 09:26:25,073 [main] INFO  [org.apache.catalina.core.StandardEngine] - Starting Servlet Engine: Apache Tomcat/8.0.33
+2016-08-05 09:26:25,354 [localhost-startStop-1] INFO  [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2016-08-05 09:26:25,358 [localhost-startStop-1] INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2016-08-05 09:26:25,358 [localhost-startStop-1] INFO  [org.springframework.web.context.ContextLoader] - Root WebApplicationContext: initialization completed in 2037 ms
+2016-08-05 09:26:25,645 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-08-05 09:26:25,645 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-08-05 09:26:25,645 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-08-05 09:26:25,645 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'requestContextFilter' to: [/*]
+2016-08-05 09:26:25,646 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.DelegatingFilterProxyRegistrationBean] - Mapping filter: 'springSecurityFilterChain' to: [/*]
+2016-08-05 09:26:25,646 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.ServletRegistrationBean] - Mapping servlet: 'dispatcherServlet' to [/]
+2016-08-05 09:26:25,839 [localhost-startStop-1] INFO  [org.springframework.boot.autoconfigure.security.AuthenticationManagerConfiguration] - 
+
+Using default security password: 1e58f839-9e28-449c-bc78-84a9922192fc
+
+2016-08-05 09:26:25,877 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/css/**'], []
+2016-08-05 09:26:25,878 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/js/**'], []
+2016-08-05 09:26:25,878 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/images/**'], []
+2016-08-05 09:26:25,878 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/**/favicon.ico'], []
+2016-08-05 09:26:25,878 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/error'], []
+2016-08-05 09:26:25,920 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration$ApplicationNoWebSecurityConfigurerAdapter$1@6022f0a1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@15e40b56, org.springframework.security.web.context.SecurityContextPersistenceFilter@6c8b1e36, org.springframework.security.web.header.HeaderWriterFilter@347ff36d, org.springframework.security.web.csrf.CsrfFilter@2dd74c8e, org.springframework.security.web.authentication.logout.LogoutFilter@2def18d3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@24d6fbe7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4278aa1f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2ea44654, org.springframework.security.web.session.SessionManagementFilter@60e2de32, org.springframework.security.web.access.ExceptionTranslationFilter@70316d61]
+2016-08-05 09:26:26,477 [main] INFO  [org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean] - Building JPA container EntityManagerFactory for persistence unit 'default'
+2016-08-05 09:26:26,485 [main] INFO  [org.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2016-08-05 09:26:26,582 [main] INFO  [org.hibernate.Version] - HHH000412: Hibernate Core {4.3.11.Final}
+2016-08-05 09:26:26,583 [main] INFO  [org.hibernate.cfg.Environment] - HHH000206: hibernate.properties not found
+2016-08-05 09:26:26,585 [main] INFO  [org.hibernate.cfg.Environment] - HHH000021: Bytecode provider name : javassist
+2016-08-05 09:26:26,774 [main] INFO  [org.hibernate.annotations.common.Version] - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2016-08-05 09:26:26,835 [main] INFO  [org.hibernate.dialect.Dialect] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2016-08-05 09:26:26,879 [main] INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] - HHH000397: Using ASTQueryTranslatorFactory
+2016-08-05 09:26:27,241 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2fb1e76a: startup date [Fri Aug 05 09:26:23 CST 2016]; root of context hierarchy
+2016-08-05 09:26:27,328 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/]}" onto public java.lang.String com.security.controller.IndexController.index(org.springframework.ui.Model)
+2016-08-05 09:26:27,328 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/home]}" onto public java.lang.String com.security.controller.IndexController.home(org.springframework.ui.Model)
+2016-08-05 09:26:27,330 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-08-05 09:26:27,330 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-08-05 09:26:27,367 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:26:27,367 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:26:27,414 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:26:27,690 [main] INFO  [org.springframework.jmx.export.annotation.AnnotationMBeanExporter] - Registering beans for JMX exposure on startup
+2016-08-05 09:26:27,736 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2016-08-05 09:26:27,742 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2016-08-05 09:26:27,757 [main] INFO  [org.apache.tomcat.util.net.NioSelectorPool] - Using a shared selector for servlet write/read
+2016-08-05 09:26:27,820 [main] INFO  [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer] - Tomcat started on port(s): 8080 (http)
+2016-08-05 09:26:27,824 [main] INFO  [com.security.Application] - Started Application in 4.75 seconds (JVM running for 5.234)
+2016-08-05 09:26:32,816 [http-nio-8080-exec-1] INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-08-05 09:26:32,816 [http-nio-8080-exec-1] INFO  [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'dispatcherServlet': initialization started
+2016-08-05 09:26:32,829 [http-nio-8080-exec-1] INFO  [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'dispatcherServlet': initialization completed in 13 ms
+2016-08-05 09:26:32,926 [http-nio-8080-exec-1] INFO  [com.security.controller.IndexController] - ==========index==========
+2016-08-05 09:27:13,677 [main] INFO  [com.security.Application] - Starting Application on ym-053101 with PID 6848 (D:\tools\security\security-web\target\classes started by YM10074 in D:\tools\security\security-web)
+2016-08-05 09:27:13,678 [main] INFO  [com.security.Application] - No active profile set, falling back to default profiles: default
+2016-08-05 09:27:13,713 [main] INFO  [org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7ac84a5b: startup date [Fri Aug 05 09:27:13 CST 2016]; root of context hierarchy
+2016-08-05 09:27:13,959 [background-preinit] INFO  [org.hibernate.validator.internal.util.Version] - HV000001: Hibernate Validator 5.2.4.Final
+2016-08-05 09:27:15,119 [main] INFO  [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$83cb4454] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-08-05 09:27:15,459 [main] INFO  [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer] - Tomcat initialized with port(s): 8080 (http)
+2016-08-05 09:27:15,469 [main] INFO  [org.apache.catalina.core.StandardService] - Starting service Tomcat
+2016-08-05 09:27:15,470 [main] INFO  [org.apache.catalina.core.StandardEngine] - Starting Servlet Engine: Apache Tomcat/8.0.33
+2016-08-05 09:27:15,746 [localhost-startStop-1] INFO  [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2016-08-05 09:27:15,750 [localhost-startStop-1] INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2016-08-05 09:27:15,750 [localhost-startStop-1] INFO  [org.springframework.web.context.ContextLoader] - Root WebApplicationContext: initialization completed in 2039 ms
+2016-08-05 09:27:16,045 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-08-05 09:27:16,045 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-08-05 09:27:16,045 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-08-05 09:27:16,045 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'requestContextFilter' to: [/*]
+2016-08-05 09:27:16,046 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.DelegatingFilterProxyRegistrationBean] - Mapping filter: 'springSecurityFilterChain' to: [/*]
+2016-08-05 09:27:16,046 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.ServletRegistrationBean] - Mapping servlet: 'dispatcherServlet' to [/]
+2016-08-05 09:27:16,232 [localhost-startStop-1] INFO  [org.springframework.boot.autoconfigure.security.AuthenticationManagerConfiguration] - 
+
+Using default security password: e55fcb73-77db-4d35-bc8f-d81cc51a3d1a
+
+2016-08-05 09:27:16,271 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/css/**'], []
+2016-08-05 09:27:16,271 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/js/**'], []
+2016-08-05 09:27:16,271 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/images/**'], []
+2016-08-05 09:27:16,271 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/**/favicon.ico'], []
+2016-08-05 09:27:16,271 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/error'], []
+2016-08-05 09:27:16,313 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration$ApplicationNoWebSecurityConfigurerAdapter$1@3107e260, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7c9f25c5, org.springframework.security.web.context.SecurityContextPersistenceFilter@7971d4d7, org.springframework.security.web.header.HeaderWriterFilter@254dcc23, org.springframework.security.web.csrf.CsrfFilter@4c24821, org.springframework.security.web.authentication.logout.LogoutFilter@30efd5fe, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@df2829e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1e6b42b4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3468e86e, org.springframework.security.web.session.SessionManagementFilter@24d6fbe7, org.springframework.security.web.access.ExceptionTranslationFilter@298dfca]
+2016-08-05 09:27:16,729 [main] INFO  [org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean] - Building JPA container EntityManagerFactory for persistence unit 'default'
+2016-08-05 09:27:16,736 [main] INFO  [org.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2016-08-05 09:27:16,833 [main] INFO  [org.hibernate.Version] - HHH000412: Hibernate Core {4.3.11.Final}
+2016-08-05 09:27:16,835 [main] INFO  [org.hibernate.cfg.Environment] - HHH000206: hibernate.properties not found
+2016-08-05 09:27:16,836 [main] INFO  [org.hibernate.cfg.Environment] - HHH000021: Bytecode provider name : javassist
+2016-08-05 09:27:16,960 [main] INFO  [org.hibernate.annotations.common.Version] - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2016-08-05 09:27:17,005 [main] INFO  [org.hibernate.dialect.Dialect] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2016-08-05 09:27:17,044 [main] INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] - HHH000397: Using ASTQueryTranslatorFactory
+2016-08-05 09:27:17,278 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7ac84a5b: startup date [Fri Aug 05 09:27:13 CST 2016]; root of context hierarchy
+2016-08-05 09:27:17,349 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/]}" onto public java.lang.String com.security.controller.IndexController.index(org.springframework.ui.Model)
+2016-08-05 09:27:17,350 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/home]}" onto public java.lang.String com.security.controller.IndexController.home(org.springframework.ui.Model)
+2016-08-05 09:27:17,351 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-08-05 09:27:17,351 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-08-05 09:27:17,381 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:27:17,381 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:27:17,421 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:27:17,684 [main] INFO  [org.springframework.jmx.export.annotation.AnnotationMBeanExporter] - Registering beans for JMX exposure on startup
+2016-08-05 09:27:17,710 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2016-08-05 09:27:17,716 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2016-08-05 09:27:17,725 [main] INFO  [org.apache.tomcat.util.net.NioSelectorPool] - Using a shared selector for servlet write/read
+2016-08-05 09:27:17,750 [main] INFO  [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer] - Tomcat started on port(s): 8080 (http)
+2016-08-05 09:27:17,753 [main] INFO  [com.security.Application] - Started Application in 4.286 seconds (JVM running for 4.782)
+2016-08-05 09:27:27,461 [http-nio-8080-exec-1] INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-08-05 09:27:27,462 [http-nio-8080-exec-1] INFO  [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'dispatcherServlet': initialization started
+2016-08-05 09:27:27,475 [http-nio-8080-exec-1] INFO  [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'dispatcherServlet': initialization completed in 13 ms
+2016-08-05 09:27:27,540 [http-nio-8080-exec-1] INFO  [com.security.controller.IndexController] - ==========index==========
+2016-08-05 09:27:52,578 [http-nio-8080-exec-7] INFO  [com.security.controller.IndexController] - ==========home===========
+2016-08-05 09:28:13,261 [http-nio-8080-exec-1] INFO  [com.security.controller.IndexController] - ==========home===========
+2016-08-05 09:28:15,478 [http-nio-8080-exec-3] INFO  [com.security.controller.IndexController] - ==========index==========
+2016-08-05 09:35:31,162 [main] INFO  [com.security.Application] - Starting Application on ym-053101 with PID 556 (D:\tools\security\security-web\target\classes started by YM10074 in D:\tools\security\security-web)
+2016-08-05 09:35:31,163 [main] INFO  [com.security.Application] - No active profile set, falling back to default profiles: default
+2016-08-05 09:35:31,197 [main] INFO  [org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4dcaef1c: startup date [Fri Aug 05 09:35:31 CST 2016]; root of context hierarchy
+2016-08-05 09:35:31,427 [background-preinit] INFO  [org.hibernate.validator.internal.util.Version] - HV000001: Hibernate Validator 5.2.4.Final
+2016-08-05 09:35:32,585 [main] INFO  [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7a9d2a70] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-08-05 09:35:32,924 [main] INFO  [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer] - Tomcat initialized with port(s): 8080 (http)
+2016-08-05 09:35:32,933 [main] INFO  [org.apache.catalina.core.StandardService] - Starting service Tomcat
+2016-08-05 09:35:32,934 [main] INFO  [org.apache.catalina.core.StandardEngine] - Starting Servlet Engine: Apache Tomcat/8.0.33
+2016-08-05 09:35:33,218 [localhost-startStop-1] INFO  [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2016-08-05 09:35:33,221 [localhost-startStop-1] INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2016-08-05 09:35:33,221 [localhost-startStop-1] INFO  [org.springframework.web.context.ContextLoader] - Root WebApplicationContext: initialization completed in 2026 ms
+2016-08-05 09:35:33,507 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-08-05 09:35:33,507 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-08-05 09:35:33,507 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-08-05 09:35:33,507 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'requestContextFilter' to: [/*]
+2016-08-05 09:35:33,508 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.DelegatingFilterProxyRegistrationBean] - Mapping filter: 'springSecurityFilterChain' to: [/*]
+2016-08-05 09:35:33,508 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.ServletRegistrationBean] - Mapping servlet: 'dispatcherServlet' to [/]
+2016-08-05 09:35:33,697 [localhost-startStop-1] INFO  [org.springframework.boot.autoconfigure.security.AuthenticationManagerConfiguration] - 
+
+Using default security password: c33e2d78-8838-410a-ac83-816f7b692cca
+
+2016-08-05 09:35:33,733 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/css/**'], []
+2016-08-05 09:35:33,733 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/js/**'], []
+2016-08-05 09:35:33,733 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/images/**'], []
+2016-08-05 09:35:33,733 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/**/favicon.ico'], []
+2016-08-05 09:35:33,733 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/error'], []
+2016-08-05 09:35:33,775 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration$ApplicationNoWebSecurityConfigurerAdapter$1@5deaf4b1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c66c0a2, org.springframework.security.web.context.SecurityContextPersistenceFilter@6bcec570, org.springframework.security.web.header.HeaderWriterFilter@99a4d68, org.springframework.security.web.csrf.CsrfFilter@770534cc, org.springframework.security.web.authentication.logout.LogoutFilter@4e449022, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@43726337, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@617a7c3c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4df10347, org.springframework.security.web.session.SessionManagementFilter@df2829e, org.springframework.security.web.access.ExceptionTranslationFilter@d4e6e5f]
+2016-08-05 09:36:45,779 [main] INFO  [com.security.Application] - Starting Application on ym-053101 with PID 4284 (D:\tools\security\security-web\target\classes started by YM10074 in D:\tools\security\security-web)
+2016-08-05 09:36:45,781 [main] INFO  [com.security.Application] - No active profile set, falling back to default profiles: default
+2016-08-05 09:36:45,819 [main] INFO  [org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4715407a: startup date [Fri Aug 05 09:36:45 CST 2016]; root of context hierarchy
+2016-08-05 09:36:46,078 [background-preinit] INFO  [org.hibernate.validator.internal.util.Version] - HV000001: Hibernate Validator 5.2.4.Final
+2016-08-05 09:36:47,310 [main] INFO  [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$6f5ccbd3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-08-05 09:36:47,646 [main] INFO  [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer] - Tomcat initialized with port(s): 8080 (http)
+2016-08-05 09:36:47,656 [main] INFO  [org.apache.catalina.core.StandardService] - Starting service Tomcat
+2016-08-05 09:36:47,657 [main] INFO  [org.apache.catalina.core.StandardEngine] - Starting Servlet Engine: Apache Tomcat/8.0.33
+2016-08-05 09:36:47,978 [localhost-startStop-1] INFO  [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2016-08-05 09:36:47,981 [localhost-startStop-1] INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2016-08-05 09:36:47,982 [localhost-startStop-1] INFO  [org.springframework.web.context.ContextLoader] - Root WebApplicationContext: initialization completed in 2166 ms
+2016-08-05 09:36:48,264 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-08-05 09:36:48,264 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-08-05 09:36:48,264 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-08-05 09:36:48,264 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'requestContextFilter' to: [/*]
+2016-08-05 09:36:48,265 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.DelegatingFilterProxyRegistrationBean] - Mapping filter: 'springSecurityFilterChain' to: [/*]
+2016-08-05 09:36:48,265 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.ServletRegistrationBean] - Mapping servlet: 'dispatcherServlet' to [/]
+2016-08-05 09:36:48,442 [localhost-startStop-1] INFO  [org.springframework.boot.autoconfigure.security.AuthenticationManagerConfiguration] - 
+
+Using default security password: 0d8f3678-8a5a-4907-ab01-784869b4f2e9
+
+2016-08-05 09:36:48,479 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/css/**'], []
+2016-08-05 09:36:48,479 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/js/**'], []
+2016-08-05 09:36:48,479 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/images/**'], []
+2016-08-05 09:36:48,479 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/**/favicon.ico'], []
+2016-08-05 09:36:48,479 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/error'], []
+2016-08-05 09:36:48,522 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration$ApplicationNoWebSecurityConfigurerAdapter$1@51ce09f2, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2def18d3, org.springframework.security.web.context.SecurityContextPersistenceFilter@60e2de32, org.springframework.security.web.header.HeaderWriterFilter@70316d61, org.springframework.security.web.csrf.CsrfFilter@4ebef7a1, org.springframework.security.web.authentication.logout.LogoutFilter@4d2b9182, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6c8b1e36, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@52030b7a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2c46dc34, org.springframework.security.web.session.SessionManagementFilter@65a6d3f, org.springframework.security.web.access.ExceptionTranslationFilter@3ad18279]
+2016-08-05 09:36:48,954 [main] INFO  [org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean] - Building JPA container EntityManagerFactory for persistence unit 'default'
+2016-08-05 09:36:48,961 [main] INFO  [org.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2016-08-05 09:36:49,021 [main] INFO  [org.hibernate.Version] - HHH000412: Hibernate Core {4.3.11.Final}
+2016-08-05 09:36:49,022 [main] INFO  [org.hibernate.cfg.Environment] - HHH000206: hibernate.properties not found
+2016-08-05 09:36:49,023 [main] INFO  [org.hibernate.cfg.Environment] - HHH000021: Bytecode provider name : javassist
+2016-08-05 09:36:49,139 [main] INFO  [org.hibernate.annotations.common.Version] - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2016-08-05 09:36:49,184 [main] INFO  [org.hibernate.dialect.Dialect] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2016-08-05 09:36:49,223 [main] INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] - HHH000397: Using ASTQueryTranslatorFactory
+2016-08-05 09:36:49,433 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4715407a: startup date [Fri Aug 05 09:36:45 CST 2016]; root of context hierarchy
+2016-08-05 09:36:49,497 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/]}" onto public java.lang.String com.security.controller.IndexController.index(org.springframework.ui.Model)
+2016-08-05 09:36:49,498 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/home]}" onto public java.lang.String com.security.controller.IndexController.home(org.springframework.ui.Model)
+2016-08-05 09:36:49,499 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-08-05 09:36:49,500 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-08-05 09:36:49,528 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:36:49,528 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:36:49,563 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:36:49,797 [main] INFO  [org.springframework.jmx.export.annotation.AnnotationMBeanExporter] - Registering beans for JMX exposure on startup
+2016-08-05 09:36:49,823 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2016-08-05 09:36:49,828 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2016-08-05 09:36:49,838 [main] INFO  [org.apache.tomcat.util.net.NioSelectorPool] - Using a shared selector for servlet write/read
+2016-08-05 09:36:49,860 [main] INFO  [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer] - Tomcat started on port(s): 8080 (http)
+2016-08-05 09:36:49,864 [main] INFO  [com.security.Application] - Started Application in 4.296 seconds (JVM running for 4.789)
+2016-08-05 09:36:54,717 [http-nio-8080-exec-1] INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-08-05 09:36:54,717 [http-nio-8080-exec-1] INFO  [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'dispatcherServlet': initialization started
+2016-08-05 09:36:54,731 [http-nio-8080-exec-1] INFO  [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'dispatcherServlet': initialization completed in 14 ms
+2016-08-05 09:36:54,798 [http-nio-8080-exec-1] INFO  [com.security.controller.IndexController] - ==========home===========
+2016-08-05 09:36:57,189 [http-nio-8080-exec-3] INFO  [com.security.controller.IndexController] - ==========index==========
+2016-08-05 09:37:52,575 [main] INFO  [com.security.Application] - Starting Application on ym-053101 with PID 7252 (D:\tools\security\security-web\target\classes started by YM10074 in D:\tools\security\security-web)
+2016-08-05 09:37:52,576 [main] INFO  [com.security.Application] - No active profile set, falling back to default profiles: default
+2016-08-05 09:37:52,610 [main] INFO  [org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5f9f265c: startup date [Fri Aug 05 09:37:52 CST 2016]; root of context hierarchy
+2016-08-05 09:37:52,844 [background-preinit] INFO  [org.hibernate.validator.internal.util.Version] - HV000001: Hibernate Validator 5.2.4.Final
+2016-08-05 09:37:53,984 [main] INFO  [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7a9d2a70] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-08-05 09:37:54,315 [main] INFO  [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer] - Tomcat initialized with port(s): 8080 (http)
+2016-08-05 09:37:54,324 [main] INFO  [org.apache.catalina.core.StandardService] - Starting service Tomcat
+2016-08-05 09:37:54,325 [main] INFO  [org.apache.catalina.core.StandardEngine] - Starting Servlet Engine: Apache Tomcat/8.0.33
+2016-08-05 09:37:54,612 [localhost-startStop-1] INFO  [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2016-08-05 09:37:54,615 [localhost-startStop-1] INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2016-08-05 09:37:54,616 [localhost-startStop-1] INFO  [org.springframework.web.context.ContextLoader] - Root WebApplicationContext: initialization completed in 2008 ms
+2016-08-05 09:37:54,895 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-08-05 09:37:54,895 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-08-05 09:37:54,895 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2016-08-05 09:37:54,895 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.FilterRegistrationBean] - Mapping filter: 'requestContextFilter' to: [/*]
+2016-08-05 09:37:54,896 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.DelegatingFilterProxyRegistrationBean] - Mapping filter: 'springSecurityFilterChain' to: [/*]
+2016-08-05 09:37:54,896 [localhost-startStop-1] INFO  [org.springframework.boot.context.embedded.ServletRegistrationBean] - Mapping servlet: 'dispatcherServlet' to [/]
+2016-08-05 09:37:55,086 [localhost-startStop-1] INFO  [org.springframework.boot.autoconfigure.security.AuthenticationManagerConfiguration] - 
+
+Using default security password: 0ee0e1fd-0618-4f5e-a77d-4aafe28ccb6e
+
+2016-08-05 09:37:55,134 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/css/**'], []
+2016-08-05 09:37:55,134 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/js/**'], []
+2016-08-05 09:37:55,134 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/images/**'], []
+2016-08-05 09:37:55,134 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/**/favicon.ico'], []
+2016-08-05 09:37:55,134 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: Ant [pattern='/error'], []
+2016-08-05 09:37:55,183 [localhost-startStop-1] INFO  [org.springframework.security.web.DefaultSecurityFilterChain] - Creating filter chain: org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration$ApplicationNoWebSecurityConfigurerAdapter$1@5deaf4b1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c66c0a2, org.springframework.security.web.context.SecurityContextPersistenceFilter@6bcec570, org.springframework.security.web.header.HeaderWriterFilter@99a4d68, org.springframework.security.web.csrf.CsrfFilter@770534cc, org.springframework.security.web.authentication.logout.LogoutFilter@4e449022, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@43726337, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@617a7c3c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4df10347, org.springframework.security.web.session.SessionManagementFilter@df2829e, org.springframework.security.web.access.ExceptionTranslationFilter@d4e6e5f]
+2016-08-05 09:37:55,658 [main] INFO  [org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean] - Building JPA container EntityManagerFactory for persistence unit 'default'
+2016-08-05 09:37:55,665 [main] INFO  [org.hibernate.jpa.internal.util.LogHelper] - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2016-08-05 09:37:55,723 [main] INFO  [org.hibernate.Version] - HHH000412: Hibernate Core {4.3.11.Final}
+2016-08-05 09:37:55,724 [main] INFO  [org.hibernate.cfg.Environment] - HHH000206: hibernate.properties not found
+2016-08-05 09:37:55,725 [main] INFO  [org.hibernate.cfg.Environment] - HHH000021: Bytecode provider name : javassist
+2016-08-05 09:37:55,850 [main] INFO  [org.hibernate.annotations.common.Version] - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2016-08-05 09:37:55,894 [main] INFO  [org.hibernate.dialect.Dialect] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2016-08-05 09:37:55,930 [main] INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] - HHH000397: Using ASTQueryTranslatorFactory
+2016-08-05 09:37:56,158 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5f9f265c: startup date [Fri Aug 05 09:37:52 CST 2016]; root of context hierarchy
+2016-08-05 09:37:56,225 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/]}" onto public java.lang.String com.security.controller.IndexController.index(org.springframework.ui.Model)
+2016-08-05 09:37:56,226 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/home]}" onto public java.lang.String com.security.controller.IndexController.home(org.springframework.ui.Model)
+2016-08-05 09:37:56,227 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-08-05 09:37:56,228 [main] INFO  [org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-08-05 09:37:56,256 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:37:56,256 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:37:56,292 [main] INFO  [org.springframework.web.servlet.handler.SimpleUrlHandlerMapping] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-08-05 09:37:56,534 [main] INFO  [org.springframework.jmx.export.annotation.AnnotationMBeanExporter] - Registering beans for JMX exposure on startup
+2016-08-05 09:37:56,560 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8080"]
+2016-08-05 09:37:56,565 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8080"]
+2016-08-05 09:37:56,575 [main] INFO  [org.apache.tomcat.util.net.NioSelectorPool] - Using a shared selector for servlet write/read
+2016-08-05 09:37:56,608 [main] INFO  [org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer] - Tomcat started on port(s): 8080 (http)
+2016-08-05 09:37:56,612 [main] INFO  [com.security.Application] - Started Application in 4.241 seconds (JVM running for 4.725)
+2016-08-05 09:38:05,685 [http-nio-8080-exec-1] INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-08-05 09:38:05,685 [http-nio-8080-exec-1] INFO  [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'dispatcherServlet': initialization started
+2016-08-05 09:38:05,697 [http-nio-8080-exec-1] INFO  [org.springframework.web.servlet.DispatcherServlet] - FrameworkServlet 'dispatcherServlet': initialization completed in 12 ms
+2016-08-05 09:38:05,764 [http-nio-8080-exec-1] INFO  [com.security.controller.IndexController] - ==========index==========

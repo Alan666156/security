@@ -4,12 +4,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<html class="no-js">
+<html>
 <head>
 <meta charset="utf-8">
-<title>易加</title>
+<title>security</title>
 </head>
 <body>
-<h2>Hello World!</h2>
+	<h1 style="color: red;">home!</h1>
 </body>
 </html>

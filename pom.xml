@@ -128,15 +128,15 @@
 					<target>${maven.compiler.target}</target>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
                 <configuration>
-                配置为true则src/main/resources目录下会生成名为git.properties的文件,Boot默认为true
+<!--                 配置为true则src/main/resources目录下会生成名为git.properties的文件,Boot默认为true -->
                     <generateGitPropertiesFile>false</generateGitPropertiesFile> 
                 	<failOnNoGitDirectory>true</failOnNoGitDirectory>
                 </configuration>
-            </plugin> -->
+            </plugin>
 		</plugins>
 		<finalName>${project.artifactId}-${project.version}-${git.commit.id.abbrev}</finalName>
 		<resources>

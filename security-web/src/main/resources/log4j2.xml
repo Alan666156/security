@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration monitorInterval="60">
 	<Properties>
-		<Property name="collectionName">jupiter</Property>
+		<Property name="collectionName">security</Property>
 	</Properties>
 	<Appenders>
 		<Console name="STDOUT" target="SYSTEM_OUT">
@@ -21,11 +21,10 @@
 	<Loggers>
 		<Logger name="org.apache.log4j.xml" level="info" />
 		<!-- project default level -->
-		<logger name="com.snowstore.jupiter" level="debug" />
 		<logger name="org.springframework" level="info" />
 
 		<!--log4jdbc -->
-		<logger name="jdbc.sqltiming" level="debug" />
+		<logger name="jdbc.sqltiming" level="INFO" />
 		<logger name="jdbc.sqlonly" level="OFF" />
 		<logger name="jdbc.audit" level="OFF" />
 		<logger name="jdbc.resultset" level="OFF" />
