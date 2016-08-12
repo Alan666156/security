@@ -11,6 +11,12 @@
   <packaging>jar</packaging>
  <dependencies>
  	<dependency>
+    	<groupId>com.security</groupId>
+        <artifactId>security-domain</artifactId>
+        <version>${version}</version>
+    </dependency>
+    
+ 	<dependency>
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-cas</artifactId>
         <version>3.2.8.RELEASE</version>

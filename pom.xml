@@ -8,6 +8,8 @@
   <modules>
     <module>security-web</module>
     <module>security-cas</module>
+    <module>security-domain</module>
+    <module>security-service</module>
   </modules>
   
   <properties>
@@ -132,7 +134,7 @@
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
                 <configuration>
-<!--                 配置为true则src/main/resources目录下会生成名为git.properties的文件,Boot默认为true -->
+<!--                 配置为true则src/main/resources目录下会生成名为git.properties的文�?Boot默认为true -->
                     <generateGitPropertiesFile>false</generateGitPropertiesFile> 
                 	<failOnNoGitDirectory>true</failOnNoGitDirectory>
                 </configuration>

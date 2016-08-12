@@ -10,7 +10,16 @@
   <artifactId>security-web</artifactId>
   <packaging>jar</packaging>
   <dependencies>
-    
+    	<dependency>
+	    	<groupId>com.security</groupId>
+	        <artifactId>security-domain</artifactId>
+	        <version>${version}</version>
+	    </dependency>
+	    <dependency>
+	    	<groupId>com.security</groupId>
+	        <artifactId>security-service</artifactId>
+	        <version>${version}</version>
+	    </dependency>
   </dependencies>
   <build>
         <plugins>
