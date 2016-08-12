@@ -9,8 +9,6 @@
   </parent>
   <artifactId>security-cas</artifactId>
   <packaging>jar</packaging>
-  <name>security-cas Maven Webapp</name>
-  <url>http://maven.apache.org</url>
  <dependencies>
  	<dependency>
         <groupId>org.springframework.security</groupId>
