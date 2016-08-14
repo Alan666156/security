@@ -23,10 +23,14 @@ public class IndexController {
 		LOGGER.info("==========home===========");
 		return "home";
 	}
-	
-	@RequestMapping("oauth/token")
+	/**
+	 * 获取accessToken
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("oauth/getAccessToken")
 	@ResponseBody
-	public String getToken(Model model){
+	public String getAccessToken(Model model){
 		LOGGER.info("==========getToken===========");
 		return "home";
 	}

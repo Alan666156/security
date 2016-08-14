@@ -1,10 +1,8 @@
 package com.security.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="oauth_authorities")
+//@Entity
+//@Table(name="oauth_authorities")
 public class Authorities extends AbstractEntity{
 	
 	/**

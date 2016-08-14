@@ -17,8 +17,8 @@ public class ClientDetails extends AbstractEntity{
 	private String grantTypes;
 	private String redirectUrl;
 	private String authorities;
-	private String accessTokenValidity;
-	private String refreshTokenValidity;
+	private Long accessTokenValidity;
+	private Long refreshTokenValidity;
 	private String additionalInformation;
 	
 	public String getAppId() {
@@ -63,16 +63,16 @@ public class ClientDetails extends AbstractEntity{
 	public void setAuthorities(String authorities) {
 		this.authorities = authorities;
 	}
-	public String getAccessTokenValidity() {
+	public Long getAccessTokenValidity() {
 		return accessTokenValidity;
 	}
-	public void setAccessTokenValidity(String accessTokenValidity) {
+	public void setAccessTokenValidity(Long accessTokenValidity) {
 		this.accessTokenValidity = accessTokenValidity;
 	}
-	public String getRefreshTokenValidity() {
+	public Long getRefreshTokenValidity() {
 		return refreshTokenValidity;
 	}
-	public void setRefreshTokenValidity(String refreshTokenValidity) {
+	public void setRefreshTokenValidity(Long refreshTokenValidity) {
 		this.refreshTokenValidity = refreshTokenValidity;
 	}
 	public String getAdditionalInformation() {

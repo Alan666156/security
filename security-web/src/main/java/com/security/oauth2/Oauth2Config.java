@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -45,10 +44,8 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
 	// Refresh Token：刷新令牌；
 	// Access Token：访问令牌。
 	
-//	@Autowired
-//	AppConfig config;
 	@Autowired
-	private AuthenticationManagerBuilder authenticationManager;
+	private AuthenticationManagerBuilder authenticationManagerBuilder;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -63,6 +60,13 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	/**
+	 * token
+	 * @return
+	 */
 	@Bean
 	public JdbcTokenStore tokenStore() {
 		return new JdbcTokenStore(dataSource);
@@ -73,11 +77,16 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
 		return new JdbcAuthorizationCodeServices(dataSource);
 	}
 	
+	/**
+	 * 
+	 * @param clientDetails
+	 * @param dataSource
+	 * @return
+	 */
 	@Bean
     public ClientDetailsService createClientDetailsService(@Qualifier("myDefaultBaseClientDetails")ClientDetails clientDetails, DataSource dataSource){
         JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
         jdbcClientDetailsService.addClientDetails(clientDetails);
-
         return jdbcClientDetailsService;
     }
 	
@@ -116,12 +125,13 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.authenticationManager(new AuthenticationManager() {
+		endpoints.authenticationManager(authenticationManager);
+		/*endpoints.authenticationManager(new AuthenticationManager() {
 			@Override
 			public Authentication authenticate(Authentication authentication) {
-				return authenticationManager.getOrBuild().authenticate(authentication);
+				return authenticationManagerBuilder.getOrBuild().authenticate(authentication);
 			}
-		});
+		});*/
 	}
 	
 	// Client settings
