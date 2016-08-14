@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -28,7 +29,7 @@ public class IndexController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("oauth/getAccessToken")
+	@RequestMapping(value = "oauth/getAccessToken" , method = RequestMethod.POST)
 	@ResponseBody
 	public String getAccessToken(Model model){
 		LOGGER.info("==========getToken===========");
