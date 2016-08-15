@@ -14,7 +14,7 @@ public class OauthAccessToken extends AbstractEntity{
 	private String tokenId;
 	private String token;
 	private String authenticationId;
-	private String user_name;
+	private String userName;
 	private String clientId;
 	private String authentication;
 	private String refreshToken;
@@ -37,11 +37,11 @@ public class OauthAccessToken extends AbstractEntity{
 	public void setAuthenticationId(String authenticationId) {
 		this.authenticationId = authenticationId;
 	}
-	public String getUser_name() {
-		return user_name;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUser_name(String userName) {
+		this.userName = userName;
 	}
 	public String getClientId() {
 		return clientId;

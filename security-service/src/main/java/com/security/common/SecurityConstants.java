@@ -1,6 +1,4 @@
 package com.security.common;
-import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
-import java.util.UUID;
 
 public class SecurityConstants {
 	//编码格式
@@ -20,23 +18,5 @@ public class SecurityConstants {
 	public static final String FORMAT_DATE_YY_MM_DD_HH_MM_SS = "yy-MM-dd HH:mm:ss";
 	public static final String FORMAT_DATE_YY = "yy";
 	
-	/**
-	 * return uuid
-	 * @return
-	 */
-	public static String getUUID(){
-		return "ZD"+UUID.randomUUID().toString();
-	}
-
-	private static RandomValueStringGenerator defaultClientSecretGenerator = new RandomValueStringGenerator(32);
-
-    public static String generate() {
-        return UUID.randomUUID().toString().replaceAll("-", "");
-    }
-
-
-    public static String generateClientSecret() {
-        return defaultClientSecretGenerator.generate();
-    }
 
 }

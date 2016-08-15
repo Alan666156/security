@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.security.dao.OauthCodeDao;
 import com.security.domain.OauthCode;
+import com.security.util.Generate;
 
 @Service
 public class OauthCodeService {
@@ -18,5 +19,11 @@ public class OauthCodeService {
 	
 	public OauthCode findById(Long id){
 		return oauthCodeDao.findOne(id);
+	}
+	
+	public OauthCode generateCode(){
+		OauthCode oauthCode = new OauthCode();
+		oauthCode.setCode(Generate.generateUUID());
+		return oauthCodeDao.save(oauthCode);
 	}
 }

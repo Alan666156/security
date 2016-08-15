@@ -1,13 +1,8 @@
 package com.security.oauth2;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,9 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
@@ -84,13 +77,13 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
 	 * @return
 	 */
 	@Bean
-    public ClientDetailsService createClientDetailsService(@Qualifier("myDefaultBaseClientDetails")ClientDetails clientDetails, DataSource dataSource){
+    public ClientDetailsService createClientDetailsService(){
         JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
-        jdbcClientDetailsService.addClientDetails(clientDetails);
+//        jdbcClientDetailsService.addClientDetails(clientDetails);
         return jdbcClientDetailsService;
     }
 	
-	@Bean(name = "myDefaultBaseClientDetails")
+	/*@Bean(name = "myDefaultBaseClientDetails")
     public BaseClientDetails createBaseClientDetails(){
         BaseClientDetails baseClientDetails = new BaseClientDetails();
 
@@ -116,7 +109,8 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
         autoApproveScopes.add("whc");
         baseClientDetails.setAutoApproveScopes(autoApproveScopes);
         return baseClientDetails;
-    }
+    }*/
+	
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 		//设置加密方式

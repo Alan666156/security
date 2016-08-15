@@ -1,8 +1,12 @@
 package com.security.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
+/**
+ * oauth client details
+ * @author Alan Fu
+ */
 @Entity
 @Table(name="oauth_client_details")
 public class OauthClientDetails extends AbstractEntity{
@@ -21,6 +25,7 @@ public class OauthClientDetails extends AbstractEntity{
 	private String authorities;
 	private Long accessTokenValidity; //
 	private Long refreshTokenValidity;
+	@Column(length=4000)
 	private String additionalInformation;
 	private String autoApprove;
 	

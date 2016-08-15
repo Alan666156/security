@@ -1,8 +1,9 @@
 package com.security.domain;
 
 
+
 //@Entity
-//@Table(name="oauth_authorities")
+//@Table(name="oauth_authorities", uniqueConstraints = @UniqueConstraint(columnNames = { "appId", "appSecret"}))
 public class Authorities extends AbstractEntity{
 	
 	/**

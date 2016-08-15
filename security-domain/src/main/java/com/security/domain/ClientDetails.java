@@ -1,25 +1,29 @@
 package com.security.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="client_details")
+@Table(name="client_details", uniqueConstraints = @UniqueConstraint(columnNames = { "appId", "appSecret"}))
 public class ClientDetails extends AbstractEntity{
-	  /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String appId;
-	private String resourceIds;
-	private String appSecret;
-	private String scope;
-	private String grantTypes;
-	private String redirectUrl;
-	private String authorities;
-	private Long accessTokenValidity;
-	private Long refreshTokenValidity;
-	private String additionalInformation;
+	private String appId;		//appid
+	@Column(length=2000)
+	private String resourceIds; 
+	private String appSecret;	//secret
+	private String scope;		//授权方式
+	private String grantTypes; 	//授权类型
+	private String redirectUrl;	//回调地址
+	private String authorities;	//权限
+	private Long accessTokenValidity;	//access token 是否有效
+	private Long refreshTokenValidity;	//refresh token 是否有效
+	@Column(length=4000)
+	private String additionalInformation;	//附加信息
 	
 	public String getAppId() {
 		return appId;

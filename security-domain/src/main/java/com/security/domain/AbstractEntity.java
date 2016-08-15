@@ -29,7 +29,7 @@ public abstract class AbstractEntity extends AbstractPersistable<Long> implement
 	private Date lastModifiedDate = new Date();
 
 	@CreatedBy
-	private String createdBy;
+	private String createdBy = "system";
 
 	@LastModifiedBy
 	private String lastModifiedBy;

@@ -1,10 +1,11 @@
 package com.security.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * oauth code
+ * 授权code
  * @author Alan Fu
  */
 @Entity
@@ -15,8 +16,9 @@ public class OauthCode extends AbstractEntity{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String code;
-	private String authentication;
+	private String code; //授权码
+	@Column(length=4000)
+	private String authentication; //
 	
 	public String getCode() {
 		return code;
