@@ -18,3 +18,14 @@ Access Token：访问令牌。
 (4) 授权服务器验证客户端的私有证书和访问许可的有效性，如果验证有效，则向客户端发送一个访问令牌，访问令牌包括许可的作用域、有效时间和一些其他属性信息；
 (5) 客户端出示访问令牌向资源服务器请求受保护资源；
 (6) 资源服务器对访问令牌做出响应
+
+cas-client-core利用HashMapBackedSessionMappingStorage实现了ST和session的内存存储
+
+#cas logout
+
+在CAS的单点注销下，原理是CAS在注销模块中，通过使用各个业务系统认证时所提供的URL做为路径逐个再去反向访问各个业务系统，发送的是POST请求，那么各个业务系统的CAS-CLIENT接受到该请求后，从请求内容中分解出票据，然后依据票据找到之前已经保存好的session，最后执行session.invalidate方法使其失效。原理很简单，在一般业务系统下也很正常，但如果业务系统使用了spring-security，则会出现问题，原因是spring-security中有一个默认配置是防止会话伪造的功能为开启，开启此功能后，用户的当前会话会被撤销从而产生一个新的会话，这时CAS-CLIENT在做撤销处理时就无法得到票据所对象的session对象了。
+解决方法：
+Spring Security默认就会启用session-fixation-protection，这会在登录时销毁用户的当前session，然后为用户创建一个新session，并将原有session中的所有属性都复制到新session中。
+如果希望禁用session-fixation-protection，可以在http中将session-fixation-protection设置为none。 
+
+session-fixation-protection的值共有三个可供选择，none，migrateSession和newSession。默认使用的是migrationSession，如同我们上面所讲的，它会将原有session中的属性都复制到新session中。上面我们也见到了使用none来禁用session-fixation功能的场景，最后剩下的newSession会在用户登录时生成新session，但不会复制任何原有属性。

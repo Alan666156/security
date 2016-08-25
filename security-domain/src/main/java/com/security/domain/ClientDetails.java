@@ -16,10 +16,10 @@ public class ClientDetails extends AbstractEntity{
 	@Column(length=2000)
 	private String resourceIds; 
 	private String appSecret;	//secret
-	private String scope;		//授权方式
+	private String scope;		//权限范围,可选值包括read,write,trust
 	private String grantTypes; 	//授权类型
 	private String redirectUrl;	//回调地址
-	private String authorities;	//权限
+	private String authorities;	//用户权限
 	private Long accessTokenValidity;	//access token 是否有效
 	private Long refreshTokenValidity;	//refresh token 是否有效
 	@Column(length=4000)

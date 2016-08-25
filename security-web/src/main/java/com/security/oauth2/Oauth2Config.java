@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -15,10 +14,16 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
+import org.springframework.security.oauth2.provider.OAuth2RequestValidator;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
+import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestValidator;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+
+import com.security.util.Generate;
 
 /**
  * security oauth2.0
@@ -37,8 +42,6 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
 	// Refresh Token：刷新令牌；
 	// Access Token：访问令牌。
 	
-	@Autowired
-	private AuthenticationManagerBuilder authenticationManagerBuilder;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -53,9 +56,25 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 	
+//	@Autowired
+//	private AuthenticationManagerBuilder authenticationManagerBuilder;
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+	@Autowired
+    private ClientDetailsService clientDetailsService;
+    @Autowired
+    private AuthorizationServerTokenServices tokenServices;
+    @Autowired
+    private AuthorizationCodeServices authorizationCodeServices;
+    @Autowired
+    private OAuth2RequestFactory oAuth2RequestFactory;
+    
+    @Autowired
+    private OAuth2RequestValidator oAuth2RequestValidator;
+    
+//    private OAuth2RequestValidator oAuth2RequestValidator = new DefaultOAuth2RequestValidator();
+//    private WebResponseExceptionTranslator providerExceptionHandler = new DefaultWebResponseExceptionTranslator();
 	/**
 	 * token
 	 * @return
@@ -70,18 +89,26 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
 		return new JdbcAuthorizationCodeServices(dataSource);
 	}
 	
+	@Bean
+	public OAuth2RequestFactory oAuth2RequestFactory(){
+		return new DefaultOAuth2RequestFactory(clientDetailsService);
+	}
+	
+	@Bean
+	public OAuth2RequestValidator oAuth2RequestValidator(){
+		return new DefaultOAuth2RequestValidator();
+	}
+	
 	/**
 	 * 
-	 * @param clientDetails
-	 * @param dataSource
 	 * @return
 	 */
-	@Bean
+	/*@Bean
     public ClientDetailsService createClientDetailsService(){
         JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
 //        jdbcClientDetailsService.addClientDetails(clientDetails);
         return jdbcClientDetailsService;
-    }
+    }*/
 	
 	/*@Bean(name = "myDefaultBaseClientDetails")
     public BaseClientDetails createBaseClientDetails(){
@@ -137,7 +164,7 @@ public class Oauth2Config extends AuthorizationServerConfigurerAdapter {
 				.authorities("ROLE_USER").scopes("write")
 				.secret(config.clientSecret);*/
 		
-		clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient("client")
+		clients.jdbc(dataSource).passwordEncoder(passwordEncoder).withClient(Generate.generateUUID())
 		.authorizedGrantTypes("authorization_code", "client_credentials", "refresh_token","password", "implicit")
 		.authorities("ROLE_CLIENT")
 		.resourceIds("apis")

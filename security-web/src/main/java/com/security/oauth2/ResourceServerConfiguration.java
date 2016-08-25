@@ -1,9 +1,16 @@
 package com.security.oauth2;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+
+import com.alibaba.fastjson.JSON;
+import com.security.domain.OauthClientDetails;
+import com.security.util.Generate;
 
 /**
  * Since the "me" endpoint needs to be protected to be accessed only after the
@@ -30,7 +37,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 	@Override 
     public void configure(HttpSecurity http) throws Exception {
          // @formatter:off
-         http.requestMatchers().antMatchers("/").and().authorizeRequests().antMatchers("/home").access("#oauth2.hasScope('read')");
+         http.requestMatchers().antMatchers("/", "/api", "/health/**", "/css/**", "/js/**", "/images/**", "/html/**").and().authorizeRequests().antMatchers("/oauth/rest_token").access("#oauth2.hasScope('read')");
       // @formatter:on
          /*http.requestMatchers()
 			.antMatchers("/**")
@@ -68,4 +75,19 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
          resources.resourceId("apis");
     }
+    
+    public static void main(String[] args) {
+    	Map<String, String> parameters = new HashMap<String, String>();
+    	parameters.put("client_id", "client");
+    	parameters.put("grant_type", "authorization_code");
+    	String json = JSON.toJSONString(parameters,true);
+    	System.out.println(json);
+    	OauthClientDetails oauthClientDetails = new OauthClientDetails();
+    	oauthClientDetails.setClientId(Generate.generateUUID());
+    	oauthClientDetails.setClientSecret(Generate.generateClientSecret());
+    	oauthClientDetails.setScope("scope");
+    	oauthClientDetails.setAuthorizedGrantTypes("authorization_code,client_credentials,refresh_token");
+    	
+    	System.out.println(JSON.toJSONString(oauthClientDetails));
+	}
 }

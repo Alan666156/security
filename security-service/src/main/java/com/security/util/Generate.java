@@ -10,8 +10,28 @@ import org.springframework.security.oauth2.common.util.RandomValueStringGenerato
 public class Generate {
 	
 	private static RandomValueStringGenerator randomValueStringGenerator = new RandomValueStringGenerator(32);
+	private static final int DEF_COUNT = 20;
+
+    
+
+    /**
+     * Generates a password.
+     *
+     * @return the generated password
+     */
+    public static String generatePassword() {
+        return org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric(DEF_COUNT);
+    }
+
+    /**
+     * Generates an activation key.
+     *
+     * @return the generated activation key
+     */
+    public static String generateActivationKey() {
+        return org.apache.commons.lang3.RandomStringUtils.randomNumeric(DEF_COUNT);
+    }
 	
-	private Generate(){}
 	/**
 	 * generate uuid
 	 * @return

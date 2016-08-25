@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 /**
  * oauth client details
+ * JdbcClientDetailsService
  * @author Alan Fu
  */
 @Entity
@@ -15,19 +16,18 @@ public class OauthClientDetails extends AbstractEntity{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	private String clientId;
 	private String resourceIds;
 	private String clientSecret;
-	private String scope;
-	private String authorizedGrantTypes;
-	private String webServerRedirectUri;
-	private String authorities;
-	private Long accessTokenValidity; //
-	private Long refreshTokenValidity;
+	private String scope;//权限范围,可选值包括read,write,trust
+	private String authorizedGrantTypes;//授权类型,可选值authorization_code,password,refresh_token,implicit,client_credentials, 若支持多个grant_type用逗号(,)分隔
+	private String webServerRedirectUri;//客户端重定向地址 
+	private String authorities;			//用户权限 
+	private Long accessTokenValidity; //设定客户端的access_token的有效时间值(单位:秒),可选, 若不设定值则使用默认的有效时间值(60 * 60 * 12, 12小时). 
+	private Long refreshTokenValidity;//设定客户端的refresh_token的有效时间值(单位:秒),可选, 若不设定值则使用默认的有效时间值(60 * 60 * 24 * 30, 30天).
 	@Column(length=4000)
-	private String additionalInformation;
-	private String autoApprove;
+	private String additionalInformation;//这是一个预留的字段,在Oauth的流程中没有实际的使用,可选,但若设置值,必须是JSON格式的数据,如:{"country":"CN","country_code":"086"}
+	private String autoapprove;//设置用户是否自动Approval操作, 默认值为 'false', 可选值包括 'true','false', 'read','write'. 
 	
 	public String getClientId() {
 		return clientId;
@@ -89,11 +89,11 @@ public class OauthClientDetails extends AbstractEntity{
 	public void setAdditionalInformation(String additionalInformation) {
 		this.additionalInformation = additionalInformation;
 	}
-	public String getAutoApprove() {
-		return autoApprove;
+	public String getAutoapprove() {
+		return autoapprove;
 	}
-	public void setAutoApprove(String autoApprove) {
-		this.autoApprove = autoApprove;
+	public void setAutoApprove(String autoapprove) {
+		this.autoapprove = autoapprove;
 	}
 	
 	 

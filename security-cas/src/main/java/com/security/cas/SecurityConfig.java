@@ -60,11 +60,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * 
 	 * @return
 	 */
-	@Bean
+	/*@Bean
 	public SessionAuthenticationStrategy sessionStrategy() {
 		SessionAuthenticationStrategy sessionStrategy = new SessionFixationProtectionStrategy();
 		return sessionStrategy;
-	}
+	}*/
 
 	/**
 	 * Request层面的配置，对应XML Configuration中的<http>元素
@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.exceptionHandling().authenticationEntryPoint(casAuthenticationEntryPoint());
 		// http.logout().logoutRequestMatcher(new
 		// AntPathRequestMatcher("/logout"));
-		http.logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true)
+		http.logout().logoutUrl("/j_spring_cas_security_logout").logoutSuccessUrl("/").invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID");
 	}
 
@@ -147,7 +147,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		casAuthenticationFilter.setAuthenticationSuccessHandler(loginAuthenticationSuccessHandler);
 		// 登录成功处理
 		casAuthenticationFilter.setAuthenticationFailureHandler(loginAuthenticationFailureHandler);
-		casAuthenticationFilter.setSessionAuthenticationStrategy(sessionStrategy());
+		// casAuthenticationFilter.setSessionAuthenticationStrategy(sessionStrategy());
 		casAuthenticationFilter.setAuthenticationManager(authenticationManager());
 		return casAuthenticationFilter;
 	}
@@ -173,10 +173,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public LogoutFilter requestCasGlobalLogoutFilter() {
 		LogoutFilter logoutFilter = new LogoutFilter(casLoginUrl + "logout?reloginUrl=" + casLocalUrl,
 				new SecurityContextLogoutHandler());
-		// logoutFilter.setFilterProcessesUrl("/logout");
-		// logoutFilter.setFilterProcessesUrl("/j_spring_cas_security_logout");
 		logoutFilter.setFilterProcessesUrl("/j_spring_cas_security_logout");
-		logoutFilter.setLogoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"));
+		// logoutFilter.setLogoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"));
 		return logoutFilter;
 	}
 

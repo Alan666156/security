@@ -18,7 +18,7 @@ public class OauthCode extends AbstractEntity{
 	private static final long serialVersionUID = 1L;
 	private String code; //授权码
 	@Column(length=4000)
-	private String authentication; //
+	private String authentication; //存储将AuthorizationRequestHolder.java对象序列化后的二进制数据.
 	
 	public String getCode() {
 		return code;
