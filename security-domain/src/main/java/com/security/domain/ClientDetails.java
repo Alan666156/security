@@ -3,18 +3,19 @@ package com.security.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="client_details", uniqueConstraints = @UniqueConstraint(columnNames = { "appId", "appSecret"}))
+@Table(name="client_details")
 public class ClientDetails extends AbstractEntity{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Column(unique=true)
 	private String appId;		//appid
 	@Column(length=2000)
 	private String resourceIds; 
+	@Column(unique=true)
 	private String appSecret;	//secret
 	private String scope;		//权限范围,可选值包括read,write,trust
 	private String grantTypes; 	//授权类型

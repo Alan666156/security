@@ -37,7 +37,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 	@Override 
     public void configure(HttpSecurity http) throws Exception {
          // @formatter:off
-         http.requestMatchers().antMatchers("/", "/api", "/health/**", "/css/**", "/js/**", "/images/**", "/html/**").and().authorizeRequests().antMatchers("/oauth/rest_token").access("#oauth2.hasScope('read')");
+         http.requestMatchers().antMatchers("/", "/api/**", "/health/**", "/css/**", "/js/**", "/images/**", "/html/**").and().authorizeRequests().antMatchers("/oauth/rest_token").access("#oauth2.hasScope('read')");
       // @formatter:on
          /*http.requestMatchers()
 			.antMatchers("/**")

@@ -8,6 +8,8 @@ import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.mobile.device.view.LiteDeviceDelegatingViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 
 /**
@@ -36,6 +38,21 @@ public class WebConfig {
 				container.addErrorPages(error400Page, error401Page, error404Page, error405Page, error408Page, error500Page); 
 			}
 		};
+	}
+	
+	/**
+	 * 设备
+	 * @return
+	 */
+	@Bean
+	public LiteDeviceDelegatingViewResolver liteDeviceAwareViewResolver() {
+	    InternalResourceViewResolver delegate = new InternalResourceViewResolver();
+	    delegate.setPrefix("/WEB-INF/views/");
+	    delegate.setSuffix(".jsp");
+	    LiteDeviceDelegatingViewResolver resolver = new LiteDeviceDelegatingViewResolver(delegate);
+	    resolver.setMobilePrefix("mobile/");
+	    resolver.setTabletPrefix("tablet/");
+	    return resolver;
 	}
 	
 }

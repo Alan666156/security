@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
@@ -44,7 +46,6 @@ import com.security.annotation.UseLog;
 import com.security.domain.OauthCode;
 import com.security.service.OauthCodeService;
 import com.security.util.Generate;
-
 @Controller
 public class IndexController {
 	
@@ -67,12 +68,13 @@ public class IndexController {
     private OAuth2RequestValidator oAuth2RequestValidator;
     @Autowired
     private TokenStore tokenStore;
+   
     
-	@RequestMapping("/")
+	/*@RequestMapping("/")
 	public String index(Model model){
 		LOGGER.info("==========index==========");
 		return "index";
-	}
+	}*/
 	
 	@RequestMapping("home")
 	public String home(Model model){
@@ -93,6 +95,48 @@ public class IndexController {
 		return "login";
 	}
 	
+	/**
+	 * 判断请求设备类型
+	 * @param device
+	 */
+	@RequestMapping("/api/device")
+	@ResponseBody
+    public String home(Device device) {
+		LOGGER.info("divce :"+device.getDevicePlatform().name());
+		String type = null;
+        if (device.isMobile()) {//手机
+            LOGGER.info("Hello mobile user!");
+            type = "mobile ";
+        } else if (device.isTablet()) {//平板
+        	LOGGER.info("Hello tablet user!");
+        	type = "tablet ";
+        } else {//pc电脑
+        	LOGGER.info("Hello desktop user!");
+        	type = "desktop";
+        }
+        return type + device.getDevicePlatform().name();
+    }
+	/**
+	 * 判断请求设备类型方式二
+	 * @param device
+	 */
+	@RequestMapping("/")
+	@ResponseBody
+    public String home(SitePreference sitePreference, Model model) {
+        if (sitePreference == SitePreference.NORMAL) {
+        	LOGGER.info("Site preference is normal");
+            return "home";
+        } else if (sitePreference == SitePreference.MOBILE) {
+        	LOGGER.info("Site preference is mobile");
+            return "home-mobile";
+        } else if (sitePreference == SitePreference.TABLET) {
+        	LOGGER.info("Site preference is tablet");
+            return "home-tablet";
+        } else {
+        	LOGGER.info("no site preference");
+            return "home";
+        }
+    }
 	/**
 	 * 获取授权码
 	 * @param model

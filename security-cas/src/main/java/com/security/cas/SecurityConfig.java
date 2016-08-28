@@ -6,7 +6,6 @@ import org.jasig.cas.client.validation.Cas20ServiceTicketValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.cas.ServiceProperties;
 import org.springframework.security.cas.authentication.CasAssertionAuthenticationToken;
 import org.springframework.security.cas.authentication.CasAuthenticationProvider;
@@ -14,14 +13,10 @@ import org.springframework.security.cas.web.CasAuthenticationEntryPoint;
 import org.springframework.security.cas.web.CasAuthenticationFilter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
-import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.security.userdetails.CustomUserDetailsService;
 
@@ -32,8 +27,8 @@ import com.security.userdetails.CustomUserDetailsService;
  * @date 2016年5月26日
  * @version 1.0.0
  */
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Value("${cas.local.url}")
@@ -73,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().disable();
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/resources/**", "/html/**", "/sendMsg/**").permitAll().anyRequest()
+		http.authorizeRequests().antMatchers("/resources/**", "/html/**", "/index/**", "/health/**").permitAll().anyRequest()
 				.authenticated();
 		// cas登录
 		http.addFilter(casAuthenticationFilter()).addFilterBefore(singleSignOutFilter(), CasAuthenticationFilter.class)
