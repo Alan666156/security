@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>债权转让协议</title>
+		<style>
+			body {
+				font-family: SimSun;
+				font-size: 15px;
+				line-height: 25px;
+				word-break: break-all;
+			}
+			body,p,h1,h2,h3,h4,h5,h6,ul,li{
+				padding: 0px;
+				margin: 0px;
+			}
+			ul{
+				list-style: none;
+			}
+			
+			h1,h2,h3,h4,h5,h6{
+				font-weight: normal;
+			}
+
+			h1,h2,h3{
+				text-align: center;
+				padding: 20px 0;
+			}
+
+			.pdt20{
+				padding: 20px 0;
+			}
+			.left{
+				float: left;
+				width: 300px;
+			}
+			.explain{
+				margin: 10px 0;
+			}
+			p {
+				text-indent: 2em;
+			}
+			.retract{
+				text-indent: 2em;
+			}
+			.ta-center{
+				text-align: center;
+			}
+			.ll2em{
+				margin-left: 2em;
+				clear: both;
+			}
+		  .mt20px{
+		  	margin-top:20px;
+		  }
+		  .mt10px{
+		  	margin-top:10px;
+		  }
+		  span.placeholder{
+		  	width: 100px;
+		  	display: inline-block;
+		  }
+          div.header {
+	          display: block;
+	          text-align: center;
+	          position: running(header);
+      	  }
+          div.footer {
+	          display: block; 
+	          text-align: center;
+	          position: running(footer);
+	      }
+          div.content {page-break-after: always;}
+          @page { @top-center { content: element(header) }}
+          @page { @bottom-center { content: element(footer) }}
+          </style>
+      </head>
+	<body>
+		<p align="center"><strong>债权转让及回购协议</strong></p>
+		<p>&nbsp;</p>
+		<p>编号：<span style="text-decoration: underline;">${code}</span></p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>甲方（<strong>债权出让方</strong>）：<span style="text-decoration: underline;">${childAsset.asset.customerDuplicate.customerName}</span></p>
+		<p>证件号码：<span style="text-decoration: underline;">${childAsset.asset.customerDuplicate.certiNum}</span></p>
+		<p>&nbsp;</p>
+		<p>乙方（<strong>债权受让方</strong>）：<span style="text-decoration: underline;">${customer.name}</span></p>
+		<p>证件号码：<span style="text-decoration: underline;">${customer.certiNum}</span></p>
+		<p>&nbsp;</p>
+		<p>丙方（<strong>咨询服务人</strong>）：上海金鹿金融信息服务有限公司</p>
+		<p>地址：</p>
+		<p></p>
+		<p class="2"><em>为进一步落实中央及市政府关于扶植中小企业的政策，同时出于共同打造互联网金融时代的领先品牌的意愿，决定由丙方为甲、乙双方提供债权转让的居间服务。为实现风险把控、利益共赢，根据《中华人民共和国合同法》等有关法律规定，经三方友好协商，本着诚实信用、互利互惠的原则达成本协议。</em></p>
+		<p>&nbsp;</p>
+		<p align="center"><strong>第一条 释义</strong></p>
+		<p class="2">在本合同中，除非上下文另有解释，下列词语具有以下含义：</p>
+		<p class="2">1.1债权受让方：指依照法律规定自主选择受让一定额度的债权并支付相应对价的自然人。</p>
+		<p class="2">1.2债权出让方：指有资金需求，将合法拥有的债权向受让方转让的法人或自然人或其他组织。</p>
+		<p class="2">1.3债权：指债务人与债权人借贷关系到期后债权人拥有的要求债务人还本付息的权益，债权以人民币计价。</p>
+		<p class="2">1.4工作日：指中华人民共和国法律规定的工作日（法定工作日）。</p>
+		<p class="2">1.5 提前还款：指在出借人与借款人借贷关系存续期间约定了借款人的本息偿还周期和金额等相关还款计划，借款人可能在协议规定的偿还周期结束前，在某一期将剩余本金提前偿还给出借人，从而使出借人的资金比约定的计划提前收回。</p>
+		<p class="2">1.6 支付机构：指依法取得营业资质的独立第三方支付机构。</p>
+		<p class="2">1.7 托管账户：指乙方自行或委托乙方在合作的支付机构开设的托管账户。</p>
+		<p>1.8受让期限：是指乙方同意持有受让债权的期限，该期限可以与转让债权清单中各笔债权的剩余期限相同，也可以不同。&nbsp;</p>
+		<p>1.9 债权转让日：是债权转让的日期。</p>
+		<p>1.10预期收益：是指乙方因受让债权而有权获得的投资回报。&nbsp;</p>
+		<p class="2">1.11 转让债权回购：是指在本协议约定条件下，甲方将乙方受让之债权购回。</p>
+		<p>&nbsp;</p>
+		<p align="center"><strong>第二条 债权转让基本要素</strong></p>
+		<p>2.1受让本金：乙方在本协议中同意受让的债权本金为人民币（大写）<span style="text-decoration: underline;">${orderAmtInWords}</span></p>
+		<p>（人民币小写 <span style="text-decoration: underline;">¥${orderAmt?string("0.##")} </span>)，占总债权（${childAsset.asset.amt}元）的${(orderAmt/childAsset.asset.amt*100)?string("0.##")}%。</p>
+		<p>2.2支付对价：乙方同意按甲方指定之如下银行账户信息向甲方支付本债权转让对价款：人民币（大写）<span style="text-decoration: underline;">${orderAmtInWords} </span></p>
+		<p>户名：<span style="text-decoration: underline;">${childAsset.asset.customerDuplicate.customerName}</span></p>
+		<p>开户行：<span style="text-decoration: underline;">${childAsset.asset.customerDuplicate.subbranch}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 银行账号：<span style="text-decoration: underline;">${childAsset.asset.customerDuplicate.account}</span></p>
+		<p>乙方须于债权转让日（即<span style="text-decoration: underline;">${childAsset.appointDeliveryDate?string("yyyy")}</span>年<span style="text-decoration: underline;">${childAsset.appointDeliveryDate?string("MM")}</span>月<span style="text-decoration: underline;">${childAsset.appointDeliveryDate?string("dd")}</span>日）之前将该笔对价款向甲方一次性付清，否则甲方可无条件收回债权，甲方收回债权时本协议自动失效。&nbsp;</p>
+		<p>2.3受让期限：<span style="text-decoration: underline;">${childAsset.asset.term}${childAsset.asset.termTypeString} </span>，自<span style="text-decoration: underline;">${childAsset.appointDeliveryDate?string("yyyy")}</span>年<span style="text-decoration: underline;">${childAsset.appointDeliveryDate?string("MM")}</span>月<span style="text-decoration: underline;">${childAsset.appointDeliveryDate?string("dd")}</span>日起至<span style="text-decoration: underline;">${childAsset.buyBackDate?string("yyyy")}</span>年<span style="text-decoration: underline;">${childAsset.buyBackDate?string("MM")}</span>月<span style="text-decoration: underline;">${childAsset.buyBackDate?string("dd")}</span>日止。&nbsp;&nbsp;&nbsp;&nbsp;</p>
+		<p>2.4预期收益：乙方预期年化收益率为<span style="text-decoration: underline;">${childAsset.asset.rate}</span> ％，自债权转让日起计算，该收益由甲方代为向债务人收取后于回购日支付给乙方。&nbsp;</p>
+		<p>2.5本息回收及甲方回购义务：债权回购日为受让期限届满之日，即<span style="text-decoration: underline;">${childAsset.buyBackDate?string("yyyy")}</span>年<span style="text-decoration: underline;">${childAsset.buyBackDate?string("MM")}</span>月<span style="text-decoration: underline;">${childAsset.buyBackDate?string("dd")}</span>日，回购金额为转让对价款加上预期收益，共计人民币（大写）<span style="text-decoration: underline;">${receiveAmtInWords}</span></p>
+		<p>回购日为法定节假日、休息日的，则付款日为法定节假日、休息日后的第一个工作日。甲方应于付款日将本合同项下转让价款和预期收益一次性划入乙方收益账户。&nbsp;</p>
+		<p>2.6乙方收益账户：是乙方指定的用于接受预期收益和受让本金返还的账户。乙方指定如下账户为收益账户：</p>
+		<p>户名：<span style="text-decoration: underline;">${customer.name}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+		<p>开户行：<span style="text-decoration: underline;">${customer.bankInfo.subbranch}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 银行账号：<span style="text-decoration: underline;">${customer.bankInfo.account}</span>&nbsp;</p>
+		<p>2.7债权清单：转让债权的清单见附件一。</p>
+		<p>2.8债权转让生效：甲方在债权转让日之前已收到乙方支付的对价，债权转让自债权转让日生效。债权转让生效后，署机构签章的本协议即代表乙方人对债权的所有权。</p>
+		<p>&nbsp;</p>
+		<p align="center"><strong>第三条 甲方的权利和义务</strong></p>
+		<p class="2">3.1 甲方确保向乙方推荐的债权在转让前尚无发生违约事件，尚无任何争议或纠纷的发生，可合法转让。</p>
+		<p class="2">3.2 甲方须对乙方的个人信息、资产情况及其他服务相关事务的情况和资料依法保密。</p>
+		<p>3.3 甲方应履行本协议第2.5条约定之回购义务。</p>
+		<p>&nbsp;</p>
+		<p align="center"><strong>第四条 乙方权利与义务</strong></p>
+		<p class="2">4.1 乙方参考丙方推荐后拥有最终决定是否购买甲方债权的权利。&nbsp;</p>
+		<p class="2">4.2 乙方具有独立的风险承受能力，对债权转让的结构和可能存在的风险已经理解并表示认可。</p>
+		<p class="2">4 3 乙方承诺签订本协议后按时支付受让债权的对价。</p>
+		<p class="2">4.4 乙方享有其受让债权期间带来的利息收益。</p>
+		<p class="2">4.5 乙方有权定期查看甲方提供的资金出借情况报告。</p>
+		<p class="2">4.6 乙方同意，如果其所受让的债权对应的债务人有提前还款的需求时，乙方允许债务人依据约定进行提前还款，而无需再特别通知乙方。</p>
+		<p class="2">4.7 对于丙方、甲方基于推荐出借的需要而提供给乙方的债务人的个人证件及其他相关信用信息，乙方确保仅用于出借参考，不向任何丙方以外的第三方透露，乙方有义务为债务人的信用信息及丙方、甲方的业务内容进行保密。如果乙方擅自、不恰当地向他人透露借款人的信用信息或丙方、甲方的商业秘密，由此对借款人或丙方、甲方造成的损失，由乙方承担全部责任。</p>
+		<p class="2">4.8 乙方保证其受让行为的合法性并保证其用于支付债权对价的资金来源合法，乙方是该资金的合法所有人。如果第三人对资金归属、合法性问题发生争议，由乙方负责解决。</p>
+		<p class="2">4.9 乙方变更账户信息、通讯地址、电话等相关重要信息，须及时通知丙方。因乙方未及时通知丙方而导致自身受到损失，由乙方自行承担责任。</p>
+		<p align="left">&nbsp;</p>
+		<p align="center"><strong>第五条 丙方的权利和义务</strong></p>
+		<p class="2">5.1 丙方应按照本协议的规定，恪尽职守，以诚实、信用、谨慎、有效管理的原则为乙方进行服务。</p>
+		<p class="2">5.2 丙方有义务全程协助乙方完成既有债权的转让手续，并据以收取相应的服务费用。</p>
+		<p class="2">5.3 丙方须对乙方个人信息、资产情况及其他服务相关事务的情况和资料依法保密。</p>
+		<p class="2">5.4 丙方所推荐的所有债权，甲方应保证债权的真实性，丙方可以采取合理的手段查询债务人的真实存在。</p>
+		<p>&nbsp;</p>
+		<p align="center"><strong>第六条 债权受让款项的支付方式</strong></p>
+		<p class="2">6.1乙方通过&ldquo;委托划扣&rdquo;的形式进行债权受让款项的支付。乙方划扣账户与本协议第二条约定的乙方收益账户一致，乙方授权丙方委托依法拥有经营资质的第三方支付机构从乙方银行账户中代为划转债权受让对价，按时划转给债权出让人。</p>
+		<p class="a0">&nbsp;</p>
+		<p align="center"><strong>第七条 乙方回款风险的处理方式</strong></p>
+		<p class="2">7.1乙方选择如下方式处置回款风险：</p>
+		<p class="2">由甲方承担相应的风险，并对债权进行回购。若甲方无力回购债权，则由担保公司立即代为偿付。</p>
+		<p class="a0">&nbsp;</p>
+		<p align="center"><strong>第八条 文件的安全保管</strong></p>
+		<p class="2">8.1债务人与债权人之间的信贷文件原件，乙方委托甲方代为收取和保管。</p>
+		<p class="2">保管过程中，如果乙方需要查阅或使用其出借所对应的借款人信贷文件，则可联系丙方，乙方可在办理相关手续后由丙方配合到甲方处查阅，丙方甲方须予以配合。在乙方有合理的使用需求时，甲方应提供协议复印件以便乙方进行合理使用。</p>
+		<p class="a0">&nbsp;</p>
+		<p align="center"><strong>第九条 风险提示</strong></p>
+		<p class="2">9.1 政策风险</p>
+		<p class="2">因宏观政策、财政政策、货币政策、行业政策、地区发展政策等因素引起的风险。</p>
+		<p class="2">9.2 系统性风险</p>
+		<p class="2">当甲方无力回购债权且担保公司破产时，可能导致乙方资产损失。当甲方无力回购债权且合作的担保公司破产时，可能导致乙方资产逾期兑付。</p>
+		<p class="2">9.3 不可抗力</p>
+		<p class="2">由于战争、动乱、自然灾害等不可抗力因素的出现而可能导致乙方资产损失的风险。</p>
+		<p class="a0">&nbsp;</p>
+		<p align="center"><strong>第十条 税务处理</strong></p>
+		<p class="2">10.1乙方在资金划拨、转让过程中产生的相关税费，由乙方自行向其主管税务机关申报、缴纳，丙方和甲方不负责相关事务处理。</p>
+		<p class="2">&nbsp;</p>
+		<p align="center"><strong>第十一条 违约责任</strong></p>
+		<p class="2">11.1任何一方违反本协议的约定，使得本协议的全部或部分不能履行，均应承担违约责任，并赔偿对方因此遭受的损失（包括由此产生的诉讼费和律师费）。如多方违约，根据实际情况各自承担相应的责任。违约方应赔偿因其违约而给守约方造成的损失，包括合同履行后可以获得的利益，但不得超过违约合同一方订立合同时可以预见或应当预见的因违反合同可能造成的损失。</p>
+		<p class="a0">&nbsp;</p>
+		<p align="center"><strong>第十二条 争议的处理</strong></p>
+		<p class="2">12.1本协议在履行过程中，如发生任何争执或纠纷，且协商不成的，三方约定向丙方所在地有管辖权的人民法院诉讼解决。</p>
+		<p class="a0">&nbsp;</p>
+		<p align="center"><strong>第十三条 其他事项</strong></p>
+		<p class="2">13.1 如果乙方出现债权的继承或赠与，必须由主张权利的继承人或受赠人向丙方出示经国家权威机关认证的继承或赠与权利归属证明文件，经丙方确认后方予协助进行资产的转移，由此产生的相关税费，由主张权利的继承人或受赠人，向其主管税务机关申报、缴纳，丙方和甲方不负责相关事务处理。</p>
+		<p class="2">13.2 本协议的传真、复印件、扫描件等有效复印本的效力与本协议原件效力一致。</p>
+		<p class="2">13.3 三方确认，本协议的签署、生效和履行以不违反中华人民共和国法律法规为前提。如果本协议中的任何一条或多条违反适用的法律法规，则该条将被视为无效，但该无效条款并不影响本协议其他条款的效力。</p>
+		<p class="2">13.4 本协议一式三份，乙、丙、甲三方各保留一份。</p>
+		<p class="2">13.5 本协议由乙方签字，丙、甲方盖章后生效。</p>
+		<p class="2">&nbsp;</p>
+		<p class="2">&nbsp;</p>
+		<p class="2">&nbsp;</p>
+		<p class="2">&nbsp;</p>
+		<p class="2">&nbsp;</p>
+		<p class="2">&nbsp;</p>
+		<p align="left">甲方： ${childAsset.asset.customerDuplicate.customerName}</p>
+		<p align="left">&nbsp;</p>
+		<p align="left" style="color:white;">出让人签章处</p>
+		<p align="left">&nbsp;</p>
+		<p align="left">乙方： ${customer.name}</p>
+		<p align="left">&nbsp;</p>
+		<p align="left" style="color:white;">受让人签章处</p>
+		<p align="left">&nbsp;</p>
+		<p align="left">丙方：上海金鹿金融信息服务有限公司&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+		<p style="color:white;">平台签章处</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p align="left">&nbsp;</p>
+		<p align="left"><strong>附件一：总债权清单</strong></p>
+		<p align="left">&nbsp;</p>
+		<table border="1" cellspacing="0" cellpadding="0" width="680" align="center">
+			<tbody>
+				<tr>
+					<td valign="center" align="center">
+						序号
+					</td>
+					<td valign="center" align="center">
+						借款人
+					</td>
+					<td valign="center" align="center">
+						证件号
+					</td>
+					<td valign="center" align="center">
+						转让债权<br></br>
+						本金(元)
+					</td>
+					<td valign="center" align="center">
+						借款用途
+					</td>
+					<td valign="center" align="center">
+						借款<br></br>
+						期限
+					</td>
+				</tr>
+				<#list childAsset.asset.assetDtls as item>
+					<tr>
+						<td valign="center"  align="center">
+							${item_index+1}
+						</td>
+						<td valign="center"  align="center">
+							${item.borrower}
+						</td>
+						<td valign="center"  align="center">
+							${item.borrowerCardId}
+						</td>
+						<td valign="center"  align="center">
+							${item.amount}
+						</td>
+						<td valign="center"  align="center">
+							${item.purpose}
+						</td>
+						<td valign="center"  align="center">
+							${item.asset.term}${item.asset.termTypeString}
+						</td>
+					</tr>
+				</#list>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>担保承诺函</title>
+		<style>
+			body {
+				font-family: SimSun;
+				font-size: 16px;
+				line-height: 25px;
+				word-break: break-all;
+			}
+			body,p,h1,h2,h3,h4,h5,h6,ul,li{
+				padding: 0px 6px;
+				margin: 0px 6px;
+			}
+			ul{
+				list-style: none;
+			}
+			
+			h1,h2,h3,h4,h5,h6{
+				font-weight: normal;
+			}
+
+			h1,h2,h3{
+				text-align: center;
+				padding: 20px 0;
+			}
+
+			.pdt20{
+				padding: 20px 0;
+			}
+			.left{
+				float: left;
+				width: 300px;
+			}
+			.explain{
+				margin: 10px 0;
+			}
+			p {
+				text-indent: 2em;
+			}
+			.retract{
+				text-indent: 2em;
+			}
+			.ta-center{
+				text-align: center;
+			}
+			.ll2em{
+				margin-left: 2em;
+				clear: both;
+			}
+		  .mt20px{
+		  	margin-top:20px;
+		  }
+		  .mt10px{
+		  	margin-top:10px;
+		  }
+		  span.placeholder{
+		  	width: 100px;
+		  	display: inline-block;
+		  }
+          div.header {
+	          display: block;
+	          text-align: center;
+	          position: running(header);
+      	  }
+          div.footer {
+	          display: block; 
+	          text-align: center;
+	          position: running(footer);
+	      }
+	      p.unindent{
+	      	text-indent: 0em;
+	      }
+          div.content {page-break-after: always;}
+          @page { @top-center { content: element(header) }}
+          @page { @bottom-center { content: element(footer) }}
+          .lineheingh{
+          	line-height:250%;
+          }
+          </style>
+      </head>
+
+	<body>
+	    <br/>
+		<p align="center" style="font-size: 21px;">上海东虹桥融资担保股份有限公司</p>
+		<p align="center" style="font-size: 21px;">担保承诺函</p>
+		<p align="center" style="font-size: 21px;">（201502版）</p>
+		<br/>
+		<br/>
+		<br/>
+		<p class="unindent">编号：${guaranteeSn!}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 订单编号： ${code}</p>
+		<p>&nbsp;</p>
+		<p class="unindent">尊敬的 ${customerName} ，您好！</p>
+		<p class="lineheingh">债权出让方 ${childAsset.asset.customerDuplicate.customerName} 通过上海金鹿金融信息服务有限公司居间于 ${tradeTime?string("yyyy年MM月dd日")} 向投资者 ${customerName} （${certiType}：${customerCertiNum}）债权转让，并通过上海金鹿金融信息服务有限公司运营的系统自动生成《债权转让及回购协议》。根据该协议约定，债权出让方将债权（本金人民币：${orderAmt?string("0.##")}）及其部分利息收益（按预期年化收益率 ${childAsset.product.interestRate}% 计算）转让给投资者，债权转让价款为人民币${receiveAmt?string("0.##")}元，并承诺在 ${childAsset.buyBackDate?string("yyyy年MM月dd日")}（若遇法定节假日，则顺延至下一个工作日回购）按回购金额（人民币：${receiveAmt?string("0.##")}）无条件回购转让的标的债权。经本公司审核，本公司同意为投资者就债权出让方按期回购债权提供不可撤销连带保证责任担保，担保范围：债权本金、债权回购价款、转让的部分利息收益及投资者为实现债权支出的合理费用（包括但不限于诉讼费用、律师费用、公证费用、执行费用），担保期间为债权出让方应当履行回购义务之日起两年。</p>
+		<p class="lineheingh">本担保函在上海金鹿金融信息服务有限公司运营的系统自动生成之日起生效，至各方履行相应义务完毕或者担保期间届满时止。</p>
+		<p>&nbsp;</p>
+		<p class="unindent lineheingh">担保人：上海东虹桥融资担保股份有限公司</p>
+		<p class="unindent lineheingh">法定代表人：黄家骝</p>
+		<p class="unindent lineheingh">地址：上海市长宁区虹桥路1438号古北财富中心二期32层</p>
+		<p class="unindent lineheingh">联系人：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:white;">担保公司签章处</span></p>
+		<p class="unindent lineheingh">联系电话：021-32092266</p>
+		<p class="unindent lineheingh">生成日期：${(tradeTime?string("yyyy年MM月dd日"))!"&nbsp;&nbsp;"}</p>
+	</body>
+</html>

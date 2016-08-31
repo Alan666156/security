@@ -17,6 +17,9 @@ public class SecurityConstants {
 	public static final String FORMAT_DATE_ZHONGWEN = "yyyy年MM月dd日";
 	public static final String FORMAT_DATE_YY_MM_DD_HH_MM_SS = "yy-MM-dd HH:mm:ss";
 	public static final String FORMAT_DATE_YY = "yy";
-	
+	/**
+	 * 二维码 提示信息
+	 */
+	public static final String QUICK_MARK_TIP_TXT = "扫一扫,校验协议有效";
 
 }
