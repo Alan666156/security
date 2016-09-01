@@ -30,7 +30,11 @@ public class BusinessException extends Exception {
 	public BusinessException(String msg) {
 		super(msg);
 	}
-
+	
+	public BusinessException(String msg, Throwable e) {
+		super(msg, e);
+	}
+	
 	/** 错误备注 */
 	public String getMemo() {
 		return memo;

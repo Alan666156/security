@@ -1,5 +1,6 @@
 package com.security.util;
 
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
@@ -48,4 +49,20 @@ public class Generate {
         return randomValueStringGenerator.generate();
     }
     
+    /**
+     * generate batch number
+     * @return
+     */
+    public static String generateBatchNumber(){
+    	return DateUtils.dateToString(new Date(), "yyyyMMddHHmmss") + System.currentTimeMillis();
+    }
+    
+    /**
+     * generate batch number
+     * @param prefix
+     * @return
+     */
+    public static String generateBatchNumber(String prefix){
+    	return prefix + DateUtils.dateToString(new Date(), "yyyyMMddHHmmss") + System.currentTimeMillis();
+    }
 }

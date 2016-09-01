@@ -16,6 +16,15 @@ import org.slf4j.LoggerFactory;
 public class DateUtils {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(DateUtils.class);
+	public static final String FORMAT_DATA_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";//带时分秒的日期格式
+	public static final String FORMAT_DATE_YYYY_MM_DD = "yyyy-MM-dd";//不带时分秒的日期格式
+	public static final String FORMAT_DATE_MM_DD = "MM月dd日";
+	public static final String FORMAT_DATE_YYMMDD = "yyMMdd";
+	public static final String FORMAT_DATE_YYYYMMDD = "yyyyMMdd";
+	public static final String FORMAT_DATE_ZHONGWEN = "yyyy年MM月dd日";
+	public static final String FORMAT_DATE_YY_MM_DD_HH_MM_SS = "yy-MM-dd HH:mm:ss";
+	
+	
 	private DateUtils(){
 		
 	}

@@ -15,7 +15,7 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import com.security.common.SecurityConstants;
+import com.security.common.PdfConstants;
 import com.security.exception.BusinessException;
 import com.security.util.AesUtils;
 
@@ -136,7 +136,7 @@ public class QuickMarkUtil {
 			if (Strings.isEmpty(qmDesKey)) {
 				throw new BusinessException("二维码内容DES加密秘钥为空");
 			}
-			return PDFUtil.insertQRCodeToPdf(wrapQuickMarkContent(pdfId, qmContent, qmDesKey), SecurityConstants.QUICK_MARK_TIP_TXT, Integer.parseInt(margin_x.trim()), Integer.parseInt(margin_y.trim()), pdfData);
+			return PDFUtil.insertQRCodeToPdf(wrapQuickMarkContent(pdfId, qmContent, qmDesKey), PdfConstants.QUICK_MARK_TIP_TXT, Integer.parseInt(margin_x.trim()), Integer.parseInt(margin_y.trim()), pdfData);
 		} catch (Exception e) {
 			LOGGER.error("二维码插入PDF异常,放弃插入操作继续处理：", e);
 			return null;

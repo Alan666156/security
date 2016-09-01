@@ -1,10 +1,11 @@
 package com.security.pdf;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 
-public class Customer {
+public class Customer implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String name; // 客户姓名
 	private String mobile;// 移动电话
@@ -140,6 +141,5 @@ public class Customer {
 	public void setFlowId(String flowId) {
 		this.flowId = flowId;
 	}
-	
 	
 }

@@ -19,7 +19,10 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.Version;
-
+/**
+ * use freemarker builder agreement template 
+ * @author Alan Fu
+ */
 public class PDFBuilder {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PDFBuilder.class);
 	private static Configuration cfg;
@@ -32,7 +35,16 @@ public class PDFBuilder {
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
 		cfg.setIncompatibleImprovements(new Version(2, 3, 20));
 	}
-
+	
+	/**
+	 * create pdf
+	 * @param name
+	 * @param obj
+	 * @return
+	 * @throws IOException
+	 * @throws TemplateException
+	 * @throws DocumentException
+	 */
 	public static byte[] createPDF(String name, Object obj) throws IOException, TemplateException, DocumentException {
 		String html = getHtmlTemplate(name + ".html", obj);
 		LOGGER.debug(html);
@@ -47,6 +59,14 @@ public class PDFBuilder {
 		return data.toByteArray();
 	}
 	
+	/**
+	 * 获取模板
+	 * @param name
+	 * @param obj
+	 * @return
+	 * @throws IOException
+	 * @throws TemplateException
+	 */
 	public static String getHtmlTemplate(String name, Object obj) throws IOException, TemplateException {
 		Template temp = cfg.getTemplate(name);
 		StringBuilderWriter sbw = new StringBuilderWriter();
