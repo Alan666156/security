@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * 授权code
+ * 授权code(只有当grant_type为"authorization_code"时,该表中才会有数据产生; )
  * @author Alan Fu
  */
 @Entity

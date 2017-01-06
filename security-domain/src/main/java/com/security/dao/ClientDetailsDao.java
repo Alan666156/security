@@ -7,4 +7,6 @@ import com.security.domain.ClientDetails;
 
 public interface ClientDetailsDao extends PagingAndSortingRepository<ClientDetails, Long>, JpaSpecificationExecutor<ClientDetails>{
 
+	public ClientDetails findByAppIdAndAppSecret(String appId, String appSecret);
+
 }

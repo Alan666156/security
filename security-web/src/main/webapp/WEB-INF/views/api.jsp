@@ -519,8 +519,8 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <p>
-                        请求URI: <code>/unity/user_info</code> <span
-                            class="label label-info">GET</span>
+                        请求URI: <code>/unity/user_info</code> 
+                      <span class="label label-info">GET</span>
                     </p>
 
                     <div>

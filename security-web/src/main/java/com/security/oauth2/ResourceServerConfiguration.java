@@ -16,7 +16,7 @@ import com.security.util.Generate;
  * Since the "me" endpoint needs to be protected to be accessed only after the
  * OAuth2 authentication is successful; the server also becomes a resource
  * server.
- * 
+ * 配置授权资源路径
  * @author anilallewar
  *
  */
@@ -37,7 +37,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 	@Override 
     public void configure(HttpSecurity http) throws Exception {
          // @formatter:off
-         http.requestMatchers().antMatchers("/", "/api/**", "/health/**", "/css/**", "/js/**", "/images/**", "/html/**").and().authorizeRequests().antMatchers("/oauth/rest_token").access("#oauth2.hasScope('read')");
+         http.requestMatchers().antMatchers("/", "/api/**","/clientdetails/**", "/health/**", "/css/**", "/js/**", "/images/**", "/html/**").and().
+         authorizeRequests().antMatchers("/oauth/rest_token").access("#oauth2.hasScope('read')");
       // @formatter:on
          /*http.requestMatchers()
 			.antMatchers("/**")

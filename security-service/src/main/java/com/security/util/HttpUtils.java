@@ -1,9 +1,30 @@
 package com.security.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -245,6 +266,159 @@ public class HttpUtils {
 		return null;
 	}
     
+	
+	/**
+	 * https post请求
+	 * @param url 请求地址
+     * @param param 参数
+     * @param charset 字符编码
+     * @param headers 数据格式
+	 */
+    public static String doPostHttps(String url, String param, String charset, Map<String, String> headers) {
+        OutputStream out = null;
+        BufferedReader in = null;
+        String result = "";
+        try {
+            URL realUrl = new URL(url);
+            HttpURLConnection conn = getConnection(realUrl);
+
+            Map<String, String> defaultHeaders = new LinkedHashMap<>();
+            defaultHeaders.put("accept", "*/*");
+            defaultHeaders.put("connection", "Keep-Alive");
+            defaultHeaders.put("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            if(null != headers) {
+                defaultHeaders.putAll(headers);
+            }
+            //set header
+            //defaultHeaders.forEach((k, v) -> conn.setRequestProperty(k, v));
+            Iterator<String> ite = defaultHeaders.keySet().iterator();
+            String key = null;
+            while (ite.hasNext()) {
+                key = ite.next();
+                conn.setRequestProperty(key, defaultHeaders.get(key));
+            }
+            conn.setRequestMethod("POST");
+
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            // 获取URLConnection对象对应的输出流
+            out = conn.getOutputStream();
+            if(param != null) {
+                // 发送请求参数
+                out.write(param.getBytes(charset));
+                // flush输出流的缓冲
+                out.flush();
+            }
+            // 定义BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream(), charset));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+        } catch (Exception e) {
+        	LOGGER.error("https post 请求发送异常!!", e);
+        }
+        finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return result;
+    }
+	
+    /**
+     * https post请求
+     * @param url 请求地址
+     * @param param 参数
+     * @param charset 字符编码
+     * @param headers 数据格式
+     * @return
+     */
+    public static String doPostHttps(String url, Map<String, String> param, String charset, Map<String, String> headers) {
+        return doPostHttps(url, buildParams(param, charset), charset, headers);
+    }
+    
+    /**
+     * 构建请求参数
+     * @param param
+     * @param charset
+     * @return
+     */
+    public static String buildParams(Map<String, String> param, String charset) {
+        if (param != null && !param.isEmpty()) {
+            StringBuffer buffer = new StringBuffer();
+            for (Map.Entry<String, String> entry : param.entrySet()) {
+                try {
+                    buffer.append(entry.getKey()).append("=").append(URLEncoder.encode(entry.getValue(), charset)).append("&");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+            return buffer.deleteCharAt(buffer.length() - 1).toString();
+        } else {
+            return null;
+        }
+    }
+    /**
+     * 获取http是请求连接对象
+     * @param url
+     * @return
+     */
+    public static HttpURLConnection getConnection(URL url) {
+        HttpURLConnection connection = null;
+        try{
+            if(url.getProtocol().toUpperCase().startsWith("HTTPS")) {
+                SSLContext ctx = SSLContext.getInstance("SSL");
+                ctx.init(new KeyManager[0], new TrustManager[] {new X509TrustManager() {
+
+                    @Override
+                    public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                    }
+
+                    @Override
+                    public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                    }
+
+                    @Override
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return null;
+                    }
+
+                }}, new SecureRandom());
+
+
+                HttpsURLConnection conn = (HttpsURLConnection)url.openConnection();
+                conn.setSSLSocketFactory(ctx.getSocketFactory());
+                conn.setConnectTimeout(10000);
+                conn.setReadTimeout(1000*60*30);
+
+                conn.setHostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true;
+                    }
+                });
+
+                connection = conn;
+            } else {
+                connection = (HttpURLConnection) url.openConnection();
+            }
+
+
+        } catch(Exception e){
+        	LOGGER.error("Get Https Connection Exception...", e);
+        }
+
+        return connection;
+    }
+	
     public static void main(String []args){
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("customerIdCard", "555422451158");

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.security.util.WebUtils;
@@ -16,6 +17,7 @@ import com.security.util.WebUtils;
  * 
  * @author Alan Fu
  */
+@Component
 public class CharacterEncodingIPFilter extends CharacterEncodingFilter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CharacterEncodingIPFilter.class);

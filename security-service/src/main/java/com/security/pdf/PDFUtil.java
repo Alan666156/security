@@ -30,7 +30,10 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
 
-//pdf生成的一些公共方法
+/**
+ * pdf生成的一些公共方法
+ * @author Alan Fu
+ */
 public class PDFUtil {
 	private final static Logger LOGGER = LoggerFactory.getLogger(PDFUtil.class);
 	public static final String INDENTATION2 = "          ";

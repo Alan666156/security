@@ -7,5 +7,5 @@ import com.security.domain.OauthAccessToken;
 
 
 public interface OauthAccessTokenDao extends PagingAndSortingRepository<OauthAccessToken, Long>, JpaSpecificationExecutor<OauthAccessToken>{
-
+	
 }

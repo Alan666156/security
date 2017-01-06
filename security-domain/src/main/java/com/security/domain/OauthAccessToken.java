@@ -2,7 +2,10 @@ package com.security.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
+/**
+ * 存储客户accesstoken信息
+ * @author Alan Fu
+ */
 @Entity
 @Table(name="oauth_access_token")
 public class OauthAccessToken extends AbstractEntity{
