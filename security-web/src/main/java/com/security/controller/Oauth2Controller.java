@@ -36,15 +36,13 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.security.domain.OauthCode;
+import com.security.config.SecurityConfig;
 import com.security.service.OauthClientDetailsService;
 import com.security.service.OauthCodeService;
-import com.security.util.Generate;
 
 /**
  * Oauth2相关操作
@@ -93,9 +91,10 @@ public class Oauth2Controller {
 	@ResponseBody
 	public String getAuthorizationCode(Model model,HttpServletRequest request, HttpServletResponse response){
 		LOGGER.info("==========getOauthCode===========");
-		OauthCode oauthCode = new OauthCode();
-		oauthCode.setCode(Generate.generateUUID());
-		oauthCodeService.save(oauthCode);
+//		OauthCode oauthCode = new OauthCode();
+//		oauthCode.setCode(Generate.generateUUID());
+//		oauthCodeService.save(oauthCode);
+		oauthCodeService.generateCode();
 		return "AuthorizationCode";
 	}
 	
@@ -108,7 +107,7 @@ public class Oauth2Controller {
 	@ResponseBody
 	public String getAccessToken(Model model,HttpServletRequest request, HttpServletResponse response){
 		LOGGER.info("==========getAccessToken===========");
-//		tokenServices.getAccessToken(authentication)
+//		tokenServices.getAccessToken(authentication);
 		return "getAccessToken";
 	}
 	
@@ -125,9 +124,13 @@ public class Oauth2Controller {
 //	
 	
 //	@UseLog(remark = "test log")
-	@RequestMapping(value = "rest_token", method = RequestMethod.POST)
+	@RequestMapping(value = "rest_token")
 	@ResponseBody
 	public OAuth2AccessToken postAccessToken(@RequestBody String param) {
+		LOGGER.info("Get AccessToken param:{}", param);
+		if(StringUtils.isEmpty(param)){
+			throw new InvalidClientException("param is not null...");
+		}
 		JSONObject json = JSONObject.parseObject(param);
 		String clientId = json.getString(OAuth2Utils.CLIENT_ID);
 		Map<String,String> parameters = (Map<String,String>)JSON.parse(param);
@@ -135,8 +138,8 @@ public class Oauth2Controller {
 		ClientDetails authenticatedClient = clientDetailsService.loadClientByClientId(clientId);
 		
 		TokenRequest tokenRequest = oAuth2RequestFactory.createTokenRequest(parameters, authenticatedClient);
-
-		if (clientId != null && !"".equals(clientId)) {
+		
+		if (!StringUtils.isEmpty(clientId)) {
 			// Only validate the client details if a client authenticated during
 			// this
 			// request.
@@ -147,17 +150,18 @@ public class Oauth2Controller {
 				throw new InvalidClientException("Given client ID does not match authenticated client");
 			}
 		}
-
+		//验证客户端信息
 		if (authenticatedClient != null) {
 			oAuth2RequestValidator.validateScope(tokenRequest, authenticatedClient);
 		}
-
+		//判断授权类型
 		final String grantType = tokenRequest.getGrantType();
 		if (!StringUtils.hasText(grantType)) {
 			throw new InvalidRequestException("Missing grant type");
 		}
+		
 		//隐式授权
-		if ("implicit".equals(grantType)) {
+		if (SecurityConfig.GrantType.IMPLICIT.getType().equals(grantType)) {
 			throw new InvalidGrantException("Implicit grant type not supported from token endpoint");
 		}
 
@@ -169,7 +173,7 @@ public class Oauth2Controller {
 				tokenRequest.setScope(Collections.<String> emptySet());
 			}
 		}
-
+		
 		if (isRefreshTokenRequest(parameters)) {
 			// A refresh token has its own default scopes, so we should ignore
 			// any added by the factory here.
@@ -185,20 +189,20 @@ public class Oauth2Controller {
 
 	}
 	/**
-	 * 
+	 * 根据授权类型返回token
 	 * @param grantType
 	 * @return
 	 */
 	protected TokenGranter getTokenGranter(String grantType) {
-        if ("authorization_code".equals(grantType)) {
+        if (SecurityConfig.GrantType.AUTHORIZATION_CODE.getType().equals(grantType)) {
             return new AuthorizationCodeTokenGranter(tokenServices, authorizationCodeServices, clientDetailsService, this.oAuth2RequestFactory);
-        } else if ("password".equals(grantType)) {
+        } else if (SecurityConfig.GrantType.PASSWORD.getType().equals(grantType)) {
             return new ResourceOwnerPasswordTokenGranter(authenticationManager, tokenServices, clientDetailsService, this.oAuth2RequestFactory);
-        } else if ("refresh_token".equals(grantType)) {
+        } else if (SecurityConfig.GrantType.REFRESH_TOKEN.getType().equals(grantType)) {
             return new RefreshTokenGranter(tokenServices, clientDetailsService, this.oAuth2RequestFactory);
-        } else if ("client_credentials".equals(grantType)) {
+        } else if (SecurityConfig.GrantType.CLIENT_CREDENTIALS.getType().equals(grantType)) {
             return new ClientCredentialsTokenGranter(tokenServices, clientDetailsService, this.oAuth2RequestFactory);
-        } else if ("implicit".equals(grantType)) {
+        } else if (SecurityConfig.GrantType.IMPLICIT.getType().equals(grantType)) {
             return new ImplicitTokenGranter(tokenServices, clientDetailsService, this.oAuth2RequestFactory);
         } else {
             throw new UnsupportedGrantTypeException("Unsupport grant_type: " + grantType);
@@ -210,10 +214,10 @@ public class Oauth2Controller {
     }
 	
 	private boolean isRefreshTokenRequest(Map<String, String> parameters) {
-        return "refresh_token".equals(parameters.get("grant_type")) && parameters.get("refresh_token") != null;
+        return SecurityConfig.GrantType.REFRESH_TOKEN.getType().equals(parameters.get("grant_type")) && parameters.get("refresh_token") != null;
     }
 
     private boolean isAuthCodeRequest(Map<String, String> parameters) {
-        return "authorization_code".equals(parameters.get("grant_type")) && parameters.get("code") != null;
+        return SecurityConfig.GrantType.AUTHORIZATION_CODE.getType().equals(parameters.get("grant_type")) && parameters.get("code") != null;
     }
 }

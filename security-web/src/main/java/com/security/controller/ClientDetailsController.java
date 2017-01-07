@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.alibaba.fastjson.JSON;
 import com.security.domain.OauthClientDetails;
 import com.security.service.OauthClientDetailsService;
 import com.security.util.Generate;
@@ -37,7 +38,9 @@ public class ClientDetailsController {
 
     @RequestMapping("clientdetails")
     public String clientDetails(Model model) {
+    	LOGGER.info("加载用户信息");
     	Page<OauthClientDetails> page = oauthService.findAll(null, new PageFormVo());
+    	LOGGER.info(JSON.toJSONString(page.getContent().get(0)));
         model.addAttribute("clientDetailsList", page.getContent());
         return "clientdetails";
     }
@@ -64,11 +67,15 @@ public class ClientDetailsController {
 
 
     /*
+     * 跳转注册页面
     * Register client
     * */
     @RequestMapping(value = "registerClient")
     public String registerClient(Model model) {
-        model.addAttribute("formDto", new OauthClientDetails());
+    	OauthClientDetails formDto = new OauthClientDetails();
+    	formDto.setClientId(Generate.generateUUID());
+    	formDto.setClientSecret(Generate.generateClientSecret());
+        model.addAttribute("formDto", formDto);
         return "registerClient";
     }
 
@@ -76,13 +83,14 @@ public class ClientDetailsController {
     /*
     * Submit register client
     * */
-    @RequestMapping(value = "register_client", method = RequestMethod.POST)
+    @RequestMapping(value = "addClient", method = RequestMethod.POST)
     public String submitRegisterClient(@ModelAttribute("formDto") OauthClientDetails formDto) {
 //        clientDetailsDtoValidator.validate(formDto, result);
-    	formDto.setClientId(Generate.generateUUID());
-    	formDto.setClientSecret(Generate.generateClientSecret());
+    	LOGGER.info("register client");
+//    	formDto.setClientId(Generate.generateUUID());
+//    	formDto.setClientSecret(Generate.generateClientSecret());
         oauthService.save(formDto);
-        return "redirect:client_details";
+        return "redirect:clientdetails";
     }
     
     /*

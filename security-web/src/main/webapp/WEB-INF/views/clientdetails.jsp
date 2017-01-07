@@ -26,7 +26,7 @@
     </div>
     <div class="col-md-2">
         <div class="pull-right">
-            <a href="${ctx}/registerClient" class="btn btn-success btn-sm">注册client</a>
+            <a href="${ctx}/client/registerClient" class="btn btn-success btn-sm">注册client</a>
         </div>
     </div>
 </div>
@@ -37,14 +37,14 @@
     <ul class="list-group">
         <c:forEach items="${clientDetailsList}" var="cli">
             <li class="list-group-item">
-                <div class="pull-right">
+                <%-- <div class="pull-right">
                     <c:if test="${not cli.archived}">
                         <a href="test_client/${cli.clientId}">test</a>
                         <a href="archive_client/${cli.clientId}" class="text-danger"
                            onclick="return confirm('Are you sure archive \'${cli.clientId}\'?')">archive</a>
                     </c:if>
                     <c:if test="${cli.archived}"><strong class="text-muted">Archived</strong></c:if>
-                </div>
+                </div> --%>
                 <h3 class="list-group-item-heading">
                         ${cli.clientId}
                     <small>${cli.authorizedGrantTypes}</small>
@@ -64,10 +64,10 @@
                     access_token_validity: <span class="text-primary">${cli.accessTokenValidity}</span>&nbsp;
                     refresh_token_validity: <span class="text-primary">${cli.refreshTokenValidity}</span>&nbsp;
                     <br/>
-                    create_time: <span class="text-primary">${cli.createTime}</span>&nbsp;
-                    archived: <strong class="${cli.archived?'text-warning':'text-primary'}">${cli.archived}</strong>&nbsp;
+                    create_date: <span class="text-primary">${cli.createdDate}</span>&nbsp;
+                    <%-- archived: <strong class="${cli.archived?'text-warning':'text-primary'}">${cli.archived}</strong>&nbsp;
                     trusted: <span class="text-primary">${cli.trusted}</span>&nbsp;
-                    additional_information: <span class="text-primary">${cli.additionalInformation}</span>&nbsp;
+                    additional_information: <span class="text-primary">${cli.additionalInformation}</span>&nbsp; --%>
                 </div>
             </li>
         </c:forEach>

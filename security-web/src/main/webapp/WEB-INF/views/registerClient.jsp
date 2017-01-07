@@ -31,29 +31,23 @@
 
     <div>
     
-        <form:form commandName="formDto" cssClass="form-horizontal" >
+        <form:form commandName="formDto" cssClass="form-horizontal" action="${ctx}/client/addClient" method="post">
             <div class="form-group">
                 <label for="clientId" class="col-sm-2 control-label">client_id<em class="text-danger">*</em></label>
-
                 <div class="col-sm-10">
-                    <form:input path="clientId" cssClass="form-control" id="clientId" placeholder="client_id" required="required"/>
-
+                    <form:input path="clientId" cssClass="form-control" id="clientId" placeholder="client_id" required="required" />
                     <p class="help-block">client_id必须输入,且必须唯一,长度至少5位; 在实际应用中的另一个名称叫appKey,与client_id是同一个概念.</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="clientSecret" class="col-sm-2 control-label">client_secret<em class="text-danger">*</em></label>
-
                 <div class="col-sm-10">
-                    <form:input path="clientSecret" cssClass="form-control" id="clientSecret"
-                                placeholder="client_secret" required="required"/>
-
+                    <form:input path="clientSecret" cssClass="form-control" id="clientSecret" placeholder="client_secret" required="required"/>
                     <p class="help-block">client_secret必须输入,且长度至少8位; 在实际应用中的另一个名称叫appSecret,与client_secret是同一个概念.</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="resourceIds" class="col-sm-2 control-label">resource_ids<em
-                        class="text-danger">*</em></label>
+                <label for="resourceIds" class="col-sm-2 control-label">resource_ids<em class="text-danger">*</em></label>
 
                 <div class="col-sm-10">
                     <form:select path="resourceIds" cssClass="form-control" id="resourceIds">
@@ -76,7 +70,6 @@
                         <form:option value="write">write</form:option>
                         <form:option value="read,write">read write</form:option>
                     </form:select>
-
                     <p class="help-block">scope必须选择</p>
                 </div>
             </div>

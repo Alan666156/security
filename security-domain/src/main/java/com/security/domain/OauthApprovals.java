@@ -4,7 +4,11 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
+/**
+ * 授权确认信息表
+ * @author Alan.Fu
+ *
+ */
 @Entity
 @Table(name="oauth_approvals")
 public class OauthApprovals extends AbstractEntity{
@@ -15,10 +19,9 @@ public class OauthApprovals extends AbstractEntity{
 	
 	private String userId;
     private String clientId;
-    private String scope;
+    private String scope;	
     private String status;	//状态
     private Date expiresAt;	//失效时间
-    private Date lastModifiedAt; //最后修改时间
     
 	public String getUserId() {
 		return userId;
@@ -49,12 +52,6 @@ public class OauthApprovals extends AbstractEntity{
 	}
 	public void setExpiresAt(Date expiresAt) {
 		this.expiresAt = expiresAt;
-	}
-	public Date getLastModifiedAt() {
-		return lastModifiedAt;
-	}
-	public void setLastModifiedAt(Date lastModifiedAt) {
-		this.lastModifiedAt = lastModifiedAt;
 	}
     
 }    

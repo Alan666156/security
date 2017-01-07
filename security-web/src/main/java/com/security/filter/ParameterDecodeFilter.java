@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.security.util.AesUtils;
@@ -27,11 +26,12 @@ import com.security.util.AesUtils;
  * 一次请求只通过一次filter，而不需要重复执行。
  * @author: fuhongxing
  */
-@Component
+//@Component
 public class ParameterDecodeFilter extends OncePerRequestFilter {
-	
+	private final static Logger LOGGER = LoggerFactory.getLogger(ParameterDecodeFilter.class);
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+		LOGGER.info("请求参数解密fileter");
 		if ("GET".equals(request.getMethod()) || StringUtils.isNotEmpty(request.getQueryString())) {
 			super.doFilter(new RequestDecodeWrapper(request), response, filterChain);
 		} else {

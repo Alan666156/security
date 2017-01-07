@@ -12,22 +12,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
   
  
 /**
  * HTML特殊字符过滤器 
  * @author Alan Fu
  */
-@Component
+//@Component
 public class HTMLCharacterFilter implements Filter {  
-  
+	private final static Logger LOGGER = LoggerFactory.getLogger(ParameterDecodeFilter.class);
     public void init(FilterConfig filterConfig) throws ServletException {  
   
     }  
   
     public void doFilter(ServletRequest req, ServletResponse resp,  FilterChain chain) throws IOException, ServletException {  
-        HttpServletRequest request = (HttpServletRequest) req;  
+    	LOGGER.info("html 特殊字符fileter");
+    	HttpServletRequest request = (HttpServletRequest) req;  
         HttpServletResponse response = (HttpServletResponse) resp;  
         chain.doFilter(new HTMLCharacterRequest(request), response);  
     }  
