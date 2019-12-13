@@ -28,6 +28,16 @@ public class TestSort {
 		System.out.println("快速排序前："+ Arrays.toString(insertArray));
 		insertSort(insertArray);
 		System.out.println("快速排序后："+ Arrays.toString(insertArray));
+		
+		int [] megeArray = {10,1,3,2,8,6,4,7,9,5};
+		System.out.println("归并排序前："+ Arrays.toString(megeArray));
+		mergeSort(megeArray, 0, megeArray.length - 1);
+		System.out.println("归并排序后："+ Arrays.toString(megeArray));
+		
+		int [] radixArray = {23,6,189,45,9,287,56,1,798,34,65,652,5};
+		System.out.println("字基数排序前："+ Arrays.toString(radixArray));
+		radixSort(radixArray, Integer.MAX_VALUE);
+		System.out.println("字基数排序后："+ Arrays.toString(radixArray));
 	}
 	
 	/**
@@ -150,4 +160,153 @@ public class TestSort {
             quickSort2(element, low + 1, end);
     	}
     }
+    
+    /**
+     * 归并排序
+     * 基本思想：是把待排序序列分为若干个子序列，每个子序列是有序的，然后再把有序子序列合并为整体有序序列。
+     * 时间复杂度:归并排序是稳定的排序，其时间复杂度为O(nlogn)。
+     * @param element
+     * @param left 开始位置
+     * @param right 结束位置
+     */
+    public static void mergeSort(int[] element, int left, int right) {
+        if (left < right) {
+        	//获取中间位置
+            int mid = (left + right) / 2;
+            //左边进行递归排序
+            mergeSort(element, left, mid);
+            //右边进行递归排序
+            mergeSort(element, mid + 1, right);
+            //左右两部分进行合并处理
+            merge(element, left, mid, right);
+        }
+    }
+    public static void merge(int[] element, int left, int middle, int right) {
+    	//用于存储归并后的临时数组
+        int[] tmpElement = new int[element.length];
+        //记录第一个数组中需要遍历的下标
+        int index = left;
+        //记录第二个数组中需要遍历的下标
+        int mid = middle + 1;
+        //用于记录在临时数组中存放的下标
+        int tmpIndex = left;
+        //遍历两个数组取出小的数字，放入临时数组中
+        while (left <= middle && mid <= right) {
+            if (element[left] < element[mid]) {
+                tmpElement[index++] = element[left++];
+            } else {
+                tmpElement[index++] = element[mid++];
+            }
+        }
+        //处理多余的数据
+        while (left <= middle) {
+            tmpElement[index++] = element[left++];
+        }
+        while (mid <= right) {
+            tmpElement[index++] = element[mid++];
+        }
+        //把临时数组中的数据重新存入原数组中
+        while (tmpIndex <= right){
+            element[tmpIndex] = tmpElement[tmpIndex ++];
+        }
+    }
+    
+    /**
+     * 字基数排序
+     * 基本思想： 将所有待排序列(正整数)统一为同样的数位长度，数位较短的数前面补零。然后 ，从最低位开始，依次进行一次排序。这样，从最低位一直到最高位排序完成以后， 数列就变成一个有序序列。
+     * 时间复杂度:基数排序是稳定的排序，其时间复杂度为O(d(n+r))，d为位数，r为基数范围。
+     * @param element
+     * @param max 表示最大的数有多少位
+     */
+	public static void radixSort(int[] element, int max) {
+		// 记录取的元素需要放的位置
+		int index = 0;
+		int n = 1;
+		// 控制键值排序依据在哪一位
+		int m = 1;
+		// 用于临时存储数据的数组，数组的第一维表示可能的余数0-9
+		int[][] temp = new int[10][element.length];
+		// 用于记录在temp中相应的数组中的存放的数字的数量
+		int[] count = new int[10];
+		while (m <= max) {
+			// 根据最大长度的数字决定比较的次数
+			// 把每一个数字计算余数
+			for (int i = 0; i < element.length; i++) {
+				// 计算余数
+				int ys = ((element[i] / n) % 10);
+				// 把当前遍历的数据放入临时数组中
+				temp[ys][count[ys]] = element[i];
+				// 记录数量
+				count[ys]++;
+			}
+
+			// 去除数字
+			for (int i = 0; i < 10; i++) {
+				// 记录数量的数组中当前余数记录的数量不为0
+				if (count[i] != 0)
+					// 循环去除元素
+					for (int j = 0; j < count[i]; j++) {
+						// 取出元素放入原数组中
+						element[index] = temp[i][j];
+						index++;
+					}
+				count[i] = 0;
+			}
+			n *= 10;
+			index = 0;
+			m++;
+		}
+	}
+	
+	/**
+	 * 
+	 * 堆排序
+	 * 基本思想:
+	 * 堆的概念：n个元素的序列{k1，k2，…,kn}当且仅当满足下列关系之一时，称之为堆。
+	 * 情形1：ki <= k2i 且ki <= k2i+1 （最小堆）
+	 * 情形2：ki >= k2i 且ki >= k2i+1 （最大堆）
+	 * 其中i=1,2,…,n/2向下取整;
+	 * 
+	 * 堆排序： 把待排序的序列看作是一棵顺序存储的二叉树，调整它们的存储顺序，使之成为一个最大堆，这时堆的根节点数最大。然后，将根节点与堆的最后一个节点交换，并对前面n-1个数重新调整使之成为堆，依此类推，最后得到有n个节点的有序序列。
+	 * 从算法描述来看，堆排序需要两个过程，一是建立堆，二是堆结果。
+	 * 说明：若想得到升序序列，则建立最大堆，若想得到降序序列，则建立最小堆。
+	 * 时间复杂度： 堆排序是不稳定的排序，其时间复杂度是O(nlogn)。
+	 * @param element
+	 */
+	public static void heapSort(int[] element) {
+		// step1:建堆
+		int length = element.length;
+		for (int i = length / 2 - 1; i >= 0; i--) {
+			adjustHeap(element, i, length - 1);
+		}
+		// step2:交换位置,调整堆结构
+		int tmp;
+		for (int j = length - 1; j >= 0; j--) {
+			tmp = element[j];
+			element[j] = element[0];
+			element[0] = tmp;
+			adjustHeap(element, 0, j - 1);
+		}
+	}
+
+	public static void adjustHeap(int[] element, int start, int end) {
+		int tmp = element[start];
+		for (int i = 2 * start + 1; i <= end; i = 2 * i + 1) {
+			// 定位父节点的左右孩子值较大的节点
+			if (i < end && element[i] < element[i + 1]) {
+				i++;
+			}
+			// 父节点比左右孩子值都大,则跳出循环
+			if (tmp > element[i]) {
+				break;
+			}
+			// 进行下一轮的筛选
+			element[start] = element[i];
+			start = i;
+		}
+		element[start] = tmp;
+	}
+
+	
+   
 }

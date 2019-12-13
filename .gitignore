@@ -3,6 +3,7 @@ bin/
 .classpath
 .project
 .settings/
+.idea/
 logs
 .tomcatplugin;
 /src/main/webapp/.#webclasspath
@@ -10,3 +11,8 @@ logs
 /work/
 /tomcat*
 /catalina.base*
+tomcat*
+*.iml
+*.lock
+*.log
+.temp/
