@@ -32,7 +32,7 @@ public class TestStack {
 	 * @throws Exception 
 	 */
 	public Object pop() throws RuntimeException{
-		if(elements.length==0){
+		if(elements.length == 0){
 			throw new RuntimeException("stack is empty");
 		}
 		//取出数组的最后一个元素
@@ -67,7 +67,7 @@ public class TestStack {
 	 * @return
 	 */
 	public Object peek(){
-		if(elements.length==0){
+		if(elements.length == 0){
 			throw new RuntimeException("stack is empty");
 		}
 		return elements[elements.length - 1];

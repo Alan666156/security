@@ -3,7 +3,7 @@ package com.security.datastructure;
 import java.util.Arrays;
 
 /**
- * 队列(栈是一种按照先进后出的数据存储结构(LIFO)，它检索元素的顺序与存储元素的顺序是相反的)
+ * 队列(队列是一种按照先进先出的数据存储结构)
  * @author Alan.Fu
  *
  */
@@ -14,10 +14,10 @@ public class TestQueue {
 		testStack.add("1");
 		testStack.add("2");
 		testStack.add("3");
-		System.out.println("队列元素："+Arrays.toString(testStack.elements));
+		System.out.println("队列元素：" + Arrays.toString(testStack.elements));
 		testStack.poll();
 		testStack.add("4");
-		System.out.println("队列元素："+Arrays.toString(testStack.elements));
+		System.out.println("队列元素：" + Arrays.toString(testStack.elements));
 
 
 	}
@@ -28,12 +28,12 @@ public class TestQueue {
 	}
 	/**
 	 * 出队
-	 * @param obj 
+	 * @param
 	 * @throws Exception 
 	 */
 	public Object poll() throws RuntimeException{
 		if(elements.length==0){
-			throw new RuntimeException("stack is empty");
+			throw new RuntimeException("queue is empty");
 		}
 		//取出数组的第一个元素
 		Object obj = elements[0];
@@ -58,7 +58,7 @@ public class TestQueue {
 		for (int i = 0; i < elements.length; i++) {
 			newArray[i] = elements[i];
 		}
-		//新增加的元素放入栈中
+		//新增加的元素放入队列中
 		newArray[elements.length] = obj;
 		elements = newArray;
 	}
@@ -67,8 +67,8 @@ public class TestQueue {
 	 * @return
 	 */
 	public Object show(){
-		if(elements.length==0){
-			throw new RuntimeException("stack is empty");
+		if(elements.length == 0){
+			throw new RuntimeException("queue is empty");
 		}
 		return elements[elements.length - 1];
 	}

@@ -1,13 +1,16 @@
 package com.security.datastructure;
+
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 二分查找(二分查找也称折半查找（Binary Search），它是一种效率较高的查找方法。但是，折半查找要求线性表必须采用顺序存储结构，而且表中元素按关键字有序排列。)
  * @author Alan.Fu
  *
  */
+@Slf4j
 public class TestBinarySearch {
 
 	public static void main(String[] args) {
-		//
 		int [] array = {1,2,3,4,5,6,7,8,9};
 		int target = 8;
 		int result = binarySearch(array, target);
@@ -23,7 +26,7 @@ public class TestBinarySearch {
 	 * @return 目标值的位置
 	 */
 	public static int binarySearch(int [] array, int target){
-		//中间位置
+		//中间位置,>>右位移相当于num除2，<<左位移相当于num乘2
 		int mid = array.length >> 1; 
 		//开始位置
 		int begin = 0;
@@ -66,7 +69,8 @@ public class TestBinarySearch {
 	public static int binarySearch(int [] array, int target, int low, int high){
 		//每步迭代可能都要做两次比较判断，有三个分支
 		while(low <= high){
-			int mid = (low + high) >> 1; //以中心点为轴点
+			//以中心点为轴点
+			int mid = (low + high) >> 1;
 			//正常情况下第一次不可能会立马找到匹配的值
 			if(array[mid] > target){
 				//前半段继续查找
