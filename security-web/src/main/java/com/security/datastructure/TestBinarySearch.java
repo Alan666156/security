@@ -2,6 +2,8 @@ package com.security.datastructure;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Scanner;
+
 /**
  * 二分查找(二分查找也称折半查找（Binary Search），它是一种效率较高的查找方法。但是，折半查找要求线性表必须采用顺序存储结构，而且表中元素按关键字有序排列。)
  * @author Alan.Fu
@@ -17,6 +19,21 @@ public class TestBinarySearch {
 		System.out.println("目标值的位置:"+result);
 		int res = binarySearch(array, target, 0, array.length-1);
 		System.out.println("目标值的位置:"+res);
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int k = sc.nextInt();
+		log.info("n:{}, k:{}", n, k);
+		for (int i = 0; i < n; i++) {
+			int a = sc.nextInt();
+			if (i != k - 1) {
+				System.out.print(a);
+			}
+			if (i != n - 1){
+				System.out.print("-->");
+			}
+
+
+		}
 	}
 	
 	/**

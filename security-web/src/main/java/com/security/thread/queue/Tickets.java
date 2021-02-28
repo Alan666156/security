@@ -26,9 +26,12 @@ public class Tickets {
 		
 		for(int i = 1; i <=10; i ++){
 			new Thread("线程"+i){
+				@Override
 				public void run(){
 					while(true){
-						if(tickets.isEmpty()) break;
+						if(tickets.isEmpty()){
+							break;
+						}
 						System.out.println(Thread.currentThread().getName() + "---" + tickets.remove(0));
 					}
 				}
