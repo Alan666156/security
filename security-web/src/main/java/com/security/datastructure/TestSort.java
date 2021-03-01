@@ -307,6 +307,83 @@ public class TestSort {
 		element[start] = tmp;
 	}
 
-	
-   
+	/**
+	 *简单选择排序
+	 * 基本思想：
+	 * 在n个待排序的元素中找取最小的元素与第一个元素交换位置，然后在n-1个元素中找取最小的元素与第二元素交换位置，直到n=1为止。
+	 * 时间复杂度:
+	 * 简单选择排序是不稳定的排序，其时间复杂度是O(n^2)。
+	 * 不稳定说明：
+	 * 假设待排元素序列是：6，4，6，7，2，9，第一次排序后，序列变成了2，4，6，7，6，9，我们可以发现，经过一次排序后，位置一的6调整到位置三的6的后面，所以简单选择排序是不稳定的排序。
+	 * @param element
+	 */
+	public static void selectSort(int[] element){
+		int minPos;
+		int tmp;
+		for(int i = 0 ; i < element.length; i++ ){
+			minPos = i;
+			//遍历当前所有
+			for(int j = i+1; j < element.length; j++){
+				//如果后面比较的数比记录的最小的数小
+				if(element[j] < element[minPos]){
+					//记录最小的那个数的下标
+					minPos = j;
+				}
+			}
+			tmp = element[minPos];
+			element[minPos] = element[i];
+			element[i] = tmp;
+		}
+	}
+
+	/**
+	 *希尔排序
+	 * 基本思想：
+	 * 希尔排序实质上是一种分组插入排序，其先将整个待排元素序列分割成若干个子序列（由距离为d的元素组成）分别进行直接插入排序，然后依次减少距离d再进行排序，当距离为1时，再对全体元素进行一次直接插入排序。
+	 * 时间复杂度：
+	 * 希尔排序中相同的元素可能在各自组的插入排序中移动，最后其稳定性会被打乱，所以希尔排序是不稳定的，其时间复杂度是O(nlogn)。
+	 * @param element
+	 */
+	public static void hellSort(int[] element){
+		int d = element.length;
+		while (true){
+			d = d/2;
+			for(int i = 0; i < d; i++){
+				for(int j = i+d; j < element.length; j+=d){
+					int tmp = element[j];
+					int k = j-d;
+					for(;k >= 0; k-=d){
+						if(tmp < element[k]){
+							element[k + d ] = element[k];
+						}
+						else{
+							break;
+						}
+					}
+					element[k + d] = tmp;
+				}
+			}
+			if(d == 1) {
+				break;
+			}
+
+		}
+	}
+	public static void hellSort2(int[] element){
+		for(int d = element.length/2; d < 0; d/=2){
+			for(int i = 0; i < element.length; i++){
+				for(int j = i+d; j < element.length; j+=d){
+					for(int k = i-d;k >= 0; k-=d){
+						//如果当前元素大于加上步长后的那个元素
+						if(element[k] > element[k + d]){
+							int tmp = element[k];
+							element[k] = element[k + d];
+							element[k + d] = tmp;
+						}
+
+					}
+				}
+			}
+		}
+	}
 }
