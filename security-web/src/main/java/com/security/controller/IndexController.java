@@ -1,5 +1,10 @@
 package com.security.controller;
 
+import com.google.common.util.concurrent.RateLimiter;
+import com.security.util.Result;
+import lombok.extern.slf4j.Slf4j;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +17,16 @@ import org.springframework.security.oauth2.provider.OAuth2RequestValidator;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.security.annotation.UseLog;
 import com.security.service.OauthCodeService;
-@Controller
+import org.springframework.web.bind.annotation.RestController;
+
+@Slf4j
+@RestController
 public class IndexController {
 	
 	private final static Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
@@ -41,21 +48,30 @@ public class IndexController {
     private OAuth2RequestValidator oAuth2RequestValidator;
     @Autowired
     private TokenStore tokenStore;
-   
-    
-	/*@RequestMapping("/")
-	public String index(Model model){
-		LOGGER.info("==========index==========");
-		return "index";
-	}*/
-	
-	@RequestMapping("home")
-	public String home(Model model){
-		LOGGER.info("==========home===========");
-		return "home";
+    //生成一個令牌桶，同時每秒放入2个令牌
+    final RateLimiter limiter = RateLimiter.create(2);
+	@Autowired
+	private RedissonClient redissonClient;
+
+	/**
+	 * 限流方案：1、google guava只能做单台应用服务
+	 * 			2、redis + lua分布式限流处理
+	 * 			3、Spring AOP限流，切面进行拦截处理
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/home")
+	public Result home(Model model){
+		//判断是否拿到令牌
+		if (limiter.tryAcquire()){
+			LOGGER.info("==========请求成功===========");
+		}else {
+			LOGGER.info("==========请求过于频繁，请稍后再试===========");
+		}
+		return Result.success("success");
 	}
-	
-	@RequestMapping("api")
+
+	@RequestMapping("/api")
 	public String api(Model model, String name){
 		System.out.println(name);
 		LOGGER.info("==========api===========");

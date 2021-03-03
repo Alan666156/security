@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -12,13 +13,17 @@ import org.apache.commons.lang3.StringUtils;
  * 
  * @author Alan Fu
  */
-public class Result<T extends Serializable> implements Serializable {
+@Data
+public class Result<T> implements Serializable {
 
 	private static final long serialVersionUID = -8508268287523566997L;
 
 	/** 类型 */
 	private Type type;
-	
+	/**
+	 * 错误码
+	 */
+	private int code;
 	/** 消息 */
 	private List<String> messages;
 	
@@ -33,13 +38,12 @@ public class Result<T extends Serializable> implements Serializable {
 	/**
 	 * 构造函数
 	 *
-	 * @param type
+	 * @param data
 	 */
-	public Result(Type type) {
-		this();
-		this.type = type;
+	public Result(T data) {
+		messages = new LinkedList<String>();
+		this.data = data;
 	}
-	
 	/**
 	 * 构造函数
 	 *
@@ -47,7 +51,6 @@ public class Result<T extends Serializable> implements Serializable {
 	 * @param message
 	 */
 	public Result(Type type, String message) {
-		this(type);
 		addMessage(message);
 	}
 	
@@ -62,134 +65,33 @@ public class Result<T extends Serializable> implements Serializable {
 		this(type, message);
 		this.data = data;
 	}
-	
-	/**
-	 * 是否成功
-	 * 
-	 * @return
-	 */
-	public boolean success() {
-		return Type.SUCCESS.equals(this.type);
+	public static <T> Result success() {
+		return new Result(Type.SUCCESS, null, null);
 	}
 
-	/**
-	 * 是否警告
-	 * 
-	 * @return
-	 */
-	public boolean warning() {
-		return Type.WARNING.equals(this.type);
+	public static <T> Result success(T data) {
+		return new Result(Type.SUCCESS, null, data);
 	}
-
-	/**
-	 * 是否失败
-	 * 
-	 * @return
-	 */
-	public boolean failure() {
-		return Type.FAILURE.equals(this.type);
+	public static <T> Result failure(String message) {
+		return new Result(Type.SUCCESS, message, null);
 	}
-
-	/**
-	 * 读取类型
-	 * 
-	 * @return
-	 */
-	public Type getType() {
-		return type;
-	}
-	
-	/**
-	 * 设置类型
-	 * 
-	 * @param type
-	 * @return
-	 */
-	public Result<T> setType(Type type) {
-		this.type = type;
-		return this;
-	}
-	
-	/**
-	 * 读取消息
-	 * 
-	 * @param key
-	 * @return
-	 */
-	public List<String> getMessages() {
-		return messages;
-	}
-	
-	/**
-	 * 读取第一条消息
-	 * 
-	 * @return
-	 */
-	public String getFirstMessage() {
-		return !messages.isEmpty() ? messages.get(0) : null;
-	}
-	
 	/**
 	 * 添加消息
-	 * 
+	 *
 	 * @param message
-	 * @param args
 	 * @return
 	 */
 	public Result<T> addMessage(String message) {
-		if (!StringUtils.isEmpty(message)){ 
+		if (!StringUtils.isEmpty(message)){
 			this.messages.add(message);
 		}
 		return this;
 	}
 	
 	/**
-	 * 添加消息
-	 * 
-	 * @param index
-	 * @param message
-	 * @param args
-	 * @return
-	 */
-	public Result<T> addMessage(int index, String message) {
-		if (!StringUtils.isEmpty(message)){ 
-			this.messages.add(index, message);
-		}
-		return this;
-	}
-	
-	/**
-	 * 读取数据
-	 * 
-	 * @return
-	 */
-	public T getData() {
-		return this.data;
-	}
-	
-	/**
-	 * 设置数据
-	 * 
-	 * @param data
-	 * @return
-	 */
-	public Result<T> setData(T data) {
-		this.data = data;
-		return this;
-	}
-	
-	/**
-	 * @return
-	 */
-	public boolean isResult() {
-		return true;
-	}
-	
-	/**
 	 * 类型
 	 * 
 	 * @author ultrafrog
-	 * @version 1.0, 2012-10-18
 	 * @since 1.0
 	 */
 	public enum Type {
@@ -204,7 +106,4 @@ public class Result<T extends Serializable> implements Serializable {
 		FAILURE;
 	}
 	
-	public boolean getSuccess(){
-		return success();
-	}
 }

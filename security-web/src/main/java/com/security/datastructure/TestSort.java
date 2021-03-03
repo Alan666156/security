@@ -243,13 +243,14 @@ public class TestSort {
 			// 去除数字
 			for (int i = 0; i < 10; i++) {
 				// 记录数量的数组中当前余数记录的数量不为0
-				if (count[i] != 0)
+				if (count[i] != 0){
 					// 循环去除元素
 					for (int j = 0; j < count[i]; j++) {
 						// 取出元素放入原数组中
 						element[index] = temp[i][j];
 						index++;
 					}
+				}
 				count[i] = 0;
 			}
 			n *= 10;

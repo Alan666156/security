@@ -1,15 +1,18 @@
 package com.security.config;
-
-
-
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.mobile.device.view.LiteDeviceDelegatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import java.io.Serializable;
 
 
 /**
@@ -25,7 +28,6 @@ public class WebConfig {
 	 */
 	@Bean
 	public EmbeddedServletContainerCustomizer containerCustomizer() {
-
 		return new EmbeddedServletContainerCustomizer() {
 			@Override
 			public void customize(ConfigurableEmbeddedServletContainer container) {
@@ -39,7 +41,24 @@ public class WebConfig {
 			}
 		};
 	}
-	
+
+	/**
+	 * redis config
+	 * @param redisConnectionFactory
+	 * @return
+	 */
+	@Bean
+	public RedisTemplate<Serializable, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+		RedisTemplate<Serializable, Object> redisTemplate = new RedisTemplate<>();
+		redisTemplate.setConnectionFactory(redisConnectionFactory);
+		// 设置 value 的转化格式和 key 的转化格式
+		redisTemplate.setKeySerializer(new StringRedisSerializer());
+		redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+		redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+		redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+		return redisTemplate;
+	}
+
 	/**
 	 * 设备
 	 * @return
