@@ -1,13 +1,20 @@
 package com.security.annotation;
 
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 
 /** 
@@ -102,4 +109,27 @@ public class UseLogAnnotationAspect {
 		UseLog useLog = method.getAnnotation(UseLog.class);
 		return useLog;
 	}
+
+    /**
+     *
+     * 获取参数
+     * @param jp 连接点
+     * @return 参数列表
+     */
+    public JSONObject getArgs(JoinPoint jp) {
+        Object[] argValues = jp.getArgs();
+        //获取当前执行的方法
+        MethodSignature signature = (MethodSignature) jp.getSignature();
+        //获取方法参数名称
+        String[] argNames = signature.getParameterNames();
+        JSONObject json = new JSONObject();
+        for (int i = 0; i < argValues.length; i++) {
+            if (null == argValues[i] || argValues[i] instanceof Model || argValues[i] instanceof ModelMap || argValues[i] instanceof ServletRequest || argValues[i] instanceof ServletResponse || argValues[i] instanceof MultipartFile || argValues[i] instanceof HttpSession) {
+                continue;
+            }
+            //记录方法参数
+            json.put(argNames[i], argValues[i]);
+        }
+        return json;
+    }
 }  

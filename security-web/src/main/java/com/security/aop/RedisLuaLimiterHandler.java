@@ -20,6 +20,9 @@ import java.util.Arrays;
 
 /**
  * AOP通过redis进行限流操作
+ * 限流方案：1、google guava只能做单台应用服务
+ * 	        2、redis + lua分布式限流处理
+ * 	        3、Spring AOP限流，切面进行拦截处理
  */
 @Slf4j
 @Component

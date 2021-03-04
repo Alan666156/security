@@ -1,9 +1,8 @@
 --
--- Created by IntelliJ IDEA.
 -- User: fuhx
 -- Date: 2021/3/3
 -- Time: 22:10
--- To change this template use File | Settings | File Templates.
+-- desc: 限流
 --
 --获取客户端传过来的参数
 local key = KEYS[1];
