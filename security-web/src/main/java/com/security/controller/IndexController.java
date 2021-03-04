@@ -1,53 +1,32 @@
 package com.security.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.common.util.concurrent.RateLimiter;
+import com.security.annotation.UseLog;
+import com.security.common.SecurityConstants;
+import com.security.service.OauthCodeService;
 import com.security.util.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mobile.device.Device;
-import org.springframework.mobile.device.site.SitePreference;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
-import org.springframework.security.oauth2.provider.OAuth2RequestValidator;
-import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.security.annotation.UseLog;
-import com.security.service.OauthCodeService;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
 public class IndexController {
 	
-	private final static Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
-	
 	@Autowired
 	private OauthCodeService oauthCodeService;
 	
-	@Autowired
-	private AuthenticationManager authenticationManager;
-	@Autowired
-    private ClientDetailsService clientDetailsService;
-    @Autowired
-    private AuthorizationServerTokenServices tokenServices;
-    @Autowired
-    private AuthorizationCodeServices authorizationCodeServices;
-    @Autowired
-    private OAuth2RequestFactory oAuth2RequestFactory;
-    @Autowired
-    private OAuth2RequestValidator oAuth2RequestValidator;
-    @Autowired
-    private TokenStore tokenStore;
+
     //生成一個令牌桶，同時每秒放入2个令牌
     final RateLimiter limiter = RateLimiter.create(2);
 	@Autowired
@@ -60,71 +39,69 @@ public class IndexController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/home")
-	public Result home(Model model){
+	@GetMapping("/home")
+	@UseLog(remark = "test")
+	public Result home(Model model, HttpServletRequest request){
+		RLock lock = redissonClient.getLock(StrUtil.format(SecurityConstants.REDIS_KEY_PRE, "test001", "user"));
+		try {
+			String ip = getIP(request);
+			if (!lock.tryLock(0, 30, TimeUnit.SECONDS)) {
+				log.info("并发锁，加入黑名单5分钟，ip:{}, coupon_code:{}, customerId:{}", ip, "test001", "user");
+				redissonClient.getBucket(StrUtil.format(SecurityConstants.REDIS_KEY_BUCKET_USER_ID, "user")).set("1", 5, TimeUnit.MINUTES);
+				return Result.failure("失败");
+			}
+		} catch (Exception e) {
+			log.error("执行异常", e);
+			return Result.failure("请求失败，请稍后再试");
+		} finally {
+			if (lock.isHeldByCurrentThread()) {
+				lock.unlock();
+			}
+		}
+
 		//判断是否拿到令牌
 		if (limiter.tryAcquire()){
-			LOGGER.info("==========请求成功===========");
+			log.info("==========请求成功===========");
 		}else {
-			LOGGER.info("==========请求过于频繁，请稍后再试===========");
+			log.info("==========请求过于频繁，请稍后再试===========");
 		}
 		return Result.success("success");
 	}
 
-	@RequestMapping("/api")
-	public String api(Model model, String name){
+	@GetMapping("/api")
+	public Result api(Model model, String name){
 		System.out.println(name);
-		LOGGER.info("==========api===========");
-		return "api";
+		log.info("==========api===========");
+		return Result.success("success");
 	}
+
 	@UseLog(remark="useLog test login")
-	@RequestMapping("login")
-	public String login(Model model){
-		LOGGER.info("==========login===========");
-		return "login";
+	@PostMapping("login")
+	public Result login(Model model){
+		log.info("==========login===========");
+		return Result.success("success");
 	}
-	
-	/**
-	 * 判断请求设备类型
-	 * @param device
-	 */
-	@RequestMapping("/api/device")
-	@ResponseBody
-    public String home(Device device) {
-		LOGGER.info("divce :"+device.getDevicePlatform().name());
-		String type = null;
-        if (device.isMobile()) {//手机
-            LOGGER.info("Hello mobile user!");
-            type = "mobile ";
-        } else if (device.isTablet()) {//平板
-        	LOGGER.info("Hello tablet user!");
-        	type = "tablet ";
-        } else {//pc电脑
-        	LOGGER.info("Hello desktop user!");
-        	type = "desktop";
-        }
-        return type + device.getDevicePlatform().name();
-    }
-	/**
-	 * 判断请求设备类型方式二
-	 * @param device
-	 */
-	@RequestMapping("/")
-	@ResponseBody
-    public String home(SitePreference sitePreference, Model model) {
-        if (sitePreference == SitePreference.NORMAL) {
-        	LOGGER.info("Site preference is normal");
-            return "home";
-        } else if (sitePreference == SitePreference.MOBILE) {
-        	LOGGER.info("Site preference is mobile");
-            return "home-mobile";
-        } else if (sitePreference == SitePreference.TABLET) {
-        	LOGGER.info("Site preference is tablet");
-            return "home-tablet";
-        } else {
-        	LOGGER.info("no site preference");
-            return "home";
-        }
-    }
-	
+
+	private String getIP(HttpServletRequest request) {
+		String ip = null;
+		if (request != null) {
+			ip = request.getHeader("X-Forwarded-For");
+			if (StringUtils.hasText(ip)) {
+				String[] p = ip.split(",");
+				if (p.length > 0) {
+					ip = p[0];
+				}
+			}
+			if (!StringUtils.hasText(ip)) {
+				ip = request.getHeader("RemoteIp");
+			}
+			if (!StringUtils.hasText(ip) && request.getRemoteAddr() != null) {
+				ip = request.getRemoteAddr();
+			}
+		}
+		return ip;
+	}
+
+
+
 }

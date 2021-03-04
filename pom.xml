@@ -13,19 +13,20 @@
   </modules>
   
   <properties>
-  		<spring-boot.version>1.4.7.RELEASE</spring-boot.version>
+  		<spring-boot.version>2.4.1.RELEASE</spring-boot.version>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<commons-lang3.version>3.2.1</commons-lang3.version>
   </properties>
-  
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.4.7.RELEASE</version>
-  </parent>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
 
   <dependencies>
     <dependency>
@@ -42,19 +43,22 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-data-jpa</artifactId>
 	</dependency>
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-actuator</artifactId>
-	</dependency>
-	
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-mobile</artifactId>
-	</dependency>
+<!--	<dependency>-->
+<!--		<groupId>org.springframework.boot</groupId>-->
+<!--		<artifactId>spring-boot-starter-actuator</artifactId>-->
+<!--	</dependency>-->
+	  <dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-actuator</artifactId>
+	  </dependency>
+<!--	<dependency>-->
+<!--		<groupId>org.springframework.boot</groupId>-->
+<!--		<artifactId>spring-boot-starter-mobile</artifactId>-->
+<!--	</dependency>-->
 
 	  <dependency>
 		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-redis</artifactId>
+		<artifactId>spring-boot-starter-data-redis</artifactId>
 		  <exclusions>
 			  <exclusion>
 				  <groupId>org.springframework.boot</groupId>
@@ -68,24 +72,28 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-security</artifactId>
 	</dependency>
-	<dependency>
-		<groupId>org.springframework.security.oauth</groupId>
-		<artifactId>spring-security-oauth2</artifactId>
-	</dependency>
-	<dependency>
-         <groupId>org.springframework.session</groupId>
-         <artifactId>spring-session</artifactId>
-    </dependency>
+	  <dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-oauth2-client</artifactId>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+	  </dependency>
+<!--	<dependency>-->
+<!--         <groupId>org.springframework.session</groupId>-->
+<!--         <artifactId>spring-session</artifactId>-->
+<!--    </dependency>-->
     <!-- tomcat dependency -->
     <dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-tomcat</artifactId>
-		<scope>provided</scope>
+<!--		<scope>provided</scope>-->
 	</dependency>
     <dependency>
 	   <groupId>org.apache.tomcat.embed</groupId>
 	   <artifactId>tomcat-embed-jasper</artifactId>
-	   <scope>provided</scope>
+<!--	   <scope>provided</scope>-->
 	</dependency>
 	<dependency>
 		<groupId>org.projectlombok</groupId>
@@ -118,16 +126,6 @@
 		<version>${commons-lang3.version}</version>
 	</dependency>
 	
-	<dependency>
-		<groupId>commons-beanutils</groupId>
-		<artifactId>commons-beanutils</artifactId>
-		<exclusions>
-			<exclusion>
-				<groupId>commons-logging</groupId>
-				<artifactId>commons-logging</artifactId>
-			</exclusion>
-		</exclusions>
-	</dependency>
 	<dependency>
 		<groupId>org.apache.httpcomponents</groupId>
 		<artifactId>httpclient</artifactId>
@@ -195,6 +193,12 @@
 	  <dependency>
 		  <groupId>org.redisson</groupId>
 		  <artifactId>redisson</artifactId>
+		  <version>3.15.0</version>
+	  </dependency>
+	  <!-- https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter -->
+	  <dependency>
+		  <groupId>org.redisson</groupId>
+		  <artifactId>redisson-spring-boot-starter</artifactId>
 		  <version>3.15.0</version>
 	  </dependency>
 

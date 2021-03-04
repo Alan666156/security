@@ -17,7 +17,7 @@ public class OauthApprovalsService {
 	}
 	
 	public OauthApprovals findById(Long id){
-		return oauthApprovalsDao.findOne(id);
+		return oauthApprovalsDao.findById(id).get();
 	}
 	
 }

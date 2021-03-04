@@ -29,7 +29,7 @@ public class OauthClientDetailsService {
 	}
 	
 	public OauthClientDetails findById(Long id){
-		return oauthClientDetailsDao.findOne(id);
+		return oauthClientDetailsDao.findById(id).get();
 	}
 	
 	/**

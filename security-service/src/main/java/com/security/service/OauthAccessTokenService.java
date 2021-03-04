@@ -17,6 +17,6 @@ public class OauthAccessTokenService {
 	}
 	
 	public OauthAccessToken findById(Long id){
-		return oauthAccessTokenDao.findOne(id);
+		return oauthAccessTokenDao.findById(id).get();
 	}
 }

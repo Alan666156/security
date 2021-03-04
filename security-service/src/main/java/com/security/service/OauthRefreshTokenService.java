@@ -15,6 +15,6 @@ public class OauthRefreshTokenService {
 	}
 	
 	public OauthRefreshToken findById(Long id){
-		return oauthRefreshTokenDao.findOne(id);
+		return oauthRefreshTokenDao.findById(id).get();
 	}
 }

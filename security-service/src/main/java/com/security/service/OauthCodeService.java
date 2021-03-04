@@ -20,7 +20,7 @@ public class OauthCodeService {
 	}
 	
 	public OauthCode findById(Long id){
-		return oauthCodeDao.findOne(id);
+		return oauthCodeDao.findById(id).get();
 	}
 	
 	/**

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +28,7 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.springframework.util.CollectionUtils;
 
 /**
  * pdf生成的一些公共方法
@@ -217,7 +217,7 @@ public class PDFUtil {
 		int cellSize = 0;
 		if (null != header) {
 			cellSize = header.length;
-		} else if (CollectionUtils.isNotEmpty(body)) {
+		} else if (!CollectionUtils.isEmpty(body)) {
 			cellSize = body.get(0).length;
 		}
 		if (table == null) {

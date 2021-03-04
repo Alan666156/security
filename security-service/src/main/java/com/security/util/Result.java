@@ -1,12 +1,12 @@
 package com.security.util;
 
 
+import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-
-import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * return result
@@ -51,6 +51,7 @@ public class Result<T> implements Serializable {
 	 * @param message
 	 */
 	public Result(Type type, String message) {
+		this.type = type;
 		addMessage(message);
 	}
 	
@@ -72,8 +73,9 @@ public class Result<T> implements Serializable {
 	public static <T> Result success(T data) {
 		return new Result(Type.SUCCESS, null, data);
 	}
+
 	public static <T> Result failure(String message) {
-		return new Result(Type.SUCCESS, message, null);
+		return new Result(Type.FAILURE, message, null);
 	}
 	/**
 	 * 添加消息

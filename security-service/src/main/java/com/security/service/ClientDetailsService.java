@@ -29,7 +29,7 @@ public class ClientDetailsService {
 	}
 	
 	public ClientDetails findById(Long id){
-		return clientDetailsDao.findOne(id);
+		return clientDetailsDao.findById(id).get();
 	}
 	
 	/**

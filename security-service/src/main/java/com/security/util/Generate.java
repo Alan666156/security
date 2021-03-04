@@ -1,16 +1,16 @@
 package com.security.util;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.util.Date;
 import java.util.UUID;
 
-import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
 /**
  * generate string
  * @author Alan Fu
  */
 public class Generate {
 	
-	private static RandomValueStringGenerator randomValueStringGenerator = new RandomValueStringGenerator(32);
 	private static final int DEF_COUNT = 20;
 
     
@@ -21,7 +21,7 @@ public class Generate {
      * @return the generated password
      */
     public static String generatePassword() {
-        return org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric(DEF_COUNT);
+        return RandomStringUtils.randomAlphanumeric(DEF_COUNT);
     }
 
     /**
@@ -30,7 +30,7 @@ public class Generate {
      * @return the generated activation key
      */
     public static String generateActivationKey() {
-        return org.apache.commons.lang3.RandomStringUtils.randomNumeric(DEF_COUNT);
+        return RandomStringUtils.randomNumeric(DEF_COUNT);
     }
 	
 	/**
@@ -38,7 +38,7 @@ public class Generate {
 	 * @return
 	 */
     public static String generateUUID() {
-        return "zd"+UUID.randomUUID().toString().replaceAll("-", "");
+        return "zd" + UUID.randomUUID().toString().replaceAll("-", "");
     }
     
     /**
@@ -46,7 +46,7 @@ public class Generate {
      * @return
      */
     public static String generateClientSecret() {
-        return randomValueStringGenerator.generate();
+        return RandomStringUtils.random(DEF_COUNT);
     }
     
     /**

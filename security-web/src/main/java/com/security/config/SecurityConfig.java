@@ -1,12 +1,24 @@
 package com.security.config;
 
+import com.alibaba.fastjson.JSON;
+import com.security.util.HttpUtils;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSON;
-import com.security.util.HttpUtils;
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-public class SecurityConfig {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .anyRequest().permitAll().and().logout().permitAll();//配置不需要登录验证
+    }
 	//Available values:   read, read write
     public static final String READ_SCOPE = "read";
 	/**

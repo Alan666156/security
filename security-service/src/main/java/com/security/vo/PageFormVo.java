@@ -1,15 +1,19 @@
 package com.security.vo;
 
 
+import lombok.Data;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+
+import java.util.Arrays;
 
 /**
  * 分页vo
  * 
  * @author: Alan Fu
  */
+@Data
 public class PageFormVo implements Pageable {
 	private int page = 1;
 	private int rows = 10;
@@ -19,7 +23,6 @@ public class PageFormVo implements Pageable {
 	private Integer start;
 	private Integer length;
 	private Integer draw;
-
 	public PageFormVo() {
 	}
 
@@ -57,9 +60,6 @@ public class PageFormVo implements Pageable {
 
 	@Override
 	public Sort getSort() {
-		if (sortSet == null) {
-			sortSet = new Sort(Direction.fromString(order), sort);
-		}
 		return sortSet;
 	}
 
@@ -86,7 +86,7 @@ public class PageFormVo implements Pageable {
 	}
 
 	@Override
-	public int getOffset() {
+	public long getOffset() {
 		return (page - 1) * rows;
 	}
 

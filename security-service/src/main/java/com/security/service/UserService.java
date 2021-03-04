@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.security.dao.UserDao;
 import com.security.domain.User;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     
@@ -17,6 +19,7 @@ public class UserService {
 	}
 	
 	public User findById(Long id){
-		return userDao.findOne(id);
+		Optional optional = userDao.findById(id);
+		return optional.isPresent() ? (User)optional.get() : null;
 	}
 }

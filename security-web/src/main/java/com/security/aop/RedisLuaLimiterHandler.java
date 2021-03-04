@@ -1,6 +1,6 @@
 package com.security.aop;
 
-import com.alibaba.fastjson.JSON;
+import com.security.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -16,9 +16,7 @@ import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * AOP记录
@@ -57,7 +55,7 @@ public class RedisLuaLimiterHandler {
      * @throws Throwable
      */
     @Around("userLog()")
-    public Object around(ProceedingJoinPoint jp) throws  Throwable{
+    public Object around(ProceedingJoinPoint jp) throws Throwable{
         Object result = null;
         try {
             result = jp.proceed();
@@ -66,18 +64,14 @@ public class RedisLuaLimiterHandler {
             //限制次数
             long limit = 10;
             //限制时间
-            long expire =60;
-            //lua脚本
-            List<String> keyList = new ArrayList<>();
-            keyList.add(limitKey);
-            List<String> argList = new ArrayList<>();
-            argList.add(String.valueOf(limit));
-            argList.add(String.valueOf(expire));
+            long expire = 60;
             //执行lua
-            Long res = redissonClient.getScript(IntegerCodec.INSTANCE).eval(RScript.Mode.READ_WRITE, defaultRedisScript.getScriptAsString(), RScript.ReturnType.INTEGER, Arrays.asList(limitKey), keyList, argList);
-
+            Long res = redissonClient.getScript(IntegerCodec.INSTANCE).eval(RScript.Mode.READ_WRITE, defaultRedisScript.getScriptAsString(), RScript.ReturnType.INTEGER, Arrays.asList(limitKey), limit, expire);
+            if(res == 0){
+                throw new BusinessException("请求过于频繁，请稍后再试");
+            }
         } catch (Exception e) {
-            log.error("aop用户操作日志记录获取方法返回值异常", e);
+            log.error("aop用户操作日志记录获取方法返回值异常:{}", e.getMessage());
             throw e;
         } finally {
 
