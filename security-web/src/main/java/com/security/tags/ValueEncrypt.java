@@ -2,14 +2,12 @@ package com.security.tags;
 
 
 
-import java.io.IOException;
+import com.security.util.AesUtils;
+import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
-
-import org.springframework.context.annotation.Configuration;
-
-import com.security.util.AesUtils;
+import java.io.IOException;
 
 /**
  * 自定义标签：加密get请求参数
@@ -19,11 +17,11 @@ import com.security.util.AesUtils;
 public class ValueEncrypt extends TagSupport {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 944551876433969468L;
 	private String var;
-	
+
 	@Override
 	public int doStartTag() throws JspException {
 		try {

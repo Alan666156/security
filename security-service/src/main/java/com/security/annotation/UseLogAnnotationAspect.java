@@ -1,29 +1,24 @@
 package com.security.annotation;
 
 
-import java.lang.reflect.Method;
-
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 /** 
  * 日志切面类 
  */
+@Slf4j
 @Component
 @Aspect  //定义切面类  
 public class UseLogAnnotationAspect {  
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(UseLogAnnotationAspect.class);
-	
+
     //定义切入点，提供一个方法，这个方法的名字就是改切入点的id  
 	@Pointcut("@annotation(com.security.annotation.UseLog)")
     //@Pointcut("execution(* com.jl.service.*.*(..))")  
@@ -34,8 +29,8 @@ public class UseLogAnnotationAspect {
 	@AfterReturning("allMethod()") 
     public void before(JoinPoint call) {  
         String className = call.getTarget().getClass().getName();  
-        String methodName = call.getSignature().getName();  
-        LOGGER.info("【注解-前置通知】:" + className + "类的" + methodName + "方法开始了");  
+        String methodName = call.getSignature().getName();
+        log.info("【注解-前置通知】:{},类的:{} 方法开始了", className, methodName);
     }  
     
     /**
@@ -44,8 +39,8 @@ public class UseLogAnnotationAspect {
      */
     @AfterReturning("allMethod()")  
     public void afterReturn(JoinPoint call) {  
-    	LOGGER.info("【注解-后置通知】:方法正常结束了"); 
-    	LOGGER.info("remork==" + getRemark(call));
+    	log.info("【注解-后置通知】:方法正常结束了");
+    	log.info("remork: {}", getRemark(call));
     }  
     
     /**
@@ -53,7 +48,7 @@ public class UseLogAnnotationAspect {
      */
     @After("allMethod()")  
     public void after(){  
-    	LOGGER.info("【注解-最终通知】:不管方法有没有正常执行完成," + "一定会返回的");
+    	log.info("【注解-最终通知】:不管方法有没有正常执行完成," + "一定会返回的");
     }  
     
     /**
@@ -61,7 +56,7 @@ public class UseLogAnnotationAspect {
      */
     @AfterThrowing("allMethod()")  
     public void afterThrowing() { 
-    	LOGGER.error("【注解-异常抛出后通知】:方法执行时出异常了");
+    	log.error("【注解-异常抛出后通知】:方法执行时出异常了");
     }  
     
     /**
@@ -78,7 +73,7 @@ public class UseLogAnnotationAspect {
             result = call.proceed();  
 //            this.afterReturn(); //相当于后置通知  
         } catch (Throwable e) {  
-        	LOGGER.error("around环绕通知异常...");
+        	log.error("around环绕通知异常...");
             this.afterThrowing();  //相当于异常抛出后通知  
             throw e;  
         }finally{  

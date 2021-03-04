@@ -15,7 +15,6 @@ public class BusinessException extends Exception {
 
 	/** 错误码 */
 	private String code;
-	private String msg;
 
 	public BusinessException() {
 		super();
@@ -27,13 +26,11 @@ public class BusinessException extends Exception {
 
 	public BusinessException(String msg) {
 		super(msg);
-		this.msg = msg;
 	}
 
 	public BusinessException(String code, String msg) {
 		super(msg);
 		this.code = code;
-		this.msg = msg;
 	}
 
 	public BusinessException(String msg, Throwable e) {
@@ -42,7 +39,7 @@ public class BusinessException extends Exception {
 
 	@Override
 	public String getMessage() {
-		return "【错误码：" + code + ",描述：" + msg + "】";
+		return "【错误码：" + code + ",描述：" + getMessage() + "】";
 	}
 
 }

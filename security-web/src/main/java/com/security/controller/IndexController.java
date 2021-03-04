@@ -36,12 +36,12 @@ public class IndexController {
 	 * 限流方案：1、google guava只能做单台应用服务
 	 * 			2、redis + lua分布式限流处理
 	 * 			3、Spring AOP限流，切面进行拦截处理
-	 * @param model
+	 * @param request
 	 * @return
 	 */
 	@GetMapping("/home")
 	@UseLog(remark = "test")
-	public Result home(Model model, HttpServletRequest request){
+	public Result home(HttpServletRequest request){
 		RLock lock = redissonClient.getLock(StrUtil.format(SecurityConstants.REDIS_KEY_PRE, "test001", "user"));
 		try {
 			String ip = getIP(request);

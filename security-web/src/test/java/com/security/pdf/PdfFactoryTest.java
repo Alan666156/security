@@ -1,21 +1,18 @@
 package com.security.pdf;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
+import com.security.SecurityApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import com.security.SecurityApplication;
+import java.io.File;
+import java.io.FileOutputStream;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringJUnitWebConfig(classes = SecurityApplication.class)
-@WebAppConfiguration
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SecurityApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PdfFactoryTest {
 	
 	@Autowired

@@ -1,6 +1,6 @@
 package com.security.aop;
 
-import com.security.exception.BusinessException;
+import com.security.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -19,7 +19,7 @@ import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
 /**
- * AOP记录
+ * AOP通过redis进行限流操作
  */
 @Slf4j
 @Component
@@ -55,7 +55,7 @@ public class RedisLuaLimiterHandler {
      * @throws Throwable
      */
     @Around("userLog()")
-    public Object around(ProceedingJoinPoint jp) throws Throwable{
+    public Object around(ProceedingJoinPoint jp) throws Throwable {
         Object result = null;
         try {
             result = jp.proceed();
@@ -68,7 +68,8 @@ public class RedisLuaLimiterHandler {
             //执行lua
             Long res = redissonClient.getScript(IntegerCodec.INSTANCE).eval(RScript.Mode.READ_WRITE, defaultRedisScript.getScriptAsString(), RScript.ReturnType.INTEGER, Arrays.asList(limitKey), limit, expire);
             if(res == 0){
-                throw new BusinessException("请求过于频繁，请稍后再试");
+                log.warn("请求过于频繁，请稍后再试:{}",Result.failure("请求过于频繁，请稍后再试"));
+                return Result.failure("请求过于频繁，请稍后再试");
             }
         } catch (Exception e) {
             log.error("aop用户操作日志记录获取方法返回值异常:{}", e.getMessage());

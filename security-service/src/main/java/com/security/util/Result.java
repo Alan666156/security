@@ -2,7 +2,7 @@ package com.security.util;
 
 
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -23,7 +23,7 @@ public class Result<T> implements Serializable {
 	/**
 	 * 错误码
 	 */
-	private int code;
+	private int code = 200;
 	/** 消息 */
 	private List<String> messages;
 	
@@ -32,7 +32,7 @@ public class Result<T> implements Serializable {
 	
 	/** 构造函数 */
 	public Result() {
-		messages = new LinkedList<String>();
+//		messages = new LinkedList<String>();
 	}
 	
 	/**
@@ -41,7 +41,6 @@ public class Result<T> implements Serializable {
 	 * @param data
 	 */
 	public Result(T data) {
-		messages = new LinkedList<String>();
 		this.data = data;
 	}
 	/**
@@ -75,7 +74,7 @@ public class Result<T> implements Serializable {
 	}
 
 	public static <T> Result failure(String message) {
-		return new Result(Type.FAILURE, message, null);
+		return new Result(Type.FAILURE, message);
 	}
 	/**
 	 * 添加消息
@@ -84,8 +83,9 @@ public class Result<T> implements Serializable {
 	 * @return
 	 */
 	public Result<T> addMessage(String message) {
-		if (!StringUtils.isEmpty(message)){
-			this.messages.add(message);
+		if (StringUtils.hasText(message)){
+			messages = new LinkedList<String>();
+			messages.add(message);
 		}
 		return this;
 	}
