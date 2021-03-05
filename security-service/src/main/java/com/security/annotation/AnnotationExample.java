@@ -1,6 +1,8 @@
 package com.security.annotation;
 
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
  * use methodInfo annotation
  * @author Alan Fu
  */
+@Slf4j
 public class AnnotationExample {
 	private static String annotation ="123";
 	public static void main(String[] args) {
@@ -23,7 +26,7 @@ public class AnnotationExample {
 	@Deprecated
 	@MethodInfo(comments = "deprecated method", date = "January 17 2016")
 	public static void oldMethod() {
-		System.out.println("old method, don't use it.");
+		log.info("old method, don't use it.");
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

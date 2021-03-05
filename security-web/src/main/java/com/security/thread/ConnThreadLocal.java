@@ -22,12 +22,9 @@ public class ConnThreadLocal {
 		
 		final ConnThreadLocal ct = new ConnThreadLocal();
 		
-		Thread t1 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				ct.setThreadLocal("张三");
-				ct.getThreadLocal();
-			}
+		Thread t1 = new Thread(() -> {
+			ct.setThreadLocal("张三");
+			ct.getThreadLocal();
 		}, "t1");
 		
 		Thread t2 = new Thread(new Runnable() {
