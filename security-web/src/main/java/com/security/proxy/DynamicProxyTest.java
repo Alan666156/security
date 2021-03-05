@@ -14,7 +14,6 @@ import java.lang.reflect.Proxy;
 @Slf4j
 public class DynamicProxyTest {
     public static void main(String[] args) {
-
         // 方法一
         System.out.println("============ 方法一 ==============");
         AdminService adminService = new AdminServiceImpl();

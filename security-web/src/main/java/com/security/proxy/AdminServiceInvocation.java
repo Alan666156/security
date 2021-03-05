@@ -17,6 +17,14 @@ public class AdminServiceInvocation  implements InvocationHandler {
         this.target = target;
     }
 
+    /**
+     *
+     * @param proxy 代理对象
+     * @param method 目标发放
+     * @param args 参数
+     * @return
+     * @throws Throwable
+     */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         log.info("判断用户是否有权限进行操作");
