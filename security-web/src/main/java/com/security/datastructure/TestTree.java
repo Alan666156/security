@@ -1,4 +1,4 @@
-package com.security.datastructure.tree;
+package com.security.datastructure;
 
 public class TestTree {
 

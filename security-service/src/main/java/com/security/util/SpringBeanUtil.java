@@ -39,7 +39,7 @@ public class SpringBeanUtil implements DisposableBean, ApplicationContextAware {
     }
 
     public static Object getBean(String name) {
-        Assert.hasText(name, "bean name null");
+        Assert.hasText(name, "must not be null");
         return applicationContext.getBean(name);
     }
 
@@ -48,8 +48,8 @@ public class SpringBeanUtil implements DisposableBean, ApplicationContextAware {
     }
 
     public static <T> T getBean(String name, Class<T> type) {
-        Assert.hasText(name, "bean name null");
-        Assert.notNull(type, "bean type null");
+        Assert.hasText(name, "bean must not be null");
+        Assert.notNull(type, "Bean type must not be null");
         return applicationContext.getBean(name, type);
     }
 

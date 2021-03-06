@@ -21,8 +21,15 @@ public class SpringTest {
 		SpringBeanUtil springBeanUtil  = (SpringBeanUtil) annotationConfigApplicationContext.getBean("springUtils");
 		log.info("===>bean name: {}", springBeanUtil);
 	}
-	
-	public static void main(String[] args) {
 
+	public static void main(String[] args) {
+		int i = 1;
+		i = i++;
+		int j = i++;
+		int k = i + ++i * i++;
+		log.info("i=" + i);
+		log.info("j=" + j);
+		log.info("k=" + k);
 	}
+
 }
