@@ -13,7 +13,7 @@ public class KMPAlgorithm {
 		String str1 = "BBC ABCDAB ABCDABCDABDE";
 		String str2 = "ABCDABD";
 		//String str2 = "BBC";
-
+		System.out.println("jj:=" + (1 << 30));
 		int[] next = kmpNext("ABCDABD"); //[0, 1, 2, 0]
 		System.out.println("next=" + Arrays.toString(next));
 

@@ -16,9 +16,7 @@ public class BinarySortTreeDemo {
 
 		//测试一下删除叶子结点
 
-
 		binarySortTree.delNode(12);
-
 
 		binarySortTree.delNode(5);
 		binarySortTree.delNode(10);
@@ -29,10 +27,7 @@ public class BinarySortTreeDemo {
 		binarySortTree.delNode(1);
 		binarySortTree.delNode(7);
 
-
 		System.out.println("root=" + binarySortTree.getRoot());
-
-
 		System.out.println("删除结点后");
 		binarySortTree.infixOrder();
 	}
@@ -89,7 +84,10 @@ class BinarySortTree {
 	}
 
 
-	//删除结点
+	/**
+	 * 删除结点
+	 * @param value
+	 */
 	public void delNode(int value) {
 		if(root == null) {
 			return;
@@ -152,7 +150,10 @@ class BinarySortTree {
 		}
 	}
 
-	//添加结点的方法
+	/**
+	 * 添加节点的方法
+	 * @param node
+	 */
 	public void add(Node node) {
 		if(root == null) {
 			root = node;//如果root为空则直接让root指向node
@@ -160,7 +161,10 @@ class BinarySortTree {
 			root.add(node);
 		}
 	}
-	//中序遍历
+
+	/**
+	 * 中序遍历
+	 */
 	public void infixOrder() {
 		if(root != null) {
 			root.infixOrder();
@@ -261,7 +265,9 @@ class Node {
 		}
 	}
 
-	//中序遍历
+	/**
+	 * 中序遍历
+	 */
 	public void infixOrder() {
 		if(this.left != null) {
 			this.left.infixOrder();

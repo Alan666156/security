@@ -1,6 +1,8 @@
 package com.security.datastructure.avl;
 
-
+/**
+ * 具有二叉查找树的全部特性
+ */
 public class AVLTreeDemo {
 
 	public static void main(String[] args) {
@@ -29,7 +31,9 @@ public class AVLTreeDemo {
 
 }
 
-// 创建AVLTree
+/**
+ * 创建AVLTree
+ */
 class AVLTree {
 	private Node root;
 
