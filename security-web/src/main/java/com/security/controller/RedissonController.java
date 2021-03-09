@@ -1,32 +1,27 @@
 package com.security.controller;
 
 import cn.hutool.core.util.StrUtil;
-import com.google.common.util.concurrent.RateLimiter;
+import com.alibaba.fastjson.JSON;
 import com.security.annotation.RateLimitLua;
-import com.security.annotation.UseLog;
 import com.security.common.SecurityConstants;
-import com.security.service.OauthCodeService;
 import com.security.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.*;
-import org.redisson.api.map.event.EntryEvent;
 import org.redisson.api.map.event.EntryExpiredListener;
-import org.redisson.api.map.event.MapEntryListener;
-import org.redisson.client.codec.Codec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ * redisson使用
  * @author fuongxing
  */
 @Slf4j
@@ -46,6 +41,14 @@ public class RedissonController {
 			log.info("超期事件处理，{}已过期，旧值：{}，当前值：{}", event.getKey(), event.getOldValue(), event.getValue());
 		});
 		log.info("初始化rMapCache={}", SecurityConstants.REDIS_KEY_MAP_PRE);
+
+		//订阅指定话题
+		RTopic rTopic = redissonClient.getTopic("myTopic");
+		//指定表达式订阅多个话题
+//		RPatternTopic rPatternTopic = redissonClient.getPatternTopic("*myTopic*");
+		rTopic.addListener(String.class, (channel, msg) -> {
+			log.info("接收到消息：{}", msg);
+		});
 	}
 
 	/**
@@ -98,9 +101,9 @@ public class RedissonController {
 		return Result.success("success");
 	}
 
-	@PostMapping("test")
-	public Result test(){
-		log.info("==========redisson 使用===========");
+	@GetMapping("test")
+	public Result test() {
+		log.info("==========redisson 集合使用===========");
 		RMap<String, Object> rMap = redissonClient.getMap("sec:map");
 		RMapCache<String, Object> rMapCache = redissonClient.getMapCache(SecurityConstants.REDIS_KEY_MAP_PRE);
 		//2秒后过期
@@ -133,6 +136,68 @@ public class RedissonController {
 
 		return Result.success("success");
 	}
+
+	@GetMapping("queue")
+	public Result queue() throws InterruptedException {
+		log.info("==========redisson 队列使用===========");
+		//队列
+		RQueue<String> rQueue = redissonClient.getQueue("sec:queue");
+		//延迟队列，数据临时存放，发出后删除该元素, 60秒后往目标队列rQueue发送
+		RDelayedQueue<String> rDelayedQueue = redissonClient.getDelayedQueue(rQueue);
+		rDelayedQueue.offer("A", 60, TimeUnit.SECONDS);
+		rDelayedQueue.readAll();
+
+		//阻塞式无界队列
+		RBlockingDeque<String> rBlockingDeque = redissonClient.getBlockingDeque("sec:block:queue");
+		//从队列的头部获取一个元素，并将队列中该元素删除，队列为空时返回null
+		rBlockingDeque.poll();
+		//从队列的头部获取一个元素，并将队列中该元素删除，队列为空时返回阻塞线程
+		rBlockingDeque.take();
+		//从队列的头部获取一个元素，但不会将该元素从队列中删除，队列为空时返回null
+		rBlockingDeque.peek();
+
+		return Result.success("success");
+	}
+
+	@GetMapping("await")
+	public Result awaitThread() {
+		log.info("==========redisson 队列使用===========");
+		try {
+			RCountDownLatch rCountDownLatch =redissonClient.getCountDownLatch("myCountDownLatch");
+			//计数器初始大小
+			rCountDownLatch.trySetCount(3);
+			//阻塞线程知道计算器归零后唤醒
+			rCountDownLatch.await();
+			log.info("所有子线程运行完毕");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Result.success("success");
+	}
+
+	@GetMapping("thread")
+	public Result thread() {
+		log.info("==========redisson RCountDownLatch使用:{}===========",Thread.currentThread().getName());
+		try {
+			RCountDownLatch rCountDownLatch =redissonClient.getCountDownLatch("myCountDownLatch");
+			TimeUnit.SECONDS.sleep(5);
+			//计数器减1，当计数器归零后通知所有等待的线程恢复执行
+			rCountDownLatch.countDown();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		return Result.success("success");
+	}
+
+	@GetMapping("produce")
+	public Result produce() {
+		log.info("==========redisson RTopic使用===========");
+		RTopic rTopic = redissonClient.getTopic("myTopic");
+		rTopic.publish("redisson message produce");
+		return Result.success("success");
+	}
+
 
 	private String getIP(HttpServletRequest request) {
 		String ip = null;
