@@ -8,8 +8,8 @@ public class UseReentrantLock {
 	private Lock lock = new ReentrantLock();
 	
 	public void method1(){
+		lock.lock();
 		try {
-			lock.lock();
 			System.out.println("当前线程:" + Thread.currentThread().getName() + "进入method1..");
 			Thread.sleep(1000);
 			System.out.println("当前线程:" + Thread.currentThread().getName() + "退出method1..");
@@ -17,14 +17,13 @@ public class UseReentrantLock {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
-			
 			lock.unlock();
 		}
 	}
 	
 	public void method2(){
+		lock.lock();
 		try {
-			lock.lock();
 			System.out.println("当前线程:" + Thread.currentThread().getName() + "进入method2..");
 			Thread.sleep(2000);
 			System.out.println("当前线程:" + Thread.currentThread().getName() + "退出method2..");
@@ -32,7 +31,6 @@ public class UseReentrantLock {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
-			
 			lock.unlock();
 		}
 	}

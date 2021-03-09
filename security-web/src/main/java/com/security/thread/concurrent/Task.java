@@ -22,6 +22,7 @@ public class Task implements Comparable<Task>{
 		return this.id > task.id ? 1 : (this.id < task.id ? -1 : 0);  
 	}
 	
+	@Override
 	public String toString(){
 		return this.id + "," + this.name;
 	}

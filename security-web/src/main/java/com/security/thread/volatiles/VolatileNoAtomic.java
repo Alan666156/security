@@ -10,8 +10,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class VolatileNoAtomic extends Thread{
 	//volatile只具有可见性，不具备原子性
 	//private static volatile int count;
-	
-	//Atomic类可以保证原子性
+
+	/**
+	 * Atomic类可以保证原子性
+	 */
 	private static AtomicInteger count = new AtomicInteger(0);
 	private static void addCount(){
 		for (int i = 0; i < 1000; i++) {

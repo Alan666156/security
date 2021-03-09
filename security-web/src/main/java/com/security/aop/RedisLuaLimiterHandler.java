@@ -45,8 +45,8 @@ public class RedisLuaLimiterHandler {
      * @description 切点
      * @author fuhongxing
      */
-    @Pointcut("@annotation(com.security.annotation.UseLog)")
-    public void userLog() {
+    @Pointcut("@annotation(com.security.annotation.RateLimitLua)")
+    public void rateLimitLua() {
 
     }
 
@@ -57,7 +57,7 @@ public class RedisLuaLimiterHandler {
      * @param jp 连接点
      * @throws Throwable
      */
-    @Around("userLog()")
+    @Around("rateLimitLua()")
     public Object around(ProceedingJoinPoint jp) throws Throwable {
         Object result = null;
         try {

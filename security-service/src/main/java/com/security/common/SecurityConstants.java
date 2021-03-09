@@ -19,6 +19,7 @@ public class SecurityConstants {
 	public static final String FORMAT_DATE_YY = "yy";
 
 	public static final String REDIS_KEY_PRE = "sec:limit:{}";
+	public static final String REDIS_KEY_MAP_PRE = "sec_map_cache";
 	public static final String REDIS_KEY_BUCKET_USER_ID = "bucket:black:list:{}";
 
 
