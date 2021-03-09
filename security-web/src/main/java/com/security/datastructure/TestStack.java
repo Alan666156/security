@@ -28,7 +28,7 @@ public class TestStack {
 	}
 	/**
 	 * 出栈(剔除最后一个)
-	 * @param obj 
+	 * @param
 	 * @throws Exception 
 	 */
 	public Object pop() throws RuntimeException{

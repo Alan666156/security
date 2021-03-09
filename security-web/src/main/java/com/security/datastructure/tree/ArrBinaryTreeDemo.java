@@ -11,10 +11,12 @@ public class ArrBinaryTreeDemo {
 
 }
 
-//编写一个ArrayBinaryTree, 实现顺序存储二叉树遍历
-
+/**
+ * 编写一个ArrayBinaryTree, 实现顺序存储二叉树遍历
+ */
 class ArrBinaryTree {
-	private int[] arr;//存储数据结点的数组
+	//存储数据结点的数组
+	private int[] arr;
 
 	public ArrBinaryTree(int[] arr) {
 		this.arr = arr;

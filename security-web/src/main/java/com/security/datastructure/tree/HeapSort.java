@@ -11,7 +11,8 @@ public class HeapSort {
 		// 创建要给80000个的随机的数组
 		int[] arr = new int[8000000];
 		for (int i = 0; i < 8000000; i++) {
-			arr[i] = (int) (Math.random() * 8000000); // 生成一个[0, 8000000) 数
+			// 生成一个[0, 8000000) 数
+			arr[i] = (int) (Math.random() * 8000000);
 		}
 
 		System.out.println("排序前");
@@ -63,6 +64,7 @@ public class HeapSort {
 	}
 
 	//将一个数组(二叉树), 调整成一个大顶堆
+
 	/**
 	 * 功能： 完成 将 以 i 对应的非叶子结点的树调整成大顶堆
 	 * 举例  int arr[] = {4, 6, 8, 5, 9}; => i = 1 => adjustHeap => 得到 {4, 9, 8, 5, 6}
@@ -72,13 +74,14 @@ public class HeapSort {
 	 * @param lenght 表示对多少个元素继续调整， length 是在逐渐的减少
 	 */
 	public  static void adjustHeap(int arr[], int i, int lenght) {
-
-		int temp = arr[i];//先取出当前元素的值，保存在临时变量
+		//先取出当前元素的值，保存在临时变量
+		int temp = arr[i];
 		//开始调整
 		//说明
 		//1. k = i * 2 + 1 k 是 i结点的左子结点
 		for(int k = i * 2 + 1; k < lenght; k = k * 2 + 1) {
-			if(k+1 < lenght && arr[k] < arr[k+1]) { //说明左子结点的值小于右子结点的值
+			//说明左子结点的值小于右子结点的值
+			if(k+1 < lenght && arr[k] < arr[k+1]) {
 				k++; // k 指向右子结点
 			}
 			if(arr[k] > temp) { //如果子结点大于父结点

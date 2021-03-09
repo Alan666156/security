@@ -1,6 +1,7 @@
 package com.security.datastructure;
 
 import lombok.Data;
+
 /**
  * 树节点
  * @author fhx
@@ -26,7 +27,8 @@ public class TreeNode {
 	 * 左树
 	 */
 	private TreeNode rightNode;
-	
+
+	private boolean result = true;
 	/**
 	 * 前序遍历(递归调用)
 	 */
@@ -91,5 +93,33 @@ public class TreeNode {
 		}
 		System.out.println("当前节点:"+value);
 	}
-	
+
+	/**
+	 * 判断一棵树是否是平衡二叉树(什么是平衡二叉树: 就是每一个结点的左右子树的高度差不超过1。)
+	 * @param node
+	 * @return
+	 */
+	public boolean isBalanced(TreeNode node){
+		height(node);
+		return result;
+	}
+
+	/**
+	 * 在求树的高度的时候达到判断是否为平衡树的目的。所以一旦确定不是平衡二叉树了，我也就不关心树的高度了。当不是平衡二叉树的时候，我就直接返回高度是0，这样就省去了求高度的时间。
+	 * @param node
+	 * @return
+	 */
+	public int height(TreeNode node){
+
+		if (node == null) {
+			return 0;
+		}
+		int left = height(node.leftNode);
+		int right = height(node.rightNode);
+		if (Math.abs(left - right) > 0){
+			result = false;
+		}
+
+		return Math.max(left, right) + 1;
+	}
 }

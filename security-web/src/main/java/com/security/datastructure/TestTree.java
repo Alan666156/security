@@ -32,6 +32,8 @@ public class TestTree {
 		System.out.println("===================");
 		//后序遍历(4 5 2 6 7 3 1)
 		binaryTree.afterShow();
+
+		System.out.println("是否为平衡树：" + root.isBalanced(root));
 	}
 
 }
