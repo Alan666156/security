@@ -1,7 +1,6 @@
 package com.security.controller;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSON;
 import com.security.annotation.RateLimitLua;
 import com.security.common.SecurityConstants;
 import com.security.util.Result;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -91,16 +89,20 @@ public class RedissonController {
 	 * lua + redis 限流
 	 * @param model
 	 * @param name
-	 * @return
+	 * @returnv
 	 */
 	@RateLimitLua()
 	@GetMapping("/test-rateLimitLua")
 	public Result rateLimitLua(Model model, String name){
 		System.out.println(name);
-		log.info("==========api===========");
+		log.info("==========lua + redis 限流, 注解实现===========");
 		return Result.success("success");
 	}
 
+	/**
+	 * 集合的使用
+	 * @return
+	 */
 	@GetMapping("test")
 	public Result test() {
 		log.info("==========redisson 集合使用===========");
@@ -163,7 +165,7 @@ public class RedissonController {
 	public Result awaitThread() {
 		log.info("==========redisson 队列使用===========");
 		try {
-			RCountDownLatch rCountDownLatch =redissonClient.getCountDownLatch("myCountDownLatch");
+			RCountDownLatch rCountDownLatch = redissonClient.getCountDownLatch("myCountDownLatch");
 			//计数器初始大小
 			rCountDownLatch.trySetCount(3);
 			//阻塞线程知道计算器归零后唤醒
@@ -179,7 +181,7 @@ public class RedissonController {
 	public Result thread() {
 		log.info("==========redisson RCountDownLatch使用:{}===========",Thread.currentThread().getName());
 		try {
-			RCountDownLatch rCountDownLatch =redissonClient.getCountDownLatch("myCountDownLatch");
+			RCountDownLatch rCountDownLatch = redissonClient.getCountDownLatch("myCountDownLatch");
 			TimeUnit.SECONDS.sleep(5);
 			//计数器减1，当计数器归零后通知所有等待的线程恢复执行
 			rCountDownLatch.countDown();

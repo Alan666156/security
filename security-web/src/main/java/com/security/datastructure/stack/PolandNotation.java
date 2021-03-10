@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * 前缀、中缀、后缀表达式(逆波兰表达式)
+ */
 public class PolandNotation {
 
 	public static void main(String[] args) {
@@ -16,8 +19,8 @@ public class PolandNotation {
 		//   即 "1+((2+3)×4)-5" => ArrayList [1,+,(,(,2,+,3,),*,4,),-,5]
 		//3. 将得到的中缀表达式对应的List => 后缀表达式对应的List
 		//   即 ArrayList [1,+,(,(,2,+,3,),*,4,),-,5]  =》 ArrayList [1,2,3,+,4,*,+,5,–]
-
-		String expression = "1+((2+3)*4)-5";//注意表达式
+		//注意表达式
+		String expression = "1+((2+3)*4)-5";
 		List<String> infixExpressionList = toInfixExpressionList(expression);
 		System.out.println("中缀表达式对应的List=" + infixExpressionList); // ArrayList [1,+,(,(,2,+,3,),*,4,),-,5]
 		List<String> suffixExpreesionList = parseSuffixExpreesionList(infixExpressionList);
@@ -176,14 +179,20 @@ public class PolandNotation {
 
 }
 
-//编写一个类 Operation 可以返回一个运算符 对应的优先级
+/**
+ * 编写一个类 Operation 可以返回一个运算符 对应的优先级
+ */
 class Operation {
 	private static int ADD = 1;
 	private static int SUB = 1;
 	private static int MUL = 2;
 	private static int DIV = 2;
 
-	//写一个方法，返回对应的优先级数字
+	/**
+	 * 写一个方法，返回对应的优先级数字
+	 * @param operation
+	 * @return
+	 */
 	public static int getValue(String operation) {
 		int result = 0;
 		switch (operation) {

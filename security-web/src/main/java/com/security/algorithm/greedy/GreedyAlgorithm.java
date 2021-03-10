@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+/**
+ * 贪心算法
+ */
 public class GreedyAlgorithm {
 
 	public static void main(String[] args) {

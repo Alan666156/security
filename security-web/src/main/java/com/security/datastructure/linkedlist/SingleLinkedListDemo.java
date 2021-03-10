@@ -2,19 +2,20 @@ package com.security.datastructure.linkedlist;
 
 import java.util.Stack;
 
+/**
+ * 单链表
+ */
 public class SingleLinkedListDemo {
 
 	public static void main(String[] args) {
-		//进行测试
 		//先创建节点
 		HeroNode hero1 = new HeroNode(1, "宋江", "及时雨");
 		HeroNode hero2 = new HeroNode(2, "卢俊义", "玉麒麟");
 		HeroNode hero3 = new HeroNode(3, "吴用", "智多星");
 		HeroNode hero4 = new HeroNode(4, "林冲", "豹子头");
 
-		//创建要给链表
+		//创建单链表
 		SingleLinkedList singleLinkedList = new SingleLinkedList();
-
 
 		//加入
 		singleLinkedList.add(hero1);
@@ -23,14 +24,14 @@ public class SingleLinkedListDemo {
 		singleLinkedList.add(hero3);
 
 		// 测试一下单链表的反转功能
-		System.out.println("原来链表的情况~~");
-		singleLinkedList.list();
+		System.out.println("~~原来链表的情况~~~");
+		singleLinkedList.showList();
 
 //		System.out.println("反转单链表~~");
 //		reversetList(singleLinkedList.getHead());
 //		singleLinkedList.list();
 
-		System.out.println("测试逆序打印单链表, 没有改变链表的结构~~");
+		System.out.println("~~测试逆序打印单链表, 没有改变链表的结构~~~");
 		reversePrint(singleLinkedList.getHead());
 
 /*
@@ -66,19 +67,22 @@ public class SingleLinkedListDemo {
 
 	}
 
-	//方式2：
-	//可以利用栈这个数据结构，将各个节点压入到栈中，然后利用栈的先进后出的特点，就实现了逆序打印的效果
+	/**
+	 * 逆序打印单链表(百度面试题)
+	 * 方式一: 先将链表反转，然后打印
+	 * 方式二：可以利用栈这个数据结构，将各个节点压入到栈中，然后利用栈的先进后出的特点，就实现了逆序打印的效果
+	 */
 	public static void reversePrint(HeroNode head) {
 		if(head.next == null) {
 			return;//空链表，不能打印
 		}
 		//创建要给一个栈，将各个节点压入栈
 		Stack<HeroNode> stack = new Stack<HeroNode>();
-		HeroNode cur = head.next;
+		HeroNode current = head.next;
 		//将链表的所有节点压入栈
-		while(cur != null) {
-			stack.push(cur);
-			cur = cur.next; //cur后移，这样就可以压入下一个节点
+		while(current != null) {
+			stack.push(current);
+			current = current.next; //cur后移，这样就可以压入下一个节点
 		}
 		//将栈中的节点进行打印,pop 出栈
 		while (stack.size() > 0) {
@@ -86,73 +90,99 @@ public class SingleLinkedListDemo {
 		}
 	}
 
-	//将单链表反转
+	//合并链表
+	public void mergeLinkedList(SingleLinkedList l1,SingleLinkedList l2)
+	{
+		//获取头部
+		HeroNode l1Head = l1.getHead();
+		HeroNode l2Head = l2.getHead();
+
+	}
+	/**
+	 * 单链表反转(腾讯面试题)
+	 * 思路：
+	 * 1、先定义一个节点HeroNode reverseHead = new HeroNode()
+	 * 2、从头到尾便利原来的链表，每遍历一个链表就将其取出，并放在新的链表reverseHead 的最前端
+	 * 3、原来的链表head.next = reverseHead;
+	 * @param head
+	 */
 	public static void reversetList(HeroNode head) {
 		//如果当前链表为空，或者只有一个节点，无需反转，直接返回
 		if(head.next == null || head.next.next == null) {
 			return ;
 		}
-
 		//定义一个辅助的指针(变量)，帮助我们遍历原来的链表
-		HeroNode cur = head.next;
-		HeroNode next = null;// 指向当前节点[cur]的下一个节点
+		HeroNode current = head.next;
+		// 指向当前节点[current]的下一个节点
+		HeroNode next = null;
 		HeroNode reverseHead = new HeroNode(0, "", "");
 		//遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表reverseHead 的最前端
 		//动脑筋
-		while(cur != null) {
-			next = cur.next;//先暂时保存当前节点的下一个节点，因为后面需要使用
-			cur.next = reverseHead.next;//将cur的下一个节点指向新的链表的最前端
-			reverseHead.next = cur; //将cur 连接到新的链表上
-			cur = next;//让cur后移
+		while(current != null) {
+			//先暂时保存当前节点的下一个节点，因为后面需要使用
+			next = current.next;
+			//将current的下一个节点指向新的链表的最前端
+			current.next = reverseHead.next;
+			//将current 连接到新的链表上
+			reverseHead.next = current;
+			//让cur后移
+			current = next;
 		}
-		//将head.next 指向 reverseHead.next , 实现单链表的反转
+		//将head.next 指向 reverseHead.next, 实现单链表的反转
 		head.next = reverseHead.next;
 	}
 
-	//查找单链表中的倒数第k个结点 【新浪面试题】
-	//思路
-	//1. 编写一个方法，接收head节点，同时接收一个index
-	//2. index 表示是倒数第index个节点
-	//3. 先把链表从头到尾遍历，得到链表的总的长度 getLength
-	//4. 得到size 后，我们从链表的第一个开始遍历 (size-index)个，就可以得到
-	//5. 如果找到了，则返回该节点，否则返回nulll
+
+	/**
+	 * 查找单链表中的倒数第k个结点 【新浪面试题】
+	 * 思路:
+	 * 	1. 编写一个方法，接收head节点，同时接收一个index
+	 * 	2. index 表示是倒数第index个节点
+	 * 	3. 先把链表从头到尾遍历，得到链表的总的长度 getLength
+	 * 	4. 得到size 后，我们从链表的第一个开始遍历 (size-index)个，就可以得到
+	 * 	5. 如果找到了，则返回该节点，否则返回nulll
+	 * @param head
+	 * @param index
+	 * @return
+	 */
 	public static HeroNode findLastIndexNode(HeroNode head, int index) {
 		//判断如果链表为空，返回null
 		if(head.next == null) {
-			return null;//没有找到
+			return null;
 		}
 		//第一个遍历得到链表的长度(节点个数)
 		int size = getLength(head);
 		//第二次遍历  size-index 位置，就是我们倒数的第K个节点
 		//先做一个index的校验
-		if(index <=0 || index > size) {
+		if(index <= 0 || index > size) {
 			return null;
 		}
 		//定义给辅助变量， for 循环定位到倒数的index
-		HeroNode cur = head.next; //3 // 3 - 1 = 2
+		HeroNode current = head.next; //3 // 3 - 1 = 2
 		for(int i =0; i< size - index; i++) {
-			cur = cur.next;
+			current = current.next;
 		}
-		return cur;
+		return current;
 
 	}
 
-	//方法：获取到单链表的节点的个数(如果是带头结点的链表，需求不统计头节点)
 	/**
-	 *
+	 * 获取到单链表的节点的个数(如果是带头结点的链表，需求不统计头节点)
 	 * @param head 链表的头节点
 	 * @return 返回的就是有效节点的个数
 	 */
 	public static int getLength(HeroNode head) {
-		if(head.next == null) { //空链表
+		//空链表
+		if(head.next == null) {
 			return 0;
 		}
 		int length = 0;
 		//定义一个辅助的变量, 这里我们没有统计头节点
-		HeroNode cur = head.next;
-		while(cur != null) {
+		HeroNode current = head.next;
+		while(current != null) {
 			length++;
-			cur = cur.next; //遍历
+			//遍历
+			current = current.next;
 		}
 		return length;
 	}
@@ -160,11 +190,14 @@ public class SingleLinkedListDemo {
 }
 
 
-//定义SingleLinkedList 管理我们的英雄
+/**
+ * 定义SingleLinkedList 管理我们的英雄
+ */
 class SingleLinkedList {
-	//先初始化一个头节点, 头节点不要动, 不存放具体的数据
+	/**
+	 * 先初始化一个头节点, 头节点不要动, 不存放具体的数据
+	 */
 	private HeroNode head = new HeroNode(0, "", "");
-
 
 	//返回头节点
 	public HeroNode getHead() {
@@ -199,19 +232,23 @@ class SingleLinkedList {
 		//因为头节点不能动，因此我们仍然通过一个辅助指针(变量)来帮助找到添加的位置
 		//因为单链表，因为我们找的temp 是位于 添加位置的前一个节点，否则插入不了
 		HeroNode temp = head;
-		boolean flag = false; // flag标志添加的编号是否存在，默认为false
+		// flag标志添加的编号是否存在，默认为false
+		boolean flag = false;
 		while(true) {
-			if(temp.next == null) {//说明temp已经在链表的最后
+			//说明temp已经在链表的最后
+			if(temp.next == null) {
 				break; //
 			}
-			if(temp.next.no > heroNode.no) { //位置找到，就在temp的后面插入
+			//位置找到，就在temp的后面插入
+			if(temp.next.no > heroNode.no) {
 				break;
-			} else if (temp.next.no == heroNode.no) {//说明希望添加的heroNode的编号已然存在
-
-				flag = true; //说明编号存在
+			} else if (temp.next.no == heroNode.no) { //说明希望添加的heroNode的编号已然存在
+				//说明编号存在
+				flag = true;
 				break;
 			}
-			temp = temp.next; //后移，遍历当前链表
+			//后移，遍历当前链表
+			temp = temp.next;
 		}
 		//判断flag 的值
 		if(flag) { //不能添加，说明编号存在
@@ -223,9 +260,11 @@ class SingleLinkedList {
 		}
 	}
 
-	//修改节点的信息, 根据no编号来修改，即no编号不能改.
-	//说明
-	//1. 根据 newHeroNode 的 no 来修改即可
+	/**
+	 * 修改节点的信息, 根据no编号来修改，即no编号不能改.
+	 * 1. 根据 newHeroNode 的 no 来修改即可
+	 * @param newHeroNode
+	 */
 	public void update(HeroNode newHeroNode) {
 		//判断是否空
 		if(head.next == null) {
@@ -275,16 +314,18 @@ class SingleLinkedList {
 			temp = temp.next; //temp后移，遍历
 		}
 		//判断flag
-		if(flag) { //找到
-			//可以删除
+		if(flag) {
+			//找到可以删除
 			temp.next = temp.next.next;
 		}else {
 			System.out.printf("要删除的 %d 节点不存在\n", no);
 		}
 	}
 
-	//显示链表[遍历]
-	public void list() {
+	/**
+	 * 显示链表[遍历]
+	 */
+	public void showList() {
 		//判断链表是否为空
 		if(head.next == null) {
 			System.out.println("链表为空");
@@ -305,13 +346,17 @@ class SingleLinkedList {
 	}
 }
 
-//定义HeroNode ， 每个HeroNode 对象就是一个节点
+/**
+ * 定义HeroNode ， 每个HeroNode 对象就是一个节点
+ */
 class HeroNode {
 	public int no;
 	public String name;
 	public String nickname;
-	public HeroNode next; //指向下一个节点
-	//构造器
+	/**
+	 * 指向下一个节点
+	 */
+	public HeroNode next;
 	public HeroNode(int no, String name, String nickname) {
 		this.no = no;
 		this.name = name;

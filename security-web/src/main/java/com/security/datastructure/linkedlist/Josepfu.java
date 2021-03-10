@@ -1,5 +1,12 @@
 package com.security.datastructure.linkedlist;
 
+import lombok.Data;
+
+/**
+ * Josephu(约瑟夫、约瑟夫环)  问题
+ * Josephu  问题为：设编号为1，2，… n的n个人围坐一圈，约定编号为k（1<=k<=n）的人从1开始报数，数到m 的那个人出列，它的下一位又从1开始报数，数到m的那个人又出列，依次类推，直到所有人出列为止，由此产生一个出队编号的序列。
+ * 提示：用一个不带头结点的循环链表来处理Josephu 问题：先构成一个有n个结点的单循环链表，然后由k结点起从1开始计数，计到m时，对应结点从链表中删除，然后再从被删除结点的下一个结点又从1开始计数，直到最后一个结点从链表中删除算法结束。
+ */
 public class Josepfu {
 
 	public static void main(String[] args) {
@@ -15,7 +22,9 @@ public class Josepfu {
 
 }
 
-// 创建一个环形的单向链表
+/**
+ * 创建一个环形的单向链表
+ */
 class CircleSingleLinkedList {
 	// 创建一个first节点,当前没有编号
 	private Boy first = null;
@@ -27,7 +36,8 @@ class CircleSingleLinkedList {
 			System.out.println("nums的值不正确");
 			return;
 		}
-		Boy curBoy = null; // 辅助指针，帮助构建环形链表
+		// 辅助指针，帮助构建环形链表
+		Boy currentBoy = null;
 		// 使用for来创建我们的环形链表
 		for (int i = 1; i <= nums; i++) {
 			// 根据编号，创建小孩节点
@@ -35,17 +45,21 @@ class CircleSingleLinkedList {
 			// 如果是第一个小孩
 			if (i == 1) {
 				first = boy;
-				first.setNext(first); // 构成环
-				curBoy = first; // 让curBoy指向第一个小孩
+				// 构成环
+				first.setNext(first);
+				// 让curBoy指向第一个小孩
+				currentBoy = first;
 			} else {
-				curBoy.setNext(boy);//
-				boy.setNext(first);//
-				curBoy = boy;
+				currentBoy.setNext(boy);
+				boy.setNext(first);
+				currentBoy = boy;
 			}
 		}
 	}
 
-	// 遍历当前的环形链表
+	/**
+	 * 遍历当前的环形链表
+	 */
 	public void showBoy() {
 		// 判断链表是否为空
 		if (first == null) {
@@ -59,19 +73,17 @@ class CircleSingleLinkedList {
 			if (curBoy.getNext() == first) {// 说明已经遍历完毕
 				break;
 			}
-			curBoy = curBoy.getNext(); // curBoy后移
+			// curBoy后移
+			curBoy = curBoy.getNext();
 		}
 	}
 
 	// 根据用户的输入，计算出小孩出圈的顺序
 	/**
-	 *
-	 * @param startNo
-	 *            表示从第几个小孩开始数数
-	 * @param countNum
-	 *            表示数几下
-	 * @param nums
-	 *            表示最初有多少小孩在圈中
+	 * 根据用户的输入，计算出小孩出圈的顺序
+	 * @param startNo 表示从第几个小孩开始数数
+	 * @param countNum 表示数几下
+	 * @param nums 表示最初有多少小孩在圈中
 	 */
 	public void countBoy(int startNo, int countNum, int nums) {
 		// 先对数据进行校验
@@ -96,7 +108,8 @@ class CircleSingleLinkedList {
 		//当小孩报数时，让first 和 helper 指针同时 的移动  m  - 1 次, 然后出圈
 		//这里是一个循环操作，知道圈中只有一个节点
 		while(true) {
-			if(helper == first) { //说明圈中只有一个节点
+			//说明圈中只有一个节点
+			if(helper == first) {
 				break;
 			}
 			//让 first 和 helper 指针同时 的移动 countNum - 1
@@ -108,7 +121,7 @@ class CircleSingleLinkedList {
 			System.out.printf("小孩%d出圈\n", first.getNo());
 			//这时将first指向的小孩节点出圈
 			first = first.getNext();
-			helper.setNext(first); //
+			helper.setNext(first);
 
 		}
 		System.out.printf("最后留在圈中的小孩编号%d \n", first.getNo());
@@ -116,29 +129,19 @@ class CircleSingleLinkedList {
 	}
 }
 
-// 创建一个Boy类，表示一个节点
+/**
+ * 创建一个Boy类，表示一个节点
+ */
+@Data
 class Boy {
-	private int no;// 编号
-	private Boy next; // 指向下一个节点,默认null
+	// 编号
+	private int no;
+	// 指向下一个节点,默认null
+	private Boy next;
 
 	public Boy(int no) {
 		this.no = no;
 	}
 
-	public int getNo() {
-		return no;
-	}
-
-	public void setNo(int no) {
-		this.no = no;
-	}
-
-	public Boy getNext() {
-		return next;
-	}
-
-	public void setNext(Boy next) {
-		this.next = next;
-	}
 
 }

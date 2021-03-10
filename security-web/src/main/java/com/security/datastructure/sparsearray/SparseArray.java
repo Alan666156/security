@@ -2,16 +2,23 @@ package com.security.datastructure.sparsearray;
 
 /**
  * 稀疏数组
+ * 应用场景：棋盘、地图
+ * 当一个数组中大部分元素为０，或者为同一个值的数组时，可以使用稀疏数组来保存该数组。
+ * 稀疏数组的处理方法是:
+ * 记录数组一共有几行几列，有多少个不同的值
+ * 把具有不同值的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模
  */
 public class SparseArray {
 
 	public static void main(String[] args) {
 		// 创建一个原始的二维数组 11 * 11
-		// 0: 表示没有棋子， 1 表示 黑子 2 表蓝子
+		// 0: 表示没有棋子， 1 表示 黑子 2 表示 蓝子
+		//棋盘
 		int chessArr1[][] = new int[11][11];
 		chessArr1[1][2] = 1;
 		chessArr1[2][3] = 2;
 		chessArr1[4][5] = 2;
+
 		// 输出原始的二维数组
 		System.out.println("原始的二维数组~~");
 		for (int[] row : chessArr1) {

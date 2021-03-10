@@ -1,5 +1,8 @@
 package com.security.datastructure.stack;
 
+/**
+ * 栈实现综合计算器
+ */
 public class Calculator {
 
 	public static void main(String[] args) {
@@ -14,8 +17,10 @@ public class Calculator {
 		int num2 = 0;
 		int oper = 0;
 		int res = 0;
-		char ch = ' '; //将每次扫描得到char保存到ch
-		String keepNum = ""; //用于拼接 多位数
+		//将每次扫描得到char保存到ch
+		char ch = ' ';
+		//用于拼接 多位数
+		String keepNum = "";
 		//开始while循环的扫描expression
 		while(true) {
 			//依次得到expression 的每一个字符
@@ -76,7 +81,6 @@ public class Calculator {
 				break;
 			}
 		}
-
 		//当表达式扫描完毕，就顺序的从 数栈和符号栈中pop出相应的数和符号，并运行.
 		while(true) {
 			//如果符号栈为空，则计算到最后的结果, 数栈中只有一个数字【结果】
@@ -96,12 +100,20 @@ public class Calculator {
 
 }
 
-//先创建一个栈,直接使用前面创建好
-//定义一个 ArrayStack2 表示栈, 需要扩展功能
+/**
+ * 定义一个 ArrayStack2 表示栈, 需要扩展功能
+ */
 class ArrayStack2 {
-	private int maxSize; // 栈的大小
-	private int[] stack; // 数组，数组模拟栈，数据就放在该数组
-	private int top = -1;// top表示栈顶，初始化为-1
+	// 栈的大小
+	private int maxSize;
+	/**
+	 * 数组，数组模拟栈，数据就放在该数组
+	 */
+	private int[] stack;
+	/**
+	 * top表示栈顶，初始化为-1
+	 */
+	private int top = -1;
 
 	//构造器
 	public ArrayStack2(int maxSize) {
@@ -109,20 +121,34 @@ class ArrayStack2 {
 		stack = new int[this.maxSize];
 	}
 
-	//增加一个方法，可以返回当前栈顶的值, 但是不是真正的pop
+	/**
+	 * 增加一个方法，可以返回当前栈顶的值, 但是不是真正的pop
+	 * @return
+	 */
 	public int peek() {
 		return stack[top];
 	}
 
-	//栈满
+	/**
+	 * 栈满
+	 * @return
+	 */
 	public boolean isFull() {
 		return top == maxSize - 1;
 	}
-	//栈空
+
+	/**
+	 * 栈空
+	 * @return
+	 */
 	public boolean isEmpty() {
 		return top == -1;
 	}
-	//入栈-push
+
+	/**
+	 * 入栈-push
+	 * @param value
+	 */
 	public void push(int value) {
 		//先判断栈是否满
 		if(isFull()) {
@@ -132,7 +158,11 @@ class ArrayStack2 {
 		top++;
 		stack[top] = value;
 	}
-	//出栈-pop, 将栈顶的数据返回
+
+	/**
+	 * 出栈-pop, 将栈顶的数据返回
+	 * @return
+	 */
 	public int pop() {
 		//先判断栈是否空
 		if(isEmpty()) {
@@ -143,7 +173,10 @@ class ArrayStack2 {
 		top--;
 		return value;
 	}
-	//显示栈的情况[遍历栈]， 遍历时，需要从栈顶开始显示数据
+
+	/**
+	 * 显示栈的情况[遍历栈]， 遍历时，需要从栈顶开始显示数据
+	 */
 	public void list() {
 		if(isEmpty()) {
 			System.out.println("栈空，没有数据~~");
@@ -154,22 +187,40 @@ class ArrayStack2 {
 			System.out.printf("stack[%d]=%d\n", i, stack[i]);
 		}
 	}
-	//返回运算符的优先级，优先级是程序员来确定, 优先级使用数字表示
-	//数字越大，则优先级就越高.
+
+	/**
+	 * 返回运算符的优先级，优先级是程序员来确定, 优先级使用数字表示
+	 * 数字越大，则优先级就越高.
+	 * @param oper
+	 * @return
+	 */
 	public int priority(int oper) {
 		if(oper == '*' || oper == '/'){
 			return 1;
 		} else if (oper == '+' || oper == '-') {
 			return 0;
 		} else {
-			return -1; // 假定目前的表达式只有 +, - , * , /
+			// 假定目前的表达式只有 +, - , * , /
+			return -1;
 		}
 	}
-	//判断是不是一个运算符
+
+	/**
+	 * 判断是不是一个运算符
+	 * @param val
+	 * @return
+	 */
 	public boolean isOper(char val) {
 		return val == '+' || val == '-' || val == '*' || val == '/';
 	}
-	//计算方法
+
+	/**
+	 * 计算方法
+	 * @param num1
+	 * @param num2
+	 * @param oper
+	 * @return
+	 */
 	public int cal(int num1, int num2, int oper) {
 		int res = 0; // res 用于存放计算的结果
 		switch (oper) {

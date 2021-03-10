@@ -1,5 +1,13 @@
 package com.security.datastructure.recursion;
 
+/**
+ * 递归（迷宫问题）
+ * 说明:
+ * 小球得到的路径，和程序员  设置的找路策略有关即：找 路的上下左右的顺序相关
+ * 再得到小球路径时，可以先 使用(下右上左)，再改成(上 右下左)，看看路径是不是有变化
+ * 测试回溯现象
+ * 思考: 如何求出最短路径?
+ */
 public class MiGong {
 
 	public static void main(String[] args) {
@@ -25,7 +33,7 @@ public class MiGong {
 //		map[2][2] = 1;
 		
 		// 输出地图
-		System.out.println("地图的情况");
+		System.out.println("====地图的情况====");
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 7; j++) {
 				System.out.print(map[i][j] + " ");
@@ -38,7 +46,7 @@ public class MiGong {
 		setWay2(map, 1, 1);
 		
 		//输出新的地图, 小球走过，并标识过的递归
-		System.out.println("小球走过，并标识过的 地图的情况");
+		System.out.println("====小球走过，并标识过的 地图的情况====");
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 7; j++) {
 				System.out.print(map[i][j] + " ");
@@ -56,7 +64,7 @@ public class MiGong {
 	//4. 约定： 当map[i][j] 为 0 表示该点没有走过 当为 1 表示墙  ； 2 表示通路可以走 ； 3 表示该点已经走过，但是走不通
 	//5. 在走迷宫时，需要确定一个策略(方法) 下->右->上->左 , 如果该点走不通，再回溯
 	/**
-	 * 
+	 * 使用递归回溯来给小球找路
 	 * @param map 表示地图
 	 * @param i 从哪个位置开始找
 	 * @param j 

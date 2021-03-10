@@ -1,5 +1,9 @@
 package com.security.datastructure.linkedlist;
 
+/**
+ * 双向链表
+ * @author fuhongxing
+ */
 public class DoubleLinkedListDemo {
 
 	public static void main(String[] args) {
@@ -36,7 +40,9 @@ public class DoubleLinkedListDemo {
 
 }
 
-// 创建一个双向链表的类
+/**
+ * 创建一个双向链表的类
+ */
 class DoubleLinkedList {
 
 	// 先初始化一个头节点, 头节点不要动, 不存放具体的数据
@@ -128,7 +134,7 @@ class DoubleLinkedList {
 	public void del(int no) {
 
 		// 判断当前链表是否为空
-		if (head.next == null) {// 空链表
+		if (head.next == null) {
 			System.out.println("链表为空，无法删除");
 			return;
 		}
@@ -163,13 +169,19 @@ class DoubleLinkedList {
 
 }
 
-// 定义HeroNode2 ， 每个HeroNode 对象就是一个节点
+/**
+ * 定义HeroNode2 ， 每个HeroNode 对象就是一个节点
+ */
 class HeroNode2 {
 	public int no;
 	public String name;
 	public String nickname;
-	public HeroNode2 next; // 指向下一个节点, 默认为null
-	public HeroNode2 pre; // 指向前一个节点, 默认为null
+	/**
+	 *  指向下一个节点, 默认为null
+	 */
+	public HeroNode2 next;
+	// 指向前一个节点, 默认为null
+	public HeroNode2 pre;
 	// 构造器
 
 	public HeroNode2(int no, String name, String nickname) {
