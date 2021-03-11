@@ -20,10 +20,10 @@ public class ReEnterLockDemo {
             lock.lock();
             //lock.lock();
             try {
-                System.out.println("外层");
+                System.out.println(Thread.currentThread().getName() + "外层");
                 lock.lock();
                 try {
-                    System.out.println("内层");
+                    System.out.println(Thread.currentThread().getName() + "内层");
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -39,10 +39,11 @@ public class ReEnterLockDemo {
                 //lock.unlock();
             }
         }, "t1").start();
+
         new Thread(() -> {
             lock.lock();
             try {
-                System.out.println("t2外层调用lock");
+                System.out.println(Thread.currentThread().getName() + "外层调用lock");
             } catch (Exception e) {
                 e.printStackTrace();
             }finally {

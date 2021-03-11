@@ -1,5 +1,9 @@
 package com.security.thread.concurrent;
 
+import cn.hutool.core.util.IdUtil;
+import lombok.val;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 /**
@@ -12,6 +16,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UseConcurrentMap {
 
 	public static void main(String[] args) {
+		//java.util.ConcurrentModificationException异常重现
+//		Map<String, Object> map = new HashMap<>();
+//		for (int i = 0; i < 30; i++) {
+//			new Thread(() -> {
+//				map.put(Thread.currentThread().getName(), IdUtil.objectId());
+//				//并发条件下java.util.ConcurrentModificationException异常
+//				System.out.println(map);
+//			}, String.valueOf(i)).start();
+//		}
+
 		ConcurrentHashMap<String, Object> chm = new ConcurrentHashMap<String, Object>();
 		chm.put("k1", "v1");
 		chm.put("k2", "v2");
