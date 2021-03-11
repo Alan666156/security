@@ -6,14 +6,14 @@ import java.util.Scanner;
 
 /**
  * 二分查找(二分查找也称折半查找（Binary Search），它是一种效率较高的查找方法。但是，折半查找要求线性表必须采用顺序存储结构，而且表中元素按关键字有序排列。)
- * @author Alan.Fu
  *
+ * @author fuhongxing
  */
 @Slf4j
 public class TestBinarySearch {
 
 	public static void main(String[] args) {
-		int [] array = {1,2,3,4,5,6,7,8,9};
+		int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 		int target = 8;
 		int result = binarySearch(array, target);
 		System.out.println("目标值的位置:"+result);
@@ -76,7 +76,9 @@ public class TestBinarySearch {
 		//查找失败返回-1
 		return index;
 	}
+
 	/**
+	 * 二分查找算法
 	 * @param array：数组首地址
 	 * @param target：查找的目标元素
 	 * @param low：查找范围的下限位置（开始位置）

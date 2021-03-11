@@ -4,7 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 希尔排序
+ * 希尔排序：希尔排序实质上是一种分组插入排序，其先将整个待排元素序列分割成若干个子序列（由距离为d的元素组成）分别进行直接插入排序，然后依次减少距离d再进行排序，当距离为1时，再对全体元素进行一次直接插入排序。
+ * 基本思想：
+ * 希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止
+ * 时间复杂度: O(nlogn)
  */
 public class ShellSort {
 
@@ -33,13 +36,39 @@ public class ShellSort {
 		//System.out.println(Arrays.toString(arr));
 	}
 
-	// 使用逐步推导的方式来编写希尔排序
-	// 希尔排序时， 对有序序列在插入时采用交换法,
-	// 思路(算法) ===> 代码
+	/**
+	 * 对交换式的希尔排序进行优化->移位法
+	 * @param arr
+	 */
+	public static void shellSort2(int[] arr) {
+		// 增量gap, 并逐步的缩小增量
+		for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+			// 从第gap个元素，逐个对其所在的组进行直接插入排序
+			for (int i = gap; i < arr.length; i++) {
+				int j = i;
+				int temp = arr[j];
+				if (arr[j] < arr[j - gap]) {
+					while (j - gap >= 0 && temp < arr[j - gap]) {
+						//移动
+						arr[j] = arr[j-gap];
+						j -= gap;
+					}
+					//当退出while后，就给temp找到插入的位置
+					arr[j] = temp;
+				}
+
+			}
+		}
+	}
+
+	/**
+	 * 使用逐步推导的方式来编写希尔排序
+	 * 希尔排序时， 对有序序列在插入时采用交换法,效率不是很高
+	 * @param arr
+	 */
 	public static void shellSort(int[] arr) {
 
 		int temp = 0;
-		int count = 0;
 		// 根据前面的逐步分析，使用循环处理
 		for (int gap = arr.length / 2; gap > 0; gap /= 2) {
 			for (int i = gap; i < arr.length; i++) {
@@ -109,27 +138,6 @@ public class ShellSort {
 		*/
 	}
 
-	//对交换式的希尔排序进行优化->移位法
-	public static void shellSort2(int[] arr) {
 
-		// 增量gap, 并逐步的缩小增量
-		for (int gap = arr.length / 2; gap > 0; gap /= 2) {
-			// 从第gap个元素，逐个对其所在的组进行直接插入排序
-			for (int i = gap; i < arr.length; i++) {
-				int j = i;
-				int temp = arr[j];
-				if (arr[j] < arr[j - gap]) {
-					while (j - gap >= 0 && temp < arr[j - gap]) {
-						//移动
-						arr[j] = arr[j-gap];
-						j -= gap;
-					}
-					//当退出while后，就给temp找到插入的位置
-					arr[j] = temp;
-				}
-
-			}
-		}
-	}
 
 }

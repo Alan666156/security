@@ -3,16 +3,21 @@ package com.security.datastructure.sort;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * 快速排序（Quicksort）是对冒泡排序的一种改进。
+ * 时间复杂度：O(nlogn)
+ * 基本思想是：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列
+ */
 public class QuickSort {
 
 	public static void main(String[] args) {
 		//int[] arr = {-9,78,0,23,-567,70, -1,900, 4561};
 
-		//测试快排的执行速度
-		// 创建要给80000个的随机的数组
+		//测试快排的执行速度,创建要给80000个的随机的数组
 		int[] arr = new int[8000000];
 		for (int i = 0; i < 8000000; i++) {
-			arr[i] = (int) (Math.random() * 8000000); // 生成一个[0, 8000000) 数
+			// 生成一个[0, 8000000) 数
+			arr[i] = (int) (Math.random() * 8000000);
 		}
 
 		System.out.println("排序前");
@@ -29,12 +34,21 @@ public class QuickSort {
 		//System.out.println("arr=" + Arrays.toString(arr));
 	}
 
-	public static void quickSort(int[] arr,int left, int right) {
-		int l = left; //左下标
-		int r = right; //右下标
+	/**
+	 * 快速排序
+	 * @param arr 待排序数组
+	 * @param left 开始下标
+	 * @param right 结束下标
+	 */
+	public static void quickSort(int[] arr, int left, int right) {
+		//左下标
+		int l = left;
+		//右下标
+		int r = right;
 		//pivot 中轴值
 		int pivot = arr[(left + right) / 2];
-		int temp = 0; //临时变量，作为交换时使用
+		//临时变量，作为交换时使用
+		int temp = 0;
 		//while循环的目的是让比pivot 值小放到左边
 		//比pivot 值大放到右边
 		while( l < r) {

@@ -23,8 +23,5 @@ public class UseConcurrentMap {
 		for(Map.Entry<String, Object> me : chm.entrySet()){
 			System.out.println("key:" + me.getKey() + ",value:" + me.getValue());
 		}
-		
-		
-		
 	}
 }
