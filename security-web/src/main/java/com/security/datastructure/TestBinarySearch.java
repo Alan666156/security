@@ -37,7 +37,7 @@ public class TestBinarySearch {
 	}
 	
 	/**
-	 * 
+	 * 获取查找数的下标位置
 	 * @param array 
 	 * @param target 目标值
 	 * @return 目标值的位置

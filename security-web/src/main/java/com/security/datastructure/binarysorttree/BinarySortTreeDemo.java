@@ -1,5 +1,9 @@
 package com.security.datastructure.binarysorttree;
 
+/**
+ * 二叉排序树
+ * @author fuhongxing
+ */
 public class BinarySortTreeDemo {
 
 	public static void main(String[] args) {
@@ -34,7 +38,9 @@ public class BinarySortTreeDemo {
 
 }
 
-//创建二叉排序树
+/**
+ * 创建二叉排序树
+ */
 class BinarySortTree {
 	private Node root;
 
@@ -45,7 +51,11 @@ class BinarySortTree {
 		return root;
 	}
 
-	//查找要删除的结点
+	/**
+	 * 查找要删除的结点
+	 * @param value
+	 * @return
+	 */
 	public Node search(int value) {
 		if(root == null) {
 			return null;
@@ -54,7 +64,11 @@ class BinarySortTree {
 		}
 	}
 
-	//查找父结点
+	/**
+	 * 查找父结点
+	 * @param value
+	 * @return
+	 */
 	public Node searchParent(int value) {
 		if(root == null) {
 			return null;
@@ -174,22 +188,22 @@ class BinarySortTree {
 	}
 }
 
-//创建Node结点
+/**
+ * 创建Node结点
+ */
 class Node {
 	int value;
 	Node left;
 	Node right;
 	public Node(int value) {
-
 		this.value = value;
 	}
 
 
-	//查找要删除的结点
 	/**
-	 *
-	 * @param value 希望删除的结点的值
-	 * @return 如果找到返回该结点，否则返回null
+	 * 查找要删除的节点
+	 * @param value 希望删除的节点的值
+	 * @return 如果找到返回该节点，否则返回null
 	 */
 	public Node search(int value) {
 		if(value == this.value) { //找到就是该结点
@@ -208,10 +222,10 @@ class Node {
 		}
 
 	}
-	//查找要删除结点的父结点
+
 	/**
-	 *
-	 * @param value 要找到的结点的值
+	 * 查找父结点
+	 * @param value 要找到的节点的值
 	 * @return 返回的是要删除的结点的父结点，如果没有就返回null
 	 */
 	public Node searchParent(int value) {
@@ -222,9 +236,11 @@ class Node {
 		} else {
 			//如果查找的值小于当前结点的值, 并且当前结点的左子结点不为空
 			if(value < this.value && this.left != null) {
-				return this.left.searchParent(value); //向左子树递归查找
+				//向左子树递归查找
+				return this.left.searchParent(value);
 			} else if (value >= this.value && this.right != null) {
-				return this.right.searchParent(value); //向右子树递归查找
+				//向右子树递归查找
+				return this.right.searchParent(value);
 			} else {
 				return null; // 没有找到父结点
 			}
@@ -238,8 +254,11 @@ class Node {
 	}
 
 
-	//添加结点的方法
-	//递归的形式添加结点，注意需要满足二叉排序树的要求
+	/**
+	 * 添加结点的方法
+	 * 递归的形式添加结点，注意需要满足二叉排序树的要求
+	 * @param node
+	 */
 	public void add(Node node) {
 		if(node == null) {
 			return;

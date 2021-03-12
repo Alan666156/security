@@ -2,9 +2,17 @@ package com.security.datastructure.hashtab;
 
 import java.util.Scanner;
 
+/**
+ * 哈希表
+ * 散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。15   111 % 15
+ * @author fuhongxing
+ */
 public class HashTabDemo {
 
 	public static void main(String[] args) {
+		//看一个实际需求，google公司的一个上机题:
+		//有一个公司,当有新的员工来报道时,要求将该员工的信息加入(id,性别,年龄,住址..),当输入该员工的id时,要求查找到该员工的 所有信息.
+		//要求: 不使用数据库,尽量节省内存,速度越快越好=>哈希表(散列)
 
 		//创建哈希表
 		HashTab hashTab = new HashTab(7);
@@ -13,11 +21,12 @@ public class HashTabDemo {
 		String key = "";
 		Scanner scanner = new Scanner(System.in);
 		while(true) {
+			System.out.println("=============");
 			System.out.println("add:  添加雇员");
 			System.out.println("list: 显示雇员");
 			System.out.println("find: 查找雇员");
 			System.out.println("exit: 退出系统");
-
+			System.out.println("=============");
 			key = scanner.next();
 			switch (key) {
 				case "add":
@@ -49,10 +58,13 @@ public class HashTabDemo {
 
 }
 
-//创建HashTab 管理多条链表
+/**
+ * 创建HashTab 管理多条链表
+ */
 class HashTab {
 	private EmpLinkedList[] empLinkedListArray;
-	private int size; //表示有多少条链表
+	//表示有多少条链表
+	private int size;
 
 	//构造器
 	public HashTab(int size) {
@@ -65,7 +77,10 @@ class HashTab {
 		}
 	}
 
-	//添加雇员
+	/**
+	 * 添加雇员
+	 * @param emp
+	 */
 	public void add(Emp emp) {
 		//根据员工的id ,得到该员工应当添加到哪条链表
 		int empLinkedListNO = hashFun(emp.id);
@@ -73,14 +88,20 @@ class HashTab {
 		empLinkedListArray[empLinkedListNO].add(emp);
 
 	}
-	//遍历所有的链表,遍历hashtab
+
+	/**
+	 * 遍历所有的链表,遍历hashtab
+	 */
 	public void list() {
 		for(int i = 0; i < size; i++) {
 			empLinkedListArray[i].list(i);
 		}
 	}
 
-	//根据输入的id,查找雇员
+	/**
+	 * 根据输入的id,查找雇员
+	 * @param id
+	 */
 	public void findEmpById(int id) {
 		//使用散列函数确定到哪条链表查找
 		int empLinkedListNO = hashFun(id);
@@ -92,7 +113,11 @@ class HashTab {
 		}
 	}
 
-	//编写散列函数, 使用一个简单取模法
+	/**
+	 * 编写散列函数, 使用一个简单取模法
+	 * @param id
+	 * @return
+	 */
 	public int hashFun(int id) {
 		return id % size;
 	}
@@ -100,11 +125,14 @@ class HashTab {
 
 }
 
-//表示一个雇员
+/**
+ * 雇员信息
+ */
 class Emp {
 	public int id;
 	public String name;
-	public Emp next; //next 默认为 null
+	//next 默认为 null
+	public Emp next;
 	public Emp(int id, String name) {
 		super();
 		this.id = id;
@@ -112,10 +140,14 @@ class Emp {
 	}
 }
 
-//创建EmpLinkedList ,表示链表
+/**
+ * 创建EmpLinkedList表示链表
+ */
 class EmpLinkedList {
-	//头指针，执行第一个Emp,因此我们这个链表的head 是直接指向第一个Emp
-	private Emp head; //默认null
+	/**
+	 * 头指针，默认null；执行第一个Emp,因此我们这个链表的head 是直接指向第一个Emp
+	 */
+	private Emp head;
 
 	//添加雇员到链表
 	//说明
@@ -128,31 +160,37 @@ class EmpLinkedList {
 			return;
 		}
 		//如果不是第一个雇员，则使用一个辅助的指针，帮助定位到最后
-		Emp curEmp = head;
+		Emp currentEmp = head;
 		while(true) {
-			if(curEmp.next == null) {//说明到链表最后
+			//说明到链表最后
+			if(currentEmp.next == null) {
 				break;
 			}
-			curEmp = curEmp.next; //后移
+			//后移
+			currentEmp = currentEmp.next;
 		}
 		//退出时直接将emp 加入链表
-		curEmp.next = emp;
+		currentEmp.next = emp;
 	}
 
 	//遍历链表的雇员信息
 	public void list(int no) {
-		if(head == null) { //说明链表为空
+		//说明链表为空
+		if(head == null) {
 			System.out.println("第 "+(no+1)+" 链表为空");
 			return;
 		}
 		System.out.print("第 "+(no+1)+" 链表的信息为");
-		Emp curEmp = head; //辅助指针
+		//辅助指针
+		Emp curEmp = head;
 		while(true) {
 			System.out.printf(" => id=%d name=%s\t", curEmp.id, curEmp.name);
-			if(curEmp.next == null) {//说明curEmp已经是最后结点
+			//说明curEmp已经是最后结点
+			if(curEmp.next == null) {
 				break;
 			}
-			curEmp = curEmp.next; //后移，遍历
+			//后移，遍历
+			curEmp = curEmp.next;
 		}
 		System.out.println();
 	}

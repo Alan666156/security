@@ -17,13 +17,12 @@ public class InsertValueSearch {
 //		for(int i = 0; i < 100; i++) {
 //			arr[i] = i + 1;
 //		}
-
+		//插值查找应用案例：请对一个有序数组进行插值查找 {1,8, 10, 89, 1000, 1234} ，输入一个数看看该数组是否存在此数，并且求出下标，如果没有就提示"没有这个数"
 		int arr[] = {1, 8, 10, 89, 1000, 1000, 1234};
 
 		int index = insertValueSearch(arr, 0, arr.length - 1, 1234);
 		//int index = binarySearch(arr, 0, arr.length, 1);
 		System.out.println("index = " + index);
-
 		//System.out.println(Arrays.toString(arr));
 	}
 
