@@ -22,7 +22,7 @@ public class AQSDemo {
             try{
                 System.out.println("-----A thread come in");
 
-                try { TimeUnit.MINUTES.sleep(20); }catch (Exception e) {e.printStackTrace();}
+                try { TimeUnit.SECONDS.sleep(5); }catch (Exception e) {e.printStackTrace();}
             }finally {
                 lock.unlock();
             }

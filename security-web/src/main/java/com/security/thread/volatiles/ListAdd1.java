@@ -6,7 +6,7 @@ import java.util.List;
  * 线程之间的通信:使用wait/notify方法实现线程间的通信
  * wait/notify必须配合synchronized关键字使用
  * wait释放锁，notify不释放锁
- * @author fhx
+ * @author fuhongxing
  * @date 2019年12月6日
  */
 public class ListAdd1 {
@@ -29,11 +29,11 @@ public class ListAdd1 {
 			@Override
 			public void run() {
 				try {
-					for(int i = 0; i <10; i++){
+					for (int i = 0; i < 10; i++) {
 						list1.add();
 						System.out.println("当前线程：" + Thread.currentThread().getName() + "添加了一个元素..");
 						Thread.sleep(500);
-					}	
+					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -50,7 +50,7 @@ public class ListAdd1 {
 					}
 				}
 			}
-		}, "t2");		
+		}, "t2");
 		
 		t1.start();
 		t2.start();

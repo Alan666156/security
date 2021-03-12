@@ -1,5 +1,7 @@
 package com.security.thread.concurrent.lock;
 
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -46,9 +48,34 @@ public class UseReentrantLock {
 			lock.unlock();
 		}
 	}
-	
-	public static void main(String[] args) {
 
+	/**
+	 * 原子引用
+	 */
+	 AtomicReference<Thread> atomicReference = new AtomicReference();
+
+	/**
+	 * 自旋锁
+	 * 获取锁的线程不会立即阻塞，而是采用循环的方式去获取锁，然后不断的判断锁是否能够被成功获取，直到获取到锁才会退出循环。
+	 * 优点是减少线程上下文的切换，缺点是循环会消耗CPU
+	 */
+	public void lock(){
+		Thread thread = Thread.currentThread();
+		System.out.println("自旋锁当前线程:" + Thread.currentThread().getName() + " cmoe in...");
+		//自旋
+		while (!atomicReference.compareAndSet(null, thread)){
+
+		}
+
+	}
+
+	public void myUnlock(){
+		Thread thread = Thread.currentThread();
+		atomicReference.compareAndSet(thread, null);
+		System.out.println("自旋锁当前线程:" + Thread.currentThread().getName() + " invoked myUnLock...");
+	}
+
+	public static void main(String[] args) {
 		final UseReentrantLock ur = new UseReentrantLock();
 		Thread t1 = new Thread(new Runnable() {
 			@Override
@@ -65,6 +92,29 @@ public class UseReentrantLock {
 			e.printStackTrace();
 		}
 		//System.out.println(ur.lock.getQueueLength());
+
+		UseReentrantLock useReentrantLock = new UseReentrantLock();
+		new Thread(() -> {
+			try{
+				useReentrantLock.lock();
+				try { TimeUnit.SECONDS.sleep(5); }catch (Exception e) {e.printStackTrace();}
+//				System.out.println("-----A thread come in");
+				useReentrantLock.myUnlock();
+			}finally {
+
+			}
+		},"A").start();
+
+		new Thread(() -> {
+			try{
+				useReentrantLock.lock();
+				try { TimeUnit.SECONDS.sleep(1); }catch (Exception e) {e.printStackTrace();}
+				useReentrantLock.myUnlock();
+//				System.out.println("-----B thread come in");
+			}finally {
+
+			}
+		},"B").start();
 	}
 	
 	

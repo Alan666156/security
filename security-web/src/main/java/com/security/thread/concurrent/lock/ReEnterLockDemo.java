@@ -5,12 +5,12 @@ import java.util.concurrent.locks.ReentrantLock;
 
 
 /**
+  * 可重入锁案例
   * 可重入锁:可重复可递归调用的锁，在外层使用锁之后，在内层仍然可以使用，并且不发生死锁，这样的锁就叫做可重入锁。
   *
   * 在一个synchronized修饰的方法或代码块的内部
   * 调用本类的其他synchronized修饰的方法或代码块时，是永远可以得到锁的
   */
-
 public class ReEnterLockDemo {
 
     private static Lock lock = new ReentrantLock();
@@ -43,7 +43,7 @@ public class ReEnterLockDemo {
         new Thread(() -> {
             lock.lock();
             try {
-                System.out.println(Thread.currentThread().getName() + "外层调用lock");
+                System.out.println("可重入锁案例:" + Thread.currentThread().getName() + "外层调用lock");
             } catch (Exception e) {
                 e.printStackTrace();
             }finally {

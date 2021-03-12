@@ -10,8 +10,8 @@ public class UseManyCondition {
 	private Condition c2 = lock.newCondition();
 	
 	public void m1(){
+		lock.lock();
 		try {
-			lock.lock();
 			System.out.println("当前线程：" +Thread.currentThread().getName() + "进入方法m1等待..");
 			c1.await();
 			System.out.println("当前线程：" +Thread.currentThread().getName() + "方法m1继续..");
@@ -23,8 +23,8 @@ public class UseManyCondition {
 	}
 	
 	public void m2(){
+		lock.lock();
 		try {
-			lock.lock();
 			System.out.println("当前线程：" +Thread.currentThread().getName() + "进入方法m2等待..");
 			c1.await();
 			System.out.println("当前线程：" +Thread.currentThread().getName() + "方法m2继续..");

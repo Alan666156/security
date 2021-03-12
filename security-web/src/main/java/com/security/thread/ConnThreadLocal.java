@@ -27,16 +27,13 @@ public class ConnThreadLocal {
 			ct.getThreadLocal();
 		}, "t1");
 		
-		Thread t2 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(1000);
-					//这里获取的为null，因为线程间变量独立
-					ct.getThreadLocal();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+		Thread t2 = new Thread(() -> {
+			try {
+				Thread.sleep(1000);
+				//这里获取的为null，因为线程间变量独立
+				ct.getThreadLocal();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}, "t2");
 		

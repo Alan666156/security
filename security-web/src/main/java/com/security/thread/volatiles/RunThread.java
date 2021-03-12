@@ -14,6 +14,7 @@ public class RunThread extends Thread{
 		this.isRunning = isRunning;
 	}
 	
+	@Override
 	public void run(){
 		System.out.println("进入run方法..");
 		int i = 0;

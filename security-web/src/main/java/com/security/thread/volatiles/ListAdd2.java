@@ -51,7 +51,7 @@ public class ListAdd2 {
 								//notify()不释放锁，会导致循环必须执行完，T2才会执行，此时t2线程中list2.size()条件不会满足
 								//lock.notify();
 							}
-						}						
+						}
 					//}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -69,7 +69,7 @@ public class ListAdd2 {
 							//System.out.println("t2进入...");
 							//wait会释放锁，此时t1会获取锁
 							//lock.wait();
-							
+
 							//await() 方法表示阻塞主线程
 							countDownLatch.await();
 						} catch (InterruptedException e) {
@@ -80,7 +80,7 @@ public class ListAdd2 {
 					throw new RuntimeException();
 				//}
 			}
-		}, "t2");	
+		}, "t2");
 		
 		t2.start();
 		t1.start();
