@@ -13,7 +13,7 @@
   </modules>
   
   <properties>
-  		<spring-boot.version>2.4.2.RELEASE</spring-boot.version>
+  		<spring-boot.version>2.4.2</spring-boot.version>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
@@ -25,7 +25,6 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.4.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
   <dependencies>
@@ -105,7 +104,7 @@
 	<dependency>
 		<groupId>org.projectlombok</groupId>
 		<artifactId>lombok</artifactId>
-		<version>1.16.10</version>
+		<version>1.18.18</version>
 	</dependency>
     <dependency>
 		<groupId>javax.servlet</groupId>
@@ -166,12 +165,13 @@
 		<artifactId>fastjson</artifactId>
 		<version>1.2.12</version>
 	</dependency>
-	<dependency>
-	    <groupId>com.google.guava</groupId>
-	    <artifactId>guava</artifactId>
-	    <version>19.0</version>
-	</dependency>
-	<!-- websocket -->
+	  <dependency>
+		  <groupId>com.google.guava</groupId>
+		  <artifactId>guava</artifactId>
+		  <version>30.1-jre</version>
+	  </dependency>
+
+	  <!-- websocket -->
 <!-- 	<dependency> -->
 <!-- 		<groupId>javax.websocket</groupId> -->
 <!-- 		<artifactId>javax.websocket-api</artifactId> -->
@@ -216,22 +216,24 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
 				<configuration>
 					<source>${maven.compiler.source}</source>
 					<target>${maven.compiler.target}</target>
 				</configuration>
 			</plugin>
-			<plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <configuration>
-<!--                 配置为true则src/main/resources目录下会生成名为git.properties的文�?Boot默认为true -->
-                    <generateGitPropertiesFile>false</generateGitPropertiesFile> 
-                	<failOnNoGitDirectory>true</failOnNoGitDirectory>
-                </configuration>
-            </plugin>
+<!--			<plugin>-->
+<!--				<groupId>pl.project13.maven</groupId>-->
+<!--				<artifactId>git-commit-id-plugin</artifactId>-->
+<!--				<version>4.0.3</version>-->
+<!--				<configuration>-->
+<!--&lt;!&ndash;                 配置为true则src/main/resources目录下会生成名为git.properties的文�?Boot默认为true &ndash;&gt;-->
+<!--                    <generateGitPropertiesFile>false</generateGitPropertiesFile>-->
+<!--                	<failOnNoGitDirectory>true</failOnNoGitDirectory>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 		</plugins>
-		<finalName>${project.artifactId}-${project.version}-${git.commit.id.abbrev}</finalName>
+<!--		<finalName>${project.artifactId}-${project.version}-${git.commit.id.abbrev}</finalName>-->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>

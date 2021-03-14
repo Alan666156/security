@@ -31,6 +31,8 @@ public class RedissonController {
 	private RedissonClient redissonClient;
 	@PostConstruct
 	public void init(){
+		log.info("初始化redisson rMapCache={}", SecurityConstants.REDIS_KEY_MAP_PRE);
+
 		RMapCache<String, Object> rMapCache = redissonClient.getMapCache(SecurityConstants.REDIS_KEY_MAP_PRE);
 		/**
 		 * 过期事件处理，比如订单支付超期取消，可以通过该功能实现，过期事件不一定及时触发，可能存在延时
@@ -38,7 +40,6 @@ public class RedissonController {
 		rMapCache.addListener((EntryExpiredListener<String, Object>) event -> {
 			log.info("超期事件处理，{}已过期，旧值：{}，当前值：{}", event.getKey(), event.getOldValue(), event.getValue());
 		});
-		log.info("初始化rMapCache={}", SecurityConstants.REDIS_KEY_MAP_PRE);
 
 		//订阅指定话题
 		RTopic rTopic = redissonClient.getTopic("myTopic");
