@@ -7,6 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 锁的使用
+ *
  * 对比公平锁和非公平锁的tryAcqure()方法的实现代码， 其实差别就在于非公平锁获取锁时比公平锁中少了一个判断!hasQueuedPredecessors()
  * hasQueuedPredecessors()中判断了是否需要排队，导致公平锁和非公平锁的差异如下:
  * 公平锁:公平锁讲究先来先到，线程在获取锁时，如果这个锁的等待队列中已经有线程在等待，那么当前线程就会进入等待队列中;
@@ -20,13 +21,16 @@ public class UseReentrantLock {
 	 * false非公平锁，true为公平锁
 	 */
 	private Lock lock = new ReentrantLock(false);
-	
+
+	/**
+	 * 重入锁
+	 */
 	public void method1(){
 		lock.lock();
 		try {
-			System.out.println("当前线程:" + Thread.currentThread().getName() + "进入method1..");
+			System.out.println("重入锁当前线程:" + Thread.currentThread().getName() + "进入method1..");
 			Thread.sleep(1000);
-			System.out.println("当前线程:" + Thread.currentThread().getName() + "退出method1..");
+			System.out.println("重入锁当前线程:" + Thread.currentThread().getName() + "退出method1..");
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -34,13 +38,15 @@ public class UseReentrantLock {
 			lock.unlock();
 		}
 	}
-	
+	/**
+	 * 重入锁
+	 */
 	public void method2(){
 		lock.lock();
 		try {
-			System.out.println("当前线程:" + Thread.currentThread().getName() + "进入method2..");
+			System.out.println("重入锁当前线程:" + Thread.currentThread().getName() + "进入method2..");
 			Thread.sleep(2000);
-			System.out.println("当前线程:" + Thread.currentThread().getName() + "退出method2..");
+			System.out.println("重入锁当前线程:" + Thread.currentThread().getName() + "退出method2..");
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -54,49 +60,33 @@ public class UseReentrantLock {
 	 */
 	 AtomicReference<Thread> atomicReference = new AtomicReference();
 
-	/**
-	 * 自旋锁
-	 * 获取锁的线程不会立即阻塞，而是采用循环的方式去获取锁，然后不断的判断锁是否能够被成功获取，直到获取到锁才会退出循环。
-	 * 优点是减少线程上下文的切换，缺点是循环会消耗CPU
-	 */
-	public void lock(){
-		Thread thread = Thread.currentThread();
-		System.out.println("自旋锁当前线程:" + Thread.currentThread().getName() + " cmoe in...");
-		//自旋
-		while (!atomicReference.compareAndSet(null, thread)){
-
-		}
-
-	}
-
-	public void myUnlock(){
-		Thread thread = Thread.currentThread();
-		atomicReference.compareAndSet(thread, null);
-		System.out.println("自旋锁当前线程:" + Thread.currentThread().getName() + " invoked myUnLock...");
-	}
 
 	public static void main(String[] args) {
 		final UseReentrantLock ur = new UseReentrantLock();
-		Thread t1 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				ur.method1();
-				ur.method2();
-			}
-		}, "t1");
+		new Thread(() -> {
+			ur.method1();
+			ur.method2();
+		}, "t1").start();
 
-		t1.start();
 		try {
-			Thread.sleep(10);
+			TimeUnit.SECONDS.sleep(3);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		//System.out.println(ur.lock.getQueueLength());
 
+		//自旋锁
+		SpinLock();
+	}
+
+	/**
+	 * 自旋锁实现
+	 */
+	private static void SpinLock() {
 		UseReentrantLock useReentrantLock = new UseReentrantLock();
 		new Thread(() -> {
 			try{
-				useReentrantLock.lock();
+				useReentrantLock.myLock();
 				try { TimeUnit.SECONDS.sleep(5); }catch (Exception e) {e.printStackTrace();}
 //				System.out.println("-----A thread come in");
 				useReentrantLock.myUnlock();
@@ -107,7 +97,7 @@ public class UseReentrantLock {
 
 		new Thread(() -> {
 			try{
-				useReentrantLock.lock();
+				useReentrantLock.myLock();
 				try { TimeUnit.SECONDS.sleep(1); }catch (Exception e) {e.printStackTrace();}
 				useReentrantLock.myUnlock();
 //				System.out.println("-----B thread come in");
@@ -116,6 +106,24 @@ public class UseReentrantLock {
 			}
 		},"B").start();
 	}
-	
-	
+
+	/**
+	 * 自旋锁
+	 * 获取锁的线程不会立即阻塞，而是采用循环的方式去获取锁，然后不断的判断锁是否能够被成功获取，直到获取到锁才会退出循环。
+	 * 优点是减少线程上下文的切换，缺点是循环会消耗CPU
+	 */
+	public void myLock(){
+		Thread thread = Thread.currentThread();
+		System.out.println("自旋锁当前线程:" + Thread.currentThread().getName() + " cmoe in...");
+		//自旋
+		while (!atomicReference.compareAndSet(null, thread)){
+
+		}
+	}
+
+	public void myUnlock(){
+		Thread thread = Thread.currentThread();
+		atomicReference.compareAndSet(thread, null);
+		System.out.println("自旋锁当前线程:" + Thread.currentThread().getName() + " invoked myUnLock...");
+	}
 }
