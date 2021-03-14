@@ -1,6 +1,9 @@
 package com.security.thread;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Callable使用
@@ -17,17 +20,44 @@ import java.util.concurrent.Callable;
  * @author fuhongxing
  * @date 2021/3/14 15:53
  */
-public class CallableDemo implements Callable<String> {
+public class CallableDemo {
 
-    @Override
-    public String call() throws Exception {
-        return "test";
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        //两个线程，一个main线程，一个FutureTask
+        MyCallable callable = new MyCallable();
+        FutureTask<String> futureTask = new FutureTask<>(callable);
+        //同一个futureTask给到多个线程，只会执行一次
+        new Thread(futureTask, "AA").start();
+        new Thread(futureTask, "AB").start();
+
+        //要求获得callable的结算结果，如果没有结算完成就要去强求，会导致阻塞，值得计算完成
+//        while (!futureTask.isDone()){
+//
+//        }
+
+        //线程返回结果
+        String result = futureTask.get();
+        System.out.println("thread result = " + result);
     }
 
-    class MyThread implements Runnable{
+    static class MyCallable implements Callable<String> {
+        /**
+         * 线程返回结果
+         * @return
+         * @throws Exception
+         */
+        @Override
+        public String call() throws Exception {
+            System.out.println(Thread.currentThread().getName() + " myCallable come in");
+            TimeUnit.SECONDS.sleep(2);
+            return "test";
+        }
+    }
+
+    class MyThread implements Runnable {
         @Override
         public void run() {
-
+            System.out.println("myThread");
         }
     }
 }

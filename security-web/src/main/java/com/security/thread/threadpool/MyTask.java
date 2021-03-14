@@ -1,5 +1,10 @@
 package com.security.thread.threadpool;
 
+import java.util.concurrent.TimeUnit;
+
+/**
+ * @author fuhongxing
+ */
 public class MyTask implements Runnable {
 
 	private int taskId;
@@ -29,14 +34,15 @@ public class MyTask implements Runnable {
 	@Override
 	public void run() {
 		try {
-			System.out.println("run taskId =" + this.taskId);
-			Thread.sleep(5*1000);
+			System.out.println(Thread.currentThread().getName() + " run taskId =" + this.taskId);
+			TimeUnit.SECONDS.sleep(3);
 			//System.out.println("end taskId =" + this.taskId);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}		
 	}
 	
+	@Override
 	public String toString(){
 		return Integer.toString(this.taskId);
 	}

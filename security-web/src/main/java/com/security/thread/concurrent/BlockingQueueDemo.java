@@ -7,7 +7,6 @@ import java.util.concurrent.*;
  * 阻塞队列应用场景：
  * 	1、线程池
  * 	2、生产者消费者模式
- * 	3、
  * @author fuhongxing
  */
 public class BlockingQueueDemo {

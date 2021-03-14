@@ -4,6 +4,10 @@ package com.security.thread.threadpool;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 
+/**
+ * 自定义线程池 拒绝策略
+ * @author fuhongxing
+ */
 public class MyRejected implements RejectedExecutionHandler{
 
 	
