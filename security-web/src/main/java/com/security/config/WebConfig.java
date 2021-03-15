@@ -52,11 +52,11 @@ public class WebConfig {
 			factory.addErrorPages(error400Page, error401Page, error404Page, error405Page, error408Page, error500Page);
 		};
 	}
-		/**
-         * redis config
-         * @param redisConnectionFactory
-         * @return
-         */
+	/**
+	 * redis config
+	 * @param redisConnectionFactory
+	 * @return
+	 */
 	@Bean
 	public RedisTemplate<Serializable, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 		RedisTemplate<Serializable, Object> redisTemplate = new RedisTemplate<>();

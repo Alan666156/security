@@ -1,8 +1,11 @@
 package com.security.controller;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
 import com.security.annotation.RateLimitLua;
 import com.security.common.SecurityConstants;
+import com.security.util.RedisUtil;
 import com.security.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.*;
@@ -16,10 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
  * redisson使用
+ *
+ *
+ * CAP原则又称CAP定理，指的是在一个分布式系统中，一致性（Consistency）、可用性（Availability）、分区容错性（Partition tolerance）。CAP 原则指的是，这三个要素最多只能同时实现两点，不可能三者兼顾
+ *
+ *
+ * 主从架构，锁失效问题？这类琐最大的缺点就是它加锁时只作用在一个Redis节点上，即使Redis通过sentinel保证高可用，如果这个master节点由于某些原因发生了主从切换，那么就会出现锁丢失的情况:
+ * 	在Redis的master节点上拿到了锁;
+ * 	但是这个加锁的key还没有同步到slave节点;
+ * 	master故障，发生故障转移，slave节点升级为master节点;
+ * 	导致锁丢失。
  * @author fuongxing
  */
 @Slf4j
@@ -29,6 +43,8 @@ public class RedissonController {
 	
 	@Autowired
 	private RedissonClient redissonClient;
+	@Autowired
+	private RedisUtil redisUtil;
 	@PostConstruct
 	public void init(){
 		log.info("初始化redisson rMapCache={}", SecurityConstants.REDIS_KEY_MAP_PRE);
@@ -48,6 +64,47 @@ public class RedissonController {
 		rTopic.addListener(String.class, (channel, msg) -> {
 			log.info("接收到消息：{}", msg);
 		});
+
+		redisUtil.set("stock", 100);
+	}
+
+	/**
+	 * 模拟库存高并发超卖场景
+	 * 使用压测工具模拟
+	 * @param request
+	 * @return
+	 */
+	@GetMapping("/deduct-stock")
+	public Result deductStock(HttpServletRequest request){
+		Object result = redisUtil.get("stock");
+		//synchronized是基于jvm，如果在分布式多台服务器环境下，出现并发是无法锁住，需要借助分布式锁
+		//可以使用redis的setnx命令，这里某个线程逻辑处理时间较长，超过了10秒，就会出现key会被删除的情况
+		String lockKey = "product_101";
+		String client = IdUtil.fastUUID();
+		redisUtil.setNx(lockKey, client, 10L);
+
+		try {
+			//传统synchronized
+//			synchronized (this){
+				if(request != null){
+					int stock = Integer.parseInt(result.toString());
+					if(stock > 0){
+						redisUtil.decr("stock");
+						System.out.println("库存扣减成功");
+					}else {
+						System.out.println("库存扣减失败，库存不足");
+					}
+				}
+//			}
+		} catch (Exception e) {
+			log.error("库存扣减异常", e);
+		} finally {
+			//手动删除key解锁
+			if(client.equals(redisUtil.get(lockKey))){
+				redisUtil.remove(client);
+			}
+		}
+		return Result.success();
 	}
 
 	/**
@@ -162,7 +219,7 @@ public class RedissonController {
 		return Result.success("success");
 	}
 
-	@GetMapping("await")
+	@GetMapping("/await")
 	public Result awaitThread() {
 		log.info("==========redisson 队列使用===========");
 		try {
@@ -178,7 +235,7 @@ public class RedissonController {
 		return Result.success("success");
 	}
 
-	@GetMapping("thread")
+	@GetMapping("/thread")
 	public Result thread() {
 		log.info("==========redisson RCountDownLatch使用:{}===========",Thread.currentThread().getName());
 		try {
@@ -193,12 +250,116 @@ public class RedissonController {
 		return Result.success("success");
 	}
 
-	@GetMapping("produce")
+	/**
+	 * RTopic订阅和消费，有监听事件进行消费
+	 * @return
+	 */
+	@GetMapping("/produce")
 	public Result produce() {
 		log.info("==========redisson RTopic使用===========");
 		RTopic rTopic = redissonClient.getTopic("myTopic");
 		rTopic.publish("redisson message produce");
 		return Result.success("success");
+	}
+
+
+	/**
+	 * hashmap里的key就是当前用户的购物车，map就是商品（map里的key是商品id，map的v是数量）
+	 * 购物车数量扣减过程中需要判断库存是否足够
+	 */
+	@GetMapping("/myCar")
+	public Result myCar(){
+		//设置商品的总库存
+		redissonClient.getAtomicLong("sku:booka11111").getAndSet(1000);
+		redissonClient.getAtomicLong("sku:booka11112").getAndSet(1000);
+		redissonClient.getAtomicLong("sku:booka11113").getAndSet(1000);
+
+		String key ="user:123456";
+		//用户购物车,默认三本书和对应的数量
+		RMap<String, Object> rMap = redissonClient.getMap("car:" + key);
+
+//		rMap.put("booka11111", redissonClient.getAtomicLong("book:a11111:stock:car").getAndSet(1));
+//		rMap.put("booka11112", redissonClient.getAtomicLong("book:a11112:stock:car").getAndSet(2));
+//		rMap.put("booka11113", redissonClient.getAtomicLong("book:a11113:stock:car").getAndSet(3));
+
+
+		RLock lock = redissonClient.getLock(key);
+		try {
+			if(lock.tryLock(1000, 5000, TimeUnit.MILLISECONDS)){
+				//增加购物车中book:a11111商品的数量
+//				Object book1 = rMap.get("booka11111");
+				if (rMap.containsKey("booka11111")) {
+					RAtomicLong atomicLong = redissonClient.getAtomicLong("book:a11111:stock:car");
+					long l = atomicLong.incrementAndGet();
+					rMap.put("booka11111", l);
+					log.info("car:book:a11111:stock===>{}", l);
+				}
+				//减少book:a11112的数量
+				Object book2 = rMap.get("booka11112");
+				//首先判断购物车是否存在这个商品，加减过程中是否存在这个数量是否小于0
+				if (book2 != null) {
+					RAtomicLong atomicLong = redissonClient.getAtomicLong("book:a11112:stock:car");
+					long res = atomicLong.addAndGet(-3);
+					rMap.put("booka11112", res > 0 ? res : atomicLong.getAndSet(1));
+					log.info("car:book:a11112:stock===>{}", rMap.get("booka11111"));
+				}
+			}
+		} catch (Exception e) {
+			log.error("购物车操作异常", e);
+		} finally {
+			if(lock.isHeldByCurrentThread()){
+				lock.unlock();
+			}
+		}
+		return Result.success(rMap);
+	}
+
+	/**
+	 * redis set无序集合
+	 * 实现抽奖，共同关注，推荐好友等功能
+	 */
+	@GetMapping("/testSet")
+	public void testSet(){
+		String key = "act:123456";
+		redisUtil.sSet(key, "a1","a2","a3","a4","a5");
+		log.info("set结果获取-->{} ", redisUtil.members(key));
+
+		//抽奖s实现，随机移除一个元素
+		log.info("抽奖：{}", redisUtil.sPop(key));
+
+		//用户列表
+		String bob = "follow:bob";
+		String sk = "follow:sk";
+		String lucky = "follow:lucky";
+		String alice = "follow:alice";
+		String ben = "follow:ben";
+		String aj = "follow:aj";
+
+		redisUtil.remove("Alan");
+		redisUtil.remove("Sam");
+
+		//Alan关注的用户
+		redisUtil.sSet("Alan", sk, lucky, aj);
+
+		//Sam关注的好友
+		redisUtil.sSet("Sam", bob, lucky, alice, ben);
+
+		//共同好友
+		log.info("共同好友-->{}", JSON.toJSONString(redisUtil.intersect("Alan", "Sam")));
+
+		//你关注的好友也关注了他
+		Set<Object> set = redisUtil.union(bob, sk);
+
+		//这里取并集，放在新的集合里
+		for (Object s : set) {
+			redisUtil.sSet("bj", s);
+		}
+
+		log.info("set集合：{}", JSON.toJSONString(redisUtil.members("bj")));
+
+		Set<Object> diff = redisUtil.diff("bj", "Alan");
+		log.info("你关注的好友也关注了他" + JSON.toJSONString(diff));
+
 	}
 
 

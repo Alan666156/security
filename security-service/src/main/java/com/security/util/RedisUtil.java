@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
@@ -271,10 +272,99 @@ public class RedisUtil {
      * @param key
      * @param value
      */
-    public void setSet(String key, Object... value) {
+    public void sSet(String key, Object... value) {
         redisTemplate.boundSetOps(key).add(value);
     }
 
+    /**
+     * 无序集合，随机移除一个元素
+     *
+     * @param key
+     */
+    public Object sPop(String key)
+    {
+        return redisTemplate.opsForSet().pop(key);
+    }
+
+    /**
+     * set 根据给定的元素，去移除
+     *
+     * @param key
+     * @param values
+     */
+    public Long sRemove(String key, String...values)
+    {
+        return redisTemplate.opsForSet().remove(key, (Object[])values);
+    }
+
+    /**
+     * set 交集
+     * 找出两个集合的相同部分
+     *
+     * @param key
+     * @param otherKey
+     * @return
+     */
+    public Set<Object> intersect(String key, String otherKey) {
+        return redisTemplate.opsForSet().intersect(key, otherKey);
+    }
+
+    /**
+     * 找出两个集合的并集
+     *
+     * @param key
+     * @param otherKey
+     */
+    public Set<Object> union(String key, String otherKey)
+    {
+        return redisTemplate.opsForSet().union(key, otherKey);
+    }
+
+    /**
+     * 找出两个集合不同的部分
+     *
+     * @param key
+     * @param otherKey
+     */
+    public Set<Object> diff(String key, String otherKey)
+    {
+        return redisTemplate.opsForSet().difference(key,otherKey);
+    }
+
+    /**
+     * 找出两个集合不同的部分，并存到destKey集合中
+     *
+     * @param destKey
+     * @param key
+     * @param otherKey
+     */
+    public Long diffStore(String destKey, String key, String otherKey)
+    {
+        return redisTemplate.opsForSet().differenceAndStore(key, otherKey, destKey);
+    }
+
+    /**
+     * 找出两个集合的并集，并存放到新集合destKey中
+     *
+     * @param destKey
+     * @param key
+     * @param otherKey
+     */
+    public Long unionStore(String destKey, String key, String otherKey)
+    {
+        return redisTemplate.opsForSet().unionAndStore(key, otherKey, destKey);
+    }
+    /**
+     * 找出两个集合的相同部分，存到新集合destKey中
+     *
+     * @param destKey 存储目标新集合
+     * @param key
+     * @param otherKey
+     */
+    public Long interStore(String destKey, String key, String otherKey)
+    {
+        return redisTemplate.opsForSet().intersectAndStore(key, otherKey, destKey);
+    }
     /**
      * 查询set值
      *
@@ -297,7 +387,7 @@ public class RedisUtil {
 
     /**
      * 移除并返回集合中左边的元素
-     *
+     * 移除集合中左边的元素在等待的时间里，如果超过等待的时间仍没有元素则退出
      * @param key
      * @param timeout
      * @param unit
@@ -306,6 +396,71 @@ public class RedisUtil {
     public Object leftPop(String key, long timeout, TimeUnit unit) {
         return redisTemplate.opsForList().leftPop(key, timeout, unit);
     }
+
+    /**
+     * 移除集合中的左边第一个元素
+     * @param key
+     * @return
+     */
+    public Object leftPop(String key) {
+        return redisTemplate.opsForList().leftPop(key);
+    }
+
+    /**
+     * 把最后一个参数值放到指定集合的第一个出现中间参数的前面，如果中间参数值存在的话。否则返回-1
+     * @param key
+     * @param timeout
+     * @param unit
+     * @return
+     */
+    public Object leftPush(String key, long timeout, TimeUnit unit) {
+        return redisTemplate.opsForList().leftPush(key, timeout, unit);
+    }
+
+    /**
+     * 在变量左边添加元素值
+     * @param key
+     * @param value
+     * @return
+     */
+    public Object leftPush(String key, Object value) {
+        return redisTemplate.opsForList().leftPush(key, value);
+    }
+    /**
+     * 移除集合中的右边第一个元素
+     * @param key
+     * @return
+     */
+    public Object rightPop(String key) {
+        return redisTemplate.opsForList().rightPop(key);
+    }
+    /**
+     * 移除并返回集合中左边的元素
+     * 移除集合中左边的元素在等待的时间里，如果超过等待的时间仍没有元素则退出
+     * @param key
+     * @param timeout
+     * @param unit
+     * @return
+     */
+    public Object rightPop(String key, long timeout, TimeUnit unit) {
+        return redisTemplate.opsForList().rightPop(key, timeout, unit);
+    }
+
+    /**
+     * 把最后一个参数值放到指定集合的第一个出现中间参数的前面，如果中间参数值存在的话。否则返回-1
+     * @param key
+     * @param timeout
+     * @param unit
+     * @return
+     */
+    public Object rightPush(String key, long timeout, TimeUnit unit) {
+        return redisTemplate.opsForList().rightPush(key, timeout, unit);
+    }
+    public Object rightPush(String key, Object value) {
+        return redisTemplate.opsForList().rightPush(key, value);
+    }
+
+
 
     /**
      * 重置key到期时间
@@ -332,21 +487,23 @@ public class RedisUtil {
     /**
      * 利用Redis的原子性去实现幂等性
      * 在接收到消息后将消息ID作为key执行 setnx命令，如果执行成功就表示没有消费过这条消息，可以进行消费了，执行失败表示消息已经被消费了
+     * setnx如果key存在不错任何操作，如果不存在就赋值
+     * 在setnx和setex中间发生了服务down机 那么key将没有超时时间 会一直存在，新的请求永远进不来
      * @param key
      * @param value
-     * @param expire
+     * @param expire 有效期
      */
-    public void setNx(String key, String value, Date expire) {
+    public void setNx(String key, String value, Long expire) {
         try {
             Boolean lock = redisTemplate.opsForValue().setIfAbsent(key, value);
             if(!lock){
                 ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
                 log.warn("key have exist belong to : {}", operations.get(key));
             }else{
-                redisTemplate.opsForValue().set(key, value,60, TimeUnit.SECONDS);
+                redisTemplate.opsForValue().set(key, value,expire, TimeUnit.SECONDS);
                 //获取锁成功
                 log.info("start lock lockNxExJob success");
-                Thread.sleep(5000);
+                TimeUnit.SECONDS.sleep(200);
             }
         }catch (Exception e){
             log.error("setNx error!", e);
