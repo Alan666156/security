@@ -4,7 +4,6 @@ import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
@@ -371,7 +370,7 @@ public class RedisUtil {
      * @param key
      * @return
      */
-    public Set<Object> members(String key) {
+    public Set<Object> sMembers(String key) {
         return redisTemplate.boundSetOps(key).members();
     }
 
@@ -502,11 +501,10 @@ public class RedisUtil {
             }else{
                 redisTemplate.opsForValue().set(key, value,expire, TimeUnit.SECONDS);
                 //获取锁成功
-                log.info("start lock lockNxExJob success");
-                TimeUnit.SECONDS.sleep(200);
+//                log.info("start lock lockNxExJob success");
             }
         }catch (Exception e){
-            log.error("setNx error!", e);
+            log.error("{} setNx error!", key, e);
         }finally {
             redisTemplate.delete(key);
         }

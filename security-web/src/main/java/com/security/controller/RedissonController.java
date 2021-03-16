@@ -322,7 +322,7 @@ public class RedissonController {
 	public void testSet(){
 		String key = "act:123456";
 		redisUtil.sSet(key, "a1","a2","a3","a4","a5");
-		log.info("set结果获取-->{} ", redisUtil.members(key));
+		log.info("set结果获取-->{} ", redisUtil.sMembers(key));
 
 		//抽奖s实现，随机移除一个元素
 		log.info("抽奖：{}", redisUtil.sPop(key));
@@ -355,7 +355,7 @@ public class RedissonController {
 			redisUtil.sSet("bj", s);
 		}
 
-		log.info("set集合：{}", JSON.toJSONString(redisUtil.members("bj")));
+		log.info("set集合：{}", JSON.toJSONString(redisUtil.sMembers("bj")));
 
 		Set<Object> diff = redisUtil.diff("bj", "Alan");
 		log.info("你关注的好友也关注了他" + JSON.toJSONString(diff));
