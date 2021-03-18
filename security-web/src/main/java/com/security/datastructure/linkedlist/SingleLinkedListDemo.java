@@ -82,11 +82,13 @@ public class SingleLinkedListDemo {
 		//将链表的所有节点压入栈
 		while(current != null) {
 			stack.push(current);
-			current = current.next; //cur后移，这样就可以压入下一个节点
+			//cur后移，这样就可以压入下一个节点
+			current = current.next;
 		}
 		//将栈中的节点进行打印,pop 出栈
 		while (stack.size() > 0) {
-			System.out.println(stack.pop()); //stack的特点是先进后出
+			//stack的特点是先进后出
+			System.out.println(stack.pop());
 		}
 	}
 

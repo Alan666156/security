@@ -27,10 +27,10 @@ public class SockerServer {
      * 2、一系列客户端来请求这个端口
      * 3、服务器使用Accept，获得一个来自客户端的Socket连接对象
      * 4、启动一个新线程处理连接
-     * 4.1、读Socket，得到字节流
-     * 4.2、解码协议，得到Http请求对象
-     * 4.3、处理Http请求，得到一个结果，封装成一个HttpResponse对象
-     * 4.4、编码协议，将结果序列化字节流 写Socket，将字节流发给客户端
+     *  4.1、读Socket，得到字节流
+     *  4.2、解码协议，得到Http请求对象
+     *  4.3、处理Http请求，得到一个结果，封装成一个HttpResponse对象
+     *  4.4、编码协议，将结果序列化字节流 写Socket，将字节流发给客户端
      */
 
     /**
@@ -46,6 +46,21 @@ public class SockerServer {
             Executors.defaultThreadFactory(),
             new ThreadPoolExecutor.AbortPolicy()
     );
+
+    public static void main(String[] args) throws IOException {
+        //服务端的主线程是用来循环监听客户端请求
+        //创建一个服务端且端口为9000
+        ServerSocket server = new ServerSocket(9000);
+        Socket client = null;
+        //循环监听
+        while (true){
+            //服务端监听到一个客户端请求，阻塞，如果进来新的客户端才会往下执行
+            client = server.accept();
+            System.out.println(client.getRemoteSocketAddress() + "地址的客户端连接成功!");
+            //将该客户端请求通过线程池放入HandlMsg线程中进行处理
+            executorService.submit(new HandleMsg(client));
+        }
+    }
 
     /**
      * 一旦有新的客户端请求，创建这个线程进行处理
@@ -91,18 +106,5 @@ public class SockerServer {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        //服务端的主线程是用来循环监听客户端请求
-        //创建一个服务端且端口为9000
-        ServerSocket server = new ServerSocket(9000);
-        Socket client = null;
-        //循环监听
-        while (true){
-            //服务端监听到一个客户端请求
-            client = server.accept();
-            System.out.println(client.getRemoteSocketAddress() + "地址的客户端连接成功!");
-            //将该客户端请求通过线程池放入HandlMsg线程中进行处理
-            executorService.submit(new HandleMsg(client));
-        }
-    }
+
 }

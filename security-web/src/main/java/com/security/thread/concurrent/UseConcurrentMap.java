@@ -1,12 +1,9 @@
 package com.security.thread.concurrent;
 
-import cn.hutool.core.util.IdUtil;
-import lombok.val;
-
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 /**
+ * ConcurrentHashMap是一个线程安全，并且是一个高效的HashMap
  * jdk1.5后使用ConcurrentHashMap替换传统的HashTable,是一个线程安全且高效的HashMap实现
  * jdk1.8使用的Segment 分段锁，最大16个段;
  * jdk1.8抛弃了原有的 Segment 分段锁，而采用了 CAS + synchronized 来保证并发安全性
