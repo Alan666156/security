@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
+ * java.lang.OutOfMemoryError 常见内存溢出场景
  * 查看默认的jvm默认的垃圾收集器： java -XX:+PrintCommandLineFlags -version
  * @author fuhongxing
  */
@@ -101,18 +102,18 @@ public class OutOfMemoryDump {
         System.out.println("maxdirectMemery:" + (sun.misc.VM.maxDirectMemory() / 1024 / 1024) + "M");
         //这段代码的执行会在堆外占用1k的内存，Java堆内只会占用一个对象的指针引用的大小，堆外的这1k的空间只有当bb对象被回收时，才会被回收，
         // 这里会发现一个明显的不对称现象，就是堆外可能占用了很多，而堆内没占用多少，导致还没触发GC，那就很容易出现Direct Memory造成物理内存耗光。
-//        Field[] declaredFields = Unsafe.class.getDeclaredFields();
-//        Field field = declaredFields[0];
-//        field.setAccessible(true);
-//        Object obj = field.get(null);
-//        Unsafe unsafe = (Unsafe)obj;
-//        while (true){
-//            unsafe.allocateMemory(1024 * 1024);
-//        }
-        for (int i = 0; i < 10240; i++) {
-            ByteBuffer.allocateDirect(1024 * 1024);
-            System.gc();
+        Field[] declaredFields = Unsafe.class.getDeclaredFields();
+        Field field = declaredFields[0];
+        field.setAccessible(true);
+        Object obj = field.get(null);
+        Unsafe unsafe = (Unsafe)obj;
+        while (true){
+            unsafe.allocateMemory(10 * 1024 * 1024);
         }
+//        for (int i = 0; i < 10240; i++) {
+//            ByteBuffer.allocateDirect(10 * 1024 * 1024);
+//            System.gc();
+//        }
     }
     /**
      * 元空间
