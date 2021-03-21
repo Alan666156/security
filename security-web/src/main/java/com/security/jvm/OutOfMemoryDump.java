@@ -4,14 +4,12 @@ import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
 import sun.misc.Unsafe;
-import sun.security.provider.Sun;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Vector;
 
 /**
  * java.lang.OutOfMemoryError 常见内存溢出场景
@@ -32,8 +30,9 @@ public class OutOfMemoryDump {
         //默认使用物理内存堆的4分之1
         //heapError();
         //stackOverFlowError();
-        directMemoryError();
+//        directMemoryError();
 //        metaspaceError();
+
     }
 
     /**
@@ -152,7 +151,25 @@ public class OutOfMemoryDump {
         }
     }
 
+    /**
+     * 内存泄漏
+     * 代码栈中存在Vector对象的引用v和Object对象的引用o。在For循环中，我们不断的生成新的对象，然后将其添加到Vector对象中，之后将o引用置空。
+     * 问题是当o引用被置空后，如果发生GC，我们创建的Object对象是否能够被GC回收呢？答案是否定的。因为，GC在跟踪代码栈中的引用时，会发现v引用，而继续往下跟踪，就会发现v引用指向的内存空间中又存在指向Object对象的引用。
+     * 也就是说尽管o引用已经被置空，但是Object对象仍然存在其他的引用，是可以被访问到的，所以GC无法将其释放掉。如果在此循环之后，Object对象对程序已经没有任何作用，那么我们就认为此Java程序发生了内存泄漏。
+     */
+    public void test(){
+        Vector v = new Vector(10);
+        for (int i = 1; i < 100; i++) {
+            Object o = new Object();
+            v.add(o);
+            o = null;
+        }
+    }
+
     static class OOM{
 
     }
+
+
+
 }

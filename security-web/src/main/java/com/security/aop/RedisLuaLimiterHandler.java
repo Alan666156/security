@@ -71,7 +71,7 @@ public class RedisLuaLimiterHandler {
             //执行lua
             Long res = redissonClient.getScript(IntegerCodec.INSTANCE).eval(RScript.Mode.READ_WRITE, defaultRedisScript.getScriptAsString(), RScript.ReturnType.INTEGER, Arrays.asList(limitKey), limit, expire);
             if(res == 0){
-                log.warn("请求过于频繁，请稍后再试:{}",Result.failure("请求过于频繁，请稍后再试"));
+                log.warn("请求过于频繁，请稍后再试");
                 return Result.failure("请求过于频繁，请稍后再试");
             }
         } catch (Exception e) {

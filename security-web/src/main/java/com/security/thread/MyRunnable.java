@@ -2,6 +2,8 @@ package com.security.thread;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * 如何优雅的结束线程
  * 1、使用stop()方法，已被弃用。原因是：stop()是立即终止，会导致一些数据被到处理一部分就会被终止，而用户并不知道哪些数据被处理，哪些没有被处理，产生了不完整的“残疾”数据，不符合完整性，所以被废弃
@@ -11,9 +13,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class MyRunnable implements Runnable {
- 
-	//定义退出标志，true会一直执行，false会退出循环
-	//使用volatile目的是保证可见性，一处修改了标志，处处都要去主存读取新的值，而不是使用缓存
+
+	/**
+	 * 定义退出标志，true会一直执行，false会退出循环
+	 * 使用volatile目的是保证可见性，一处修改了标志，处处都要去主存读取新的值，而不是使用缓存
+	 */
 	public volatile boolean flag = true;
  
 	@Override
@@ -42,7 +46,7 @@ public class MyRunnable implements Runnable {
 			thread.start();
 		}
 		//线程休眠
-		Thread.sleep(2000L);
+		TimeUnit.SECONDS.sleep(2);
 		//修改退出标志，使线程终止
 		runnable.flag = false;
 
@@ -57,7 +61,7 @@ public class MyRunnable implements Runnable {
 		thread3.start();
 
 		//线程休眠
-		Thread.sleep(2000L);
+		TimeUnit.SECONDS.sleep(2);
 
 		//修改退出标志，使线程终止
 		thread1.interrupt();

@@ -45,10 +45,10 @@ public class DoubleLinkedListDemo {
  */
 class DoubleLinkedList {
 
-	// 先初始化一个头节点, 头节点不要动, 不存放具体的数据
+	/**先初始化一个头节点, 头节点不要动, 不存放具体的数据*/
 	private HeroNode2 head = new HeroNode2(0, "", "");
 
-	// 返回头节点
+	/**返回头节点*/
 	public HeroNode2 getHead() {
 		return head;
 	}
@@ -106,7 +106,8 @@ class DoubleLinkedList {
 		// 找到需要修改的节点, 根据no编号
 		// 定义一个辅助变量
 		HeroNode2 temp = head.next;
-		boolean flag = false; // 表示是否找到该节点
+		// 表示是否找到该节点
+		boolean flag = false;
 		while (true) {
 			if (temp == null) {
 				break; // 已经遍历完链表
@@ -138,9 +139,10 @@ class DoubleLinkedList {
 			System.out.println("链表为空，无法删除");
 			return;
 		}
-
-		HeroNode2 temp = head.next; // 辅助变量(指针)
-		boolean flag = false; // 标志是否找到待删除节点的
+		// 辅助变量(指针)
+		HeroNode2 temp = head.next;
+		// 标志是否找到待删除节点的
+		boolean flag = false;
 		while (true) {
 			if (temp == null) { // 已经到链表的最后
 				break;
@@ -180,10 +182,10 @@ class HeroNode2 {
 	 *  指向下一个节点, 默认为null
 	 */
 	public HeroNode2 next;
-	// 指向前一个节点, 默认为null
+	/**指向前一个节点, 默认为null*/
 	public HeroNode2 pre;
-	// 构造器
 
+	// 构造器
 	public HeroNode2(int no, String name, String nickname) {
 		this.no = no;
 		this.name = name;

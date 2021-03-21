@@ -9,7 +9,6 @@ import java.util.concurrent.locks.ReentrantLock;
  * AQS使用一个volatile的int类型的成员变量来表示同步状态，通过内置的 FIFO队列来完成资源获取的排队工作将每条要去抢占资源的线程封装成 一个Node节点来实现锁的分配，通过CAS完成对State值的修改。
  */
 public class AQSDemo {
-
     public static void main(String[] args) {
         ReentrantLock lock = new ReentrantLock();
 
@@ -49,5 +48,6 @@ public class AQSDemo {
                 lock.unlock();
             }
         },"C").start();
+
     }
 }
