@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.security.annotation.RateLimitLua;
 import com.security.common.SecurityConstants;
+import com.security.domain.User;
 import com.security.util.RedisUtil;
 import com.security.util.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -125,10 +127,10 @@ public class RedissonController {
 				return Result.failure("失败");
 			}
 			/**
-			         * 基于Redis的分布式限流器可以用来在分布式环境下现在请求方的调用频率。
-			         * 既适用于不同Redisson实例下的多线程限流，也适用于相同Redisson实例下的多线程限流。
-			         * 该算法不保证公平性。
-			         */
+			 * 基于Redis的分布式限流器可以用来在分布式环境下现在请求方的调用频率。
+			 * 既适用于不同Redisson实例下的多线程限流，也适用于相同Redisson实例下的多线程限流。
+			 * 该算法不保证公平性。
+			 */
 			RRateLimiter rRateLimiter = redissonClient.getRateLimiter(StrUtil.format(SecurityConstants.REDIS_KEY_PRE, "test001", "user"));
 			//作用在同一个Redisson实例创建的 RRateLimiter上面，每秒10个库存
 			rRateLimiter.trySetRate(RateType.PER_CLIENT, 10, 1, RateIntervalUnit.SECONDS);
@@ -169,7 +171,6 @@ public class RedissonController {
 		//2秒后过期
 		rMapCache.put("test", "下单", 2, TimeUnit.SECONDS);
 
-
 		//数据唯一性或进行排序的场景, 不能设置有效期
 		RSet<String> rSet = redissonClient.getSet("sec:rSet");
 		//可以设置元素过期，但是不能触发过期事件，可以实现排行榜
@@ -189,7 +190,6 @@ public class RedissonController {
 		Integer index = rScoredSortedSet.revRank("C");
 		//获取分数
 		Double score = rScoredSortedSet.getScore("C");
-
 		rScoredSortedSet.stream().forEach(e ->{
 			log.info("index:{}, score:{}", rScoredSortedSet.revRank(e), rScoredSortedSet.getScore(e));
 		});
@@ -362,6 +362,37 @@ public class RedissonController {
 
 	}
 
+	/**
+	 * 分布式布隆过滤器（Bloom Filter）。所含最大比特数量为2^32
+	 */
+	@GetMapping("/bloomFilter")
+	public void bloomFilter(){
+		RBloomFilter<User> bloomFilter = redissonClient.getBloomFilter("sample");
+		// 初始化布隆过滤器，预计统计元素数量为55000000，期望误差率为0.03
+		bloomFilter.tryInit(55000000L, 0.03);
+		bloomFilter.add(new User("field1Value", "field2Value"));
+		bloomFilter.add(new User("field5Value", "field8Value"));
+		bloomFilter.contains(new User("field1Value", "field8Value"));
+	}
+
+	/**
+	 * 中奖概率控制原理：通过获取随机数，然后利用 if 语句先限定中奖的区间，就可以达到一个公平的概率效果！
+	 */
+	public void cj(){
+		Random random = new Random();
+		//首先在 [1,100] 区间（100个数）随机获取一个数
+		//公式：random.nextInt(max) % (max - min + 1) + min
+		int i = random.nextInt(100) % (100 - 1 + 1) + 1;
+		System.out.println("当前获取的随机数：" + i);
+		//然后根据中间概率来设置 if 条件语句的区间，达到效果
+		if (i >= 80) {// [80,100] 一等奖
+			System.out.println("恭喜，一等奖！");
+		} else if (i >= 50) { // [50,80] 二等奖
+			System.out.println("恭喜，二等奖！");
+		} else {//[1，50]  谢谢惠顾
+			System.out.println("很遗憾，没有中奖！");
+		}
+	}
 
 	private String getIP(HttpServletRequest request) {
 		String ip = null;

@@ -39,8 +39,9 @@ class HoldLockThread implements Runnable{
     @Override
     public void run() {
         synchronized (lockA){
-            System.out.println(Thread.currentThread().getName() + "持有" + lockA + "尝试获得" + lockB);
+            System.out.println("当前" + Thread.currentThread().getName() + "持有" + lockA + "尝试获得" + lockB);
             try {
+                //第一个线程进来后，另一个线程执行了先的代码
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 e.printStackTrace();

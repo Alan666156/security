@@ -127,7 +127,6 @@ public class RedisUtil {
         } catch (Exception e) {
             log.error("redis缓存写入异常...", e);
         }
-
         return result;
     }
 

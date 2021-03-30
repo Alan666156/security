@@ -126,5 +126,6 @@ public class BlockingQueueDemo {
 				e.printStackTrace();
 			}
 		},"t2").start();
+
 	}
 }

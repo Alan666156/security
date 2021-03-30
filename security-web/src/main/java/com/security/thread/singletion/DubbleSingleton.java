@@ -2,7 +2,7 @@ package com.security.thread.singletion;
 
 /**
  * 多线程单例模式两次判断
- * 多线程环境不进行双重检查，结果不一致可能会产生多个
+ * 多线程环境不进行Unsafe双重检查，结果不一致可能会产生多个
  * @author fhx
  * @date 2019年12月6日
  */

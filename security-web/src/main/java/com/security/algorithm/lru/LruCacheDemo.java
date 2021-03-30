@@ -10,6 +10,11 @@ import java.util.Map;
  * 当限定的空间已存满数据时，应当把最久没有被访问到的数据淘汰。
  * LRU算法 (Least Recently Used) 的意思就是近期最少使用算法，它的核心思想就是会优先淘汰那些近期最少使用的缓存对象。（LinkedHashMap默认就实现了该策略，LinkedHashMap源码64行注释有说明）
  * https://leetcode-cn.com/problems/lru-cache/
+ * 算法流程：
+ * LRU，最近最少使用，把数据加入一个链表中，按访问时间排序，发生淘汰的时候，把访问时间最旧的淘汰掉。
+ * 比如有数据 1，2，1，3，2
+ * 此时缓存中已有（1，2）
+ * 当3加入的时候，得把后面的2淘汰，变成（3，1）
  */
 @Slf4j
 public class LruCacheDemo<K, V> extends LinkedHashMap<K, V> {

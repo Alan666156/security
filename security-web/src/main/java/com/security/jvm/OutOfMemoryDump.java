@@ -29,7 +29,7 @@ public class OutOfMemoryDump {
     public static void main(String[] args) throws Exception {
         //默认使用物理内存堆的4分之1
         //heapError();
-        //stackOverFlowError();
+        stackOverFlowError();
 //        directMemoryError();
 //        metaspaceError();
 

@@ -9,9 +9,8 @@ public class BinarySearchNoRecur {
 		System.out.println("index=" + index);//
 	}
 
-	//二分查找的非递归实现
 	/**
-	 *
+	 * 二分查找的非递归实现
 	 * @param arr 待查找的数组, arr是升序排序
 	 * @param target 需要查找的数
 	 * @return 返回对应下标，-1表示没有找到

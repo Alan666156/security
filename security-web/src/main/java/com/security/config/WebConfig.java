@@ -1,4 +1,5 @@
 package com.security.config;
+
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -19,7 +20,8 @@ import java.io.Serializable;
  */
 @Configuration
 public class WebConfig {
-	
+
+
 	/**
 	 * 错误异常页面
 	 * @return

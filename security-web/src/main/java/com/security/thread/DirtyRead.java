@@ -33,15 +33,9 @@ public class DirtyRead {
 	public static void main(String[] args) throws Exception{
 		
 		final DirtyRead dr = new DirtyRead();
-		Thread t1 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				dr.setValue("z3", "456");		
-			}
-		});
-		t1.start();
+		//线程修改赋值，休眠了2秒，main线程执行了getvalue出现了脏读
+		new Thread(() -> dr.setValue("z3", "456")).start();
 		Thread.sleep(1000);
-		
 		dr.getValue();
 	}
 	

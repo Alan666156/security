@@ -2,6 +2,8 @@ package com.security.datastructure.avl;
 
 /**
  * 具有二叉查找树的全部特性
+ * 平衡二叉树也叫平衡二叉搜索树（Self-balancing binary search tree）又被称为AVL树， 可以保证查询效率较高。
+ * 具有以下特点：它是一 棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。平衡二叉树的常用实现方法有红黑树、AVL、替罪羊树、Treap、伸展树等。
  */
 public class AVLTreeDemo {
 
@@ -172,7 +174,10 @@ class Node {
 		this.value = value;
 	}
 
-	// 返回左子树的高度
+	/**
+	 * 返回左子树的高度
+	 * @return
+	 */
 	public int leftHeight() {
 		if (left == null) {
 			return 0;
@@ -180,7 +185,9 @@ class Node {
 		return left.height();
 	}
 
-	// 返回右子树的高度
+	/**
+	 * 返回右子树的高度
+	 */
 	public int rightHeight() {
 		if (right == null) {
 			return 0;
@@ -188,12 +195,18 @@ class Node {
 		return right.height();
 	}
 
-	// 返回 以该结点为根结点的树的高度
+	/**
+	 * 返回 以该结点为根结点的树的高度
+	 * @return 树的高度
+	 */
 	public int height() {
+		//取树的高度最大的那个
 		return Math.max(left == null ? 0 : left.height(), right == null ? 0 : right.height()) + 1;
 	}
 
-	//左旋转方法
+	/**
+	 * 左旋转方法
+	 */
 	private void leftRotate() {
 
 		//创建新的结点，以当前根结点的值
@@ -212,7 +225,9 @@ class Node {
 
 	}
 
-	//右旋转
+	/**
+	 * 右旋转
+	 */
 	private void rightRotate() {
 		Node newNode = new Node(value);
 		newNode.right = right;

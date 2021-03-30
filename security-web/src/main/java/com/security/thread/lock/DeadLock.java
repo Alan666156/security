@@ -33,13 +33,13 @@ public class DeadLock implements Runnable{
 		if(tag.equals("b")){
 			synchronized (lock2) {
 				try {
-					System.out.println("当前线程 : "  + Thread.currentThread().getName() + " 进入lock2执行");
+					System.out.println("线程 : "  + Thread.currentThread().getName() + " 进入lock2执行");
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				synchronized (lock1) {
-					System.out.println("当前线程 : "  + Thread.currentThread().getName() + " 进入lock1执行");
+					System.out.println("线程 : "  + Thread.currentThread().getName() + " 进入lock1执行");
 				}
 			}
 		}
