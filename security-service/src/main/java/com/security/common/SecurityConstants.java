@@ -21,6 +21,8 @@ public class SecurityConstants {
 	public static final String REDIS_KEY_PRE = "sec:limit:{}";
 	public static final String REDIS_KEY_MAP_PRE = "sec_map_cache";
 	public static final String REDIS_KEY_BUCKET_USER_ID = "bucket:black:list:{}";
+	public static final String RED_PACKET_SEND ="red:packet:{}:{}";
+	public static final String RED_PACKET_ROB ="red:packet:{}:{}";
 
 
 }

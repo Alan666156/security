@@ -1,4 +1,4 @@
-package com.security.thread.volatiles;
+package com.security.thread.concurrent.lock;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

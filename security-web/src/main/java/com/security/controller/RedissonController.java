@@ -84,7 +84,6 @@ public class RedissonController {
 		String lockKey = "product_101";
 		String client = IdUtil.fastUUID();
 		redisUtil.setNx(lockKey, client, 10L);
-
 		try {
 			//传统synchronized
 //			synchronized (this){
@@ -170,7 +169,6 @@ public class RedissonController {
 		RMapCache<String, Object> rMapCache = redissonClient.getMapCache(SecurityConstants.REDIS_KEY_MAP_PRE);
 		//2秒后过期
 		rMapCache.put("test", "下单", 2, TimeUnit.SECONDS);
-
 		//数据唯一性或进行排序的场景, 不能设置有效期
 		RSet<String> rSet = redissonClient.getSet("sec:rSet");
 		//可以设置元素过期，但是不能触发过期事件，可以实现排行榜

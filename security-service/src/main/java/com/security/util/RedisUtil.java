@@ -109,6 +109,7 @@ public class RedisUtil {
         return result;
     }
 
+
     /**
      * 写入缓存
      *
@@ -123,6 +124,27 @@ public class RedisUtil {
             ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
             operations.set(key, value);
             redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
+            result = true;
+        } catch (Exception e) {
+            log.error("redis缓存写入异常...", e);
+        }
+        return result;
+    }
+
+    /**
+     * 写入缓存
+     *
+     * @param key
+     * @param value
+     * @param expireTime 有效时间
+     * @return
+     */
+    public boolean set(final String key, Object value, Long expireTime, TimeUnit timeUnit) {
+        boolean result = false;
+        try {
+            ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+            operations.set(key, value);
+            redisTemplate.expire(key, expireTime, timeUnit);
             result = true;
         } catch (Exception e) {
             log.error("redis缓存写入异常...", e);
@@ -424,6 +446,17 @@ public class RedisUtil {
     public Object leftPush(String key, Object value) {
         return redisTemplate.opsForList().leftPush(key, value);
     }
+
+    /**
+     * 在变量左边添加元素值
+     * @param key
+     * @param value
+     * @return
+     */
+    public Object leftPushAll(String key, List value) {
+        return redisTemplate.opsForList().leftPushAll(key, value);
+    }
+
     /**
      * 移除集合中的右边第一个元素
      * @param key
@@ -470,6 +503,16 @@ public class RedisUtil {
         redisTemplate.expire(key, DateUtil.between(new Date(), expire, DateUnit.SECOND), TimeUnit.SECONDS);
     }
 
+    /**
+     * 重置key到期时间
+     *
+     * @param key
+     * @param expire
+     */
+    public void expire(String key, long expire, TimeUnit timeUnit) {
+        redisTemplate.expire(key, expire, timeUnit);
+    }
+
     public void zadd(String key, double score, Object value) {
         redisTemplate.boundZSetOps(key).add(value, score);
     }
@@ -491,22 +534,25 @@ public class RedisUtil {
      * @param value
      * @param expire 有效期
      */
-    public void setNx(String key, String value, Long expire) {
+    public Boolean setNx(String key, String value, Long expire) {
         try {
+            //判断key是否存在
             Boolean lock = redisTemplate.opsForValue().setIfAbsent(key, value);
             if(!lock){
                 ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
                 log.warn("key have exist belong to : {}", operations.get(key));
+                return false;
             }else{
-                redisTemplate.opsForValue().set(key, value,expire, TimeUnit.SECONDS);
                 //获取锁成功
-//                log.info("start lock lockNxExJob success");
+                redisTemplate.opsForValue().set(key, value, expire, TimeUnit.SECONDS);
+                return true;
             }
         }catch (Exception e){
             log.error("{} setNx error!", key, e);
         }finally {
             redisTemplate.delete(key);
         }
+        return false;
     }
 
     /**

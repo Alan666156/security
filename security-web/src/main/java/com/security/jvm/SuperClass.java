@@ -30,7 +30,6 @@ class SubClass extends SuperClass {
 class TestClass {
     public static void main(String[] args) {
         System.out.println(SubClass.value);
-
         Map<String, String> map = new HashMap<>();
         map.put("k1", "k1");
         map.put("k1", "k2");

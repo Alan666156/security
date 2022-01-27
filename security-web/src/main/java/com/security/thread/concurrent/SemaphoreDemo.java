@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 场景：信号灯
+ * AQS定义两种资源共享方式：Exclusive（独占，只有一个线程能执行，如ReentrantLock）和Share（共享，多个线程可同时执行，如Semaphore/CountDownLatch）
  * Semaphore也是一个线程同步的辅助类，可以维护当前访问自身的线程个数，并提供了同步机制。使用Semaphore可以控制同时访问资源的线程个数，例如，实现一个文件允许的并发访问数。
  * @author fuhongxing
  */

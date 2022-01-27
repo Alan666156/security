@@ -8,7 +8,7 @@ package com.security.thread.singletion;
  */
 public class DubbleSingleton {
 
-	private static DubbleSingleton ds;
+	private volatile static DubbleSingleton ds;
 
 	/**
 	 * DCL双端检锁机制

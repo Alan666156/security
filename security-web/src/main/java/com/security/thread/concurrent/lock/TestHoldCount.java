@@ -13,8 +13,8 @@ public class TestHoldCount {
 	private ReentrantLock lock = new ReentrantLock();
 	
 	public void m1(){
+		lock.lock();
 		try {
-			lock.lock();
 			System.out.println("进入m1方法，holdCount数为：" + lock.getHoldCount());
 			
 			//调用m2方法
@@ -28,8 +28,8 @@ public class TestHoldCount {
 	}
 	
 	public void m2(){
+		lock.lock();
 		try {
-			lock.lock();
 			System.out.println("进入m2方法，holdCount数为：" + lock.getHoldCount());
 		} catch (Exception e) {
 			e.printStackTrace();

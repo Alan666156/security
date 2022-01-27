@@ -17,7 +17,7 @@ import java.util.Scanner;
  **/
 @Data
 public class RedBlackTreeDemo<K extends Comparable<K>, V> {
-    //1、创业红黑色，定义颜色
+    //1、创建红黑色，定义颜色
     //2、创建红黑色节点
     private static final boolean RED = true;
     private static final boolean BLACK = false;

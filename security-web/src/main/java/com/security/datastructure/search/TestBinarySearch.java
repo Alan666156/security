@@ -1,4 +1,4 @@
-package com.security.datastructure;
+package com.security.datastructure.search;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
  * 二分查找(二分查找也称折半查找（Binary Search），它是一种效率较高的查找方法。但是，折半查找要求线性表必须采用顺序存储结构，而且表中元素按关键字有序排列。)
- *
+ * 非递归实现
  * @author fuhongxing
  */
 @Slf4j
@@ -16,9 +16,13 @@ public class TestBinarySearch {
 		int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 		int target = 8;
 		int result = binarySearch(array, target);
-		System.out.println("目标值的位置:"+result);
+		System.out.println("二分查找目标值的位置:" + result);
 		int res = binarySearch(array, target, 0, array.length-1);
-		System.out.println("目标值的位置:"+res);
+		System.out.println("二分查找目标值的位置:" + res);
+
+		int resIndex = binarySearchByRecursion(array, 0, array.length - 1, target);
+		System.out.println("二分查找目标值的位置(递归实现):" + res);
+
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
 		int k = sc.nextInt();
@@ -37,7 +41,7 @@ public class TestBinarySearch {
 	}
 	
 	/**
-	 * 获取查找数的下标位置
+	 * 获取查找数的下标位置(二分查找非递归)
 	 * @param array 
 	 * @param target 目标值
 	 * @return 目标值的位置
@@ -56,7 +60,6 @@ public class TestBinarySearch {
 			if(begin >= end){
 				return -1;
 			}
-				
 			//判断中间的这个元素是不是就是要查找的元素
 			if(array[mid] == target){
 				index = mid;
@@ -75,6 +78,34 @@ public class TestBinarySearch {
 		}
 		//查找失败返回-1
 		return index;
+	}
+
+	/**
+	 * 二分查找算法（递归实现）
+	 * @param arr 数组
+	 * @param left 左边的索引
+	 * @param right 右边的索引
+	 * @param targetValue 要查找的值
+	 * @return 如果找到就返回下标，如果没有找到，就返回 -1
+	 */
+	public static int binarySearchByRecursion(int[] arr, int left, int right, int targetValue) {
+		// 当 left > right 时，说明递归整个数组，但是没有找到
+		if (left > right) {
+			return -1;
+		}
+		//中间数下标
+		int mid = (left + right) / 2;
+		//中间数
+		int midValue = arr[mid];
+		// 向右递归
+		if (targetValue > midValue) {
+			return binarySearch(arr, mid + 1, right, targetValue);
+		} else if (targetValue < midValue) { // 向左递归
+			return binarySearch(arr, left, mid - 1, targetValue);
+		} else {
+			return mid;
+		}
+
 	}
 
 	/**

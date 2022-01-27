@@ -5,7 +5,7 @@ package com.security.datastructure.search;
  * 插值查找原理介绍:
  * 插值查找算法类似于二分查找，不同的是插值查找每次从自适应mid处开始查找。插值查找算法要求数组是有序的
  * 将折半查找中的求mid 索引的公式 , low 表示左边索引left, high表示右边索引right.  key 就是前面我们讲的  findVal
- * int mid = low + (high - low) * (key - arr[low]) / (arr[high] - arr[low]);
+ * int mid = low + (high - low) * (key - arr[low]) / (arr[high] - arr[low]);
  * 插值算法对应代码公式：int mid = left + (right – left) * (findVal – arr[left]) / (arr[right] – arr[left])举例说明插值查找算法 1-100 的数组
  * @author fuhongxing
  */

@@ -2,8 +2,6 @@ package com.security.proxy;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
@@ -44,15 +42,11 @@ public class DynamicProxyTest {
         //方法三
         log.info("============ 方法三 ==============");
         final AdminService target3 = new AdminServiceImpl();
-        AdminService proxy3 = (AdminService) Proxy.newProxyInstance(target3.getClass().getClassLoader(), target3.getClass().getInterfaces(), new InvocationHandler() {
-
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                log.info("判断用户是否有权限进行操作");
-                Object obj = method.invoke(target3, args);
-                log.info("记录用户执行操作的用户信息、更改内容和时间等");
-                return obj;
-            }
+        AdminService proxy3 = (AdminService) Proxy.newProxyInstance(target3.getClass().getClassLoader(), target3.getClass().getInterfaces(), (proxy1, method, args1) -> {
+            log.info("判断用户是否有权限进行操作");
+            Object obj1 = method.invoke(target3, args1);
+            log.info("记录用户执行操作的用户信息、更改内容和时间等");
+            return obj1;
         });
 
         Object obj3 = proxy3.find();

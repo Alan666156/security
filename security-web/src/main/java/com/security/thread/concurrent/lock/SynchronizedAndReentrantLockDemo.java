@@ -47,7 +47,7 @@ public class SynchronizedAndReentrantLockDemo {
          * Synchronized和ReentrantLock的区别：
          *
          * Synchronized是jvm底层，ReentrantLock是juc包下的
-         *
+
          * Synchronized不需要手动释放锁，当Synchronized代码执行完系统会自动让线程释放对锁的占用
          * ReentrantLock需要手动释放锁，如果没有主动释放锁可能会出现死锁
          *
