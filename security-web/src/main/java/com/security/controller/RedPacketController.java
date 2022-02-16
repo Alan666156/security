@@ -1,13 +1,15 @@
 package com.security.controller;
 
+import cn.hutool.core.util.StrUtil;
+import com.security.common.SecurityConstants;
 import com.security.dto.RedPacketDto;
 import com.security.service.RedPacketService;
 import com.security.util.RedisUtil;
 import com.security.util.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -18,8 +20,8 @@ import java.math.BigDecimal;
  * @author: fuhx
  */
 @Slf4j
-@RequestMapping("red/packet")
 @RestController
+@RequestMapping("red/packet")
 public class RedPacketController {
     @Autowired
     private RedisUtil redisUtil;
@@ -31,21 +33,27 @@ public class RedPacketController {
     /**
      * 发红包
      */
-    @PostMapping(value = "/send")
-    public Result handOut(@RequestBody RedPacketDto dto, BindingResult result) {
-        if (result.hasErrors()) {
-            return Result.failure("StatusCode.InvalidParams");
-        }
+    @PostMapping("/send")
+    public Result handOut(@RequestBody RedPacketDto dto) {
+        //此处省略验证用户，正常情况用户进入发红包页面说明都是已经登录成功的用户
+        //1、先验证用户余额是否足够
+
         Result response = Result.success();
+        //同一时间用户只能成功发一个红包，涉及钱包不存在多平台登录的情况可以忽略
+        RLock lock = redissonClient.getLock(StrUtil.format(SecurityConstants.RED_PACKET_USER, dto.getUserId()));
         try {
-            String redId = redPacketService.handOut(dto);
-            response.setData(redId);
-
+            if (lock.tryLock()) {
+                String redId = redPacketService.handOut(dto);
+                response.setData(redId);
+            }
         } catch (Exception e) {
-            log.error("发红包发生异常：dto={} ", dto, e.fillInStackTrace());
-            response = Result.failure("获取红包异常");
+            log.error("{}发红包异常", dto.getUserId(), e);
+            response = Result.failure("发红包异常");
+        } finally {
+            if (lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
         }
-
         return response;
     }
 

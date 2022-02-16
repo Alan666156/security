@@ -1,5 +1,6 @@
 package com.security.service;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.security.common.SecurityConstants;
 import com.security.dto.RedPacketDto;
@@ -36,21 +37,20 @@ public class RedPacketService {
      * @throws Exception
      */
     public String handOut(RedPacketDto dto) throws Exception {
-
         if (dto.getTotal() > 0 && dto.getAmount() > 0) {
             //生成随机金额
             List<Integer> list = RedPacketUtil.divideRedPackage(dto.getAmount(), dto.getTotal());
+            log.info("生成随机红包金额列表:{}", list);
             //生成红包全局唯一标识,并将随机金额、个数入缓存
-            String timestamp = String.valueOf(System.nanoTime());
-            String redId = StrUtil.format(SecurityConstants.RED_PACKET_SEND, dto.getUserId(), timestamp);
+            String redId = StrUtil.format(SecurityConstants.RED_PACKET_SEND, dto.getUserId(), IdUtil.fastUUID());
             //使用redis中的list，所以取走一个少一个，不会存在多人拿到同一个的情况，所以可以忽略超发问题
             redisUtil.leftPushAll(redId, list);
             //金额
             redisUtil.set(redId + ":total", dto.getTotal(), 30L, TimeUnit.MINUTES);
             //异步记录红包发出的记录-包括个数与随机金额
             redService.recordRedPacket(dto, redId, list);
-            //生成一个抢红包的缓存集合，存放抢红包的用户和金额，默认24小时过期
-            redissonClient.getMap(redId + "rob");
+            //生成一个抢红包的缓存集合，存放抢红包的用户id和红包金额，默认24小时过期
+            RMap<Long, Object> rMap = redissonClient.getMap(redId + "rob");
             return redId;
         } else {
             throw new Exception("系统异常-分发红包-参数不合法!");
@@ -91,8 +91,9 @@ public class RedPacketService {
                 if (value != null) {
                     //将红包金额返回给用户的同时，将抢红包记录入数据库与缓存
                     BigDecimal result = new BigDecimal(value.toString()).divide(new BigDecimal(100));
-                    //写入抢红包缓存
+                    //数据库入库
                     redService.recordRobRedPacket(userId, redId, new BigDecimal(value.toString()));
+                    //写入抢红包缓存
                     rMap.put(userId, result);
                     log.info("当前用户抢到红包了：userId={} key={} 金额={} ", userId, redId, result);
                     return result;

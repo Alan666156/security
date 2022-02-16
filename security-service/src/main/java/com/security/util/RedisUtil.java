@@ -528,7 +528,7 @@ public class RedisUtil {
     /**
      * 利用Redis的原子性去实现幂等性
      * 在接收到消息后将消息ID作为key执行 setnx命令，如果执行成功就表示没有消费过这条消息，可以进行消费了，执行失败表示消息已经被消费了
-     * setnx如果key存在不错任何操作，如果不存在就赋值
+     * setnx如果key存在不做任何操作，如果不存在就赋值
      * 在setnx和setex中间发生了服务down机 那么key将没有超时时间 会一直存在，新的请求永远进不来
      * @param key
      * @param value

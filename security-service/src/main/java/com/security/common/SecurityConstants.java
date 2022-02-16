@@ -20,9 +20,22 @@ public class SecurityConstants {
 
 	public static final String REDIS_KEY_PRE = "sec:limit:{}";
 	public static final String REDIS_KEY_MAP_PRE = "sec_map_cache";
+	/**
+	 * 黑名单
+	 */
 	public static final String REDIS_KEY_BUCKET_USER_ID = "bucket:black:list:{}";
+	/**
+	 * 发红包唯一标识
+	 */
 	public static final String RED_PACKET_SEND ="red:packet:{}:{}";
-	public static final String RED_PACKET_ROB ="red:packet:{}:{}";
+	/**
+	 * 发红包用户
+	 */
+	public static final String RED_PACKET_USER ="red:packet:user:{}";
+	/**
+	 * 抢红包集合标识
+	 */
+	public static final String RED_PACKET_ROB ="red:packet:rob:{}";
 
 
 }

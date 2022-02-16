@@ -91,9 +91,9 @@ public class RedissonController {
 					int stock = Integer.parseInt(result.toString());
 					if(stock > 0){
 						redisUtil.decr("stock");
-						System.out.println("库存扣减成功");
+						log.info("库存扣减成功");
 					}else {
-						System.out.println("库存扣减失败，库存不足");
+						log.warn("库存扣减失败，库存不足");
 					}
 				}
 //			}
@@ -153,7 +153,6 @@ public class RedissonController {
 	@RateLimitLua()
 	@GetMapping("/test-rateLimitLua")
 	public Result rateLimitLua(Model model, String name){
-		System.out.println(name);
 		log.info("==========lua + redis 限流, 注解实现===========");
 		return Result.success("success");
 	}
@@ -169,8 +168,10 @@ public class RedissonController {
 		RMapCache<String, Object> rMapCache = redissonClient.getMapCache(SecurityConstants.REDIS_KEY_MAP_PRE);
 		//2秒后过期
 		rMapCache.put("test", "下单", 2, TimeUnit.SECONDS);
+
 		//数据唯一性或进行排序的场景, 不能设置有效期
 		RSet<String> rSet = redissonClient.getSet("sec:rSet");
+
 		//可以设置元素过期，但是不能触发过期事件，可以实现排行榜
 		RScoredSortedSet rScoredSortedSet = redissonClient.getScoredSortedSet("score");
 //		rScoredSortedSet.addListener((ExpiredObjectListener) name -> {
@@ -219,7 +220,7 @@ public class RedissonController {
 
 	@GetMapping("/await")
 	public Result awaitThread() {
-		log.info("==========redisson 队列使用===========");
+		log.info("==========redisson await使用===========");
 		try {
 			RCountDownLatch rCountDownLatch = redissonClient.getCountDownLatch("myCountDownLatch");
 			//计数器初始大小
@@ -381,14 +382,14 @@ public class RedissonController {
 		//首先在 [1,100] 区间（100个数）随机获取一个数
 		//公式：random.nextInt(max) % (max - min + 1) + min
 		int i = random.nextInt(100) % (100 - 1 + 1) + 1;
-		System.out.println("当前获取的随机数：" + i);
+		log.info("当前获取的随机数：" + i);
 		//然后根据中间概率来设置 if 条件语句的区间，达到效果
 		if (i >= 80) {// [80,100] 一等奖
-			System.out.println("恭喜，一等奖！");
+			log.info("恭喜，一等奖！");
 		} else if (i >= 50) { // [50,80] 二等奖
-			System.out.println("恭喜，二等奖！");
+			log.info("恭喜，二等奖！");
 		} else {//[1，50]  谢谢惠顾
-			System.out.println("很遗憾，没有中奖！");
+			log.info("很遗憾，没有中奖！");
 		}
 	}
 

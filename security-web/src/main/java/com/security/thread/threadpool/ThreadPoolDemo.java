@@ -18,9 +18,8 @@ public class ThreadPoolDemo {
 		System.out.println(Runtime.getRuntime().availableProcessors());
 		//fixedThreadPool();
 		myThreadPool();
-
 		/**
-		 * 在使用有界队列时，若有新的任务需要执行，如果线程池实际线程数小于corePoolSize，则优先创建线程，若大于corePoolSize，则会将任务加入队列，
+		 * 在使用有界队列时，若有新的任务需要执行，如果线程池实际线程数小于corePoolSize，则优先创建线程；若大于corePoolSize，则会将任务加入队列；
 		 * 若队列已满，则在总线程数不大于maximumPoolSize的前提下，创建新的线程，若线程数大于maximumPoolSize，则执行拒绝策略。或其他自定义方式。
 		 *
 		 * corePoolSize 指定线程池线程的数量（线程池中常驻核心线程数），类似银行网点

@@ -1,0 +1,31 @@
+###
+GET http://localhost:9002/order/orderList
+
+
+### 订单提交
+POST http://localhost:9002/order/submit
+Content-Type: application/json
+
+{
+  "userId": "1",
+  "commodityCode": "C201901140001",
+  "count": 1,
+  "amount": 1
+}
+
+### 发红包
+POST http://localhost:8888/red/packet/send
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "total": 6,
+  "amount": 200
+}
+
+### 抢红包
+GET http://localhost:8888/red/packet/rob?userId=1&redId=red:packet:1:282825989854800
+
+
+### 扣减库存
+GET http://localhost:8888/redisson/deduct-stock

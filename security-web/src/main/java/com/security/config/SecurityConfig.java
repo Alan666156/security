@@ -17,7 +17,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest().permitAll().and().logout().permitAll();//配置不需要登录验证
+                .anyRequest().permitAll().and().logout().permitAll()//配置不需要登录验证
+                .and().csrf().disable();
     }
 	//Available values:   read, read write
     public static final String READ_SCOPE = "read";
