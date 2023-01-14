@@ -14,6 +14,16 @@ import java.util.Vector;
 /**
  * java.lang.OutOfMemoryError 常见内存溢出场景
  * 查看默认的jvm默认的垃圾收集器： java -XX:+PrintCommandLineFlags -version
+ * 常用jvm调优参数：
+ * -Xms2g：初始化推大小为 2g；
+ * -Xmx2g：堆最大内存为 2g；
+ * -XX:NewRatio=4：设置年轻的和老年代的内存比例为 1:4；
+ * -XX:SurvivorRatio=8：设置新生代 Eden 和 Survivor 比例为 8:2；
+ * –XX:+UseParNewGC：指定使用 ParNew + Serial Old 垃圾回收器组合；
+ * -XX:+UseParallelOldGC：指定使用 ParNew + ParNew Old 垃圾回收器组合；
+ * -XX:+UseConcMarkSweepGC：指定使用 CMS + Serial Old 垃圾回收器组合；
+ * -XX:+PrintGC：开启打印 gc 信息；
+ * -XX:+PrintGCDetails：打印 gc 详细信息
  * @author fuhongxing
  */
 public class OutOfMemoryDump {
@@ -36,7 +46,9 @@ public class OutOfMemoryDump {
     }
 
     /**
-     * 栈异常 jvm.OutOfMemoryDump.stackOverFlowError
+     * 栈溢出异常 jvm.OutOfMemoryDump.stackOverFlowError
+     * -Xss 去调整JVM栈的大小
+     * 如果线程请求的栈深度大于虚拟机所允许的最大深度，将抛出StackOverflowError异常，方法递归调用产生这种结果
      */
     public static void stackOverFlowError(){
         stackOverFlowError();
@@ -45,6 +57,7 @@ public class OutOfMemoryDump {
     /**
      * 堆异常
      * java.lang.OutOfMemoryError: Java heap space
+     * 堆的大小可以通过参数 –Xms、-Xmx 来指定
      */
     public static void heapError(){
         List<byte[]> buffer = new ArrayList<byte[]>();

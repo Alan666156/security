@@ -26,7 +26,7 @@ public class CyclicBarrierDemo {
      * @throws InterruptedException
 	 */
 	private static void cclicBarrierTest(CyclicBarrier cyclicBarrier) throws Exception {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < cyclicBarrier.getParties(); i++) {
 			new Thread(() -> {
 				try {
 					System.out.println("当前线程：" + Thread.currentThread().getName() + "开饭集合");

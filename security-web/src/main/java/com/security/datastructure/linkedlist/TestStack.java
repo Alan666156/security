@@ -25,6 +25,17 @@ public class TestStack {
 			//从栈顶获取一个元素，但不会将该元素从栈中删除
 //			stack.peek();
 		}
+		//栈溢出
+		new TestStack().stackOverflow();
+	}
+
+	/**
+	 * 栈溢出案例
+	 * 如果线程请求的栈深度大于虚拟机所允许的最大深度，将抛出StackOverflowError异常，方法递归调用产生这种结果
+	 * -Xss 去调整JVM栈的大小
+	 */
+	public void stackOverflow(){
+		stackOverflow();
 	}
 
 }

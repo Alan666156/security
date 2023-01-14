@@ -41,7 +41,6 @@ class TestClass {
         int b = 128;
         String key = "k1";
         int h = key.hashCode();
-        int hash;
         System.out.println(">>>" + h + "  " + (h ^ (h >>> 16)));
         System.out.println("位移运算" + (1<<4) + "-->" +(16>>2));
         System.out.println("128转二进制=" + (Integer.toBinaryString(128)));

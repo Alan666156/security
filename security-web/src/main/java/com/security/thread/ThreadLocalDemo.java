@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  *
- * Thread中维护了ThreadLocalMap，所以ThreadLocalMap的生命周期和Thread（当前线程）一样长。使用不当就可能会导致内存泄漏问题。但是，在ThreadLocal中，进行get，set操作的时候会清除Map里所有key为null的value。
+ * Thread中维护了一个静态内部内ThreadLocalMap，所以Map的生命周期和Thread（当前线程）一样长。使用不当就可能会导致内存泄漏问题。但是，在ThreadLocal中，进行get，set操作的时候会清除Map里所有key为null的value。
  *
  * ThreadLocal的实现原理是每一个Thread维护一个ThreadLocalMap映射表，映射表的key是ThreadLocal实例，并且使用的是ThreadLocal的弱引用 ，value是具体需要存储的Object
  *
