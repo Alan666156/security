@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.lang.management.*;
 
+/**
+ * @author fuhongxing
+ */
 //@EnableOAuth2Sso
 @Slf4j
 @SpringBootApplication

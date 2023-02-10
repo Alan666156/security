@@ -15,9 +15,12 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 抢红包service
+ *
  * @author fuhongxing
  * @date 2021/4/5 13:44
  */
@@ -31,6 +34,7 @@ public class RedPacketService {
     private RedService redService;
     @Autowired
     private RedissonClient redissonClient;
+
     /**
      * 发红包
      *
@@ -60,18 +64,19 @@ public class RedPacketService {
     /**
      * 抢红包---> 分 “点” 与 “抢” 处理逻辑
      * 主要是用于从缓存系统的红包随机金额队列中弹出一个随机金额，如果金额不为空，则表示该用户抢到红包了，缓存系统中红包个数减1，同时异步记录用户抢红包的记录并结束流程；如果金额为空，则意味着用户来晚一步，红包已经被抢完了。
+     *
      * @throws Exception
      */
     public BigDecimal rob(Long userId, String redId) throws Exception {
         //用户是否抢过该红包
         RMap<Long, Object> rMap = redissonClient.getMap(redId + "rob");
         if (rMap.containsKey(userId)) {
-            log.info("该用户已获取过红包{}", userId);
+            log.info("该用户[{}]已获取过红包", userId);
             return new BigDecimal(rMap.get(userId).toString());
         }
 
         //点红包
-        if(!click(redId)){
+        if (!click(redId)) {
             return null;
         }
 
@@ -81,9 +86,9 @@ public class RedPacketService {
             if (lock.tryLock()) {
                 //抢红包，redisUtil.rightPop成功红包个数减1
                 String redTotalKey = redId + ":total";
-                Integer currTotal = redisUtil.get(redTotalKey) != null ? (Integer) redisUtil.get(redTotalKey) : 0;
+                int currTotal = Objects.nonNull(redisUtil.get(redTotalKey)) ? (Integer) redisUtil.get(redTotalKey) : 0;
                 redisUtil.decr(redTotalKey);
-                if(currTotal < 0){
+                if (currTotal < 0) {
                     log.warn("{}红包数量不够", redId);
                     return null;
                 }
@@ -95,7 +100,7 @@ public class RedPacketService {
                     redService.recordRobRedPacket(userId, redId, new BigDecimal(value.toString()));
                     //写入抢红包缓存
                     rMap.put(userId, result);
-                    log.info("当前用户抢到红包了：userId={} key={} 金额={} ", userId, redId, result);
+                    log.info("当前用户[{}]抢到红包了：key={}, 金额={} ", userId, redId, result);
                     return result;
                 }
             }
@@ -115,7 +120,7 @@ public class RedPacketService {
      */
     private Boolean click(String redId) {
         Object total = redisUtil.get(redId + ":total");
-        if (total != null && Integer.valueOf(total.toString()) > 0) {
+        if (total != null && Integer.parseInt(total.toString()) > 0) {
             return true;
         }
         log.warn("{}红包已抢完，请下次参与", redId);

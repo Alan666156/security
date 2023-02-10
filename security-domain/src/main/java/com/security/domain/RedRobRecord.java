@@ -9,17 +9,21 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 发红包记录
+ * 抢红包记录
+ *
+ * @author fuhongxing
  */
 @Data
 @ToString
 @Entity
-@Table(name="red_rob_record")
-public class RedRobRecord   extends AbstractEntity{
+@Table(name = "red_rob_record")
+public class RedRobRecord extends AbstractEntity {
 
     private Long userId;
     private String redPacket;
-    /**红包金额（单位为分）*/
+    /**
+     * 红包金额（单位为分）
+     */
     private BigDecimal amount;
     private Date robTime;
     private Byte isActive;

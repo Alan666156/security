@@ -14,12 +14,17 @@ import java.util.TreeSet;
  * 复杂度分析:
  * 时间复杂度：get 时间复杂度 O(\log n)O(logn)，put 时间复杂度 O(\log n)O(logn)，操作的时间复杂度瓶颈在于平衡二叉树的插入删除均需要 O(\log n)O(logn) 的时间。
  * 空间复杂度：O(\textit{capacity})O(capacity)，其中 \textit{capacity}capacity 为 LFU 的缓存容量。哈希表和平衡二叉树不会存放超过缓存容量的键值对。
+ *
  * @author fuhx
  */
 public class LFUCache {
-    /** 缓存容量，时间戳*/
+    /**
+     * 缓存容量，时间戳
+     */
     int capacity, time;
-    /**哈希表 map 以键 key 为索引存储缓存，建立一个平衡二叉树 S 来保持缓存根据 (cnt，time) 双关键字*/
+    /**
+     * 哈希表 map 以键 key 为索引存储缓存，建立一个平衡二叉树 S 来保持缓存根据 (cnt，time) 双关键字
+     */
     Map<Integer, Node> map;
     TreeSet<Node> S;
 
@@ -29,7 +34,7 @@ public class LFUCache {
         map = new HashMap<Integer, Node>();
         S = new TreeSet<Node>();
     }
-    
+
     public int get(int key) {
         if (capacity == 0) {
             return -1;
@@ -50,7 +55,7 @@ public class LFUCache {
         map.put(key, cache);
         return cache.value;
     }
-    
+
     public void put(int key, int value) {
         if (capacity == 0) {
             return;
@@ -84,9 +89,13 @@ public class LFUCache {
  * 链表节点
  */
 class Node implements Comparable<Node> {
-    /**缓存使用的频率*/
+    /**
+     * 缓存使用的频率
+     */
     int cnt;
-    /**缓存的使用时间*/
+    /**
+     * 缓存的使用时间
+     */
     int time;
     int key;
     int value;

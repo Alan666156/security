@@ -7,18 +7,29 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 
 /**
- * 抢红包记录
+ * 发红包记录
+ *
+ * @author fuhongxing
  */
 @Data
 @Entity
-@Table(name="red_record")
-public class RedRecord extends AbstractEntity{
+@Table(name = "red_record")
+public class RedRecord extends AbstractEntity {
+    /**
+     * 用户id
+     */
     private Long userId;
-    /**红包全局唯一标识串*/
+    /**
+     * 红包全局唯一标识串
+     */
     private String redPacket;
-    /**人数*/
+    /**
+     * 人数
+     */
     private Integer total;
-    /**总金额（单位为分）*/
+    /**
+     * 总金额（单位为分）
+     */
     private BigDecimal amount;
     private Byte isActive;
 

@@ -10,13 +10,13 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
- 
+
 /**
  * 基于zookeeper的开源客户端Cruator实现分布式锁
- *
+ * <p>
  * 基本原理：
  * 创建临时有序节点，每个线程均能创建节点成功，但是其序号不同，只有序号最小的可以拥有锁，其它线程只需要监听比自己序号小的节点状态即可
- *
+ * <p>
  * 基本思路如下：
  * 1、在你指定的节点下创建一个锁目录lock；
  * 2、线程X进来获取锁在lock目录下，并创建临时有序节点；
@@ -28,15 +28,20 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 public class DistributedLock {
-    //可重入排它锁
+    /**
+     * 可重入排它锁
+     */
     private InterProcessMutex interProcessMutex;
-    //竞争资源标志
+    /**
+     * 竞争资源标志
+     */
     private String lockName;
-    //根节点
+    /**
+     * 根节点
+     */
     private String root = "/distributed/lock/";
     private static final String LOCK_PRE = "zk:lock:{}";
     private static CuratorFramework curatorFramework;
-//    private static String ZK_URL = "zookeeper1.tq.master.cn:2181,zookeeper3.tq.master.cn:2181,zookeeper2.tq.master.cn:2181,zookeeper4.tq.master.cn:2181,zookeeper5.tq.master.cn:2181";
     private static String ZK_URL = "101.133.234.7:2181,101.133.234.7:2182,101.133.234.7:2183";
 
     /**
@@ -56,6 +61,7 @@ public class DistributedLock {
     }
 
     public static void main(String[] args) {
+        // 创建一个线程池
         ThreadPoolExecutor pool = new ThreadPoolExecutor(
                 5,
                 10,
@@ -80,6 +86,7 @@ public class DistributedLock {
         pool.shutdown();
 
     }
+
     /**
      * 实例化
      *
@@ -113,9 +120,9 @@ public class DistributedLock {
             log.error("distributed lock acquire exception", e);
         }
         if (flag > 1) {
-            log.info("Thread:" + Thread.currentThread().getName() + " acquire distributed lock busy(获取锁失败)");
+            log.info("Thread:{} acquire distributed lock busy(获取锁失败)", Thread.currentThread().getName());
         } else {
-            log.info("Thread:" + Thread.currentThread().getName() + " acquire distributed lock success(获取锁成功)");
+            log.info("Thread:{} acquire distributed lock success(获取锁成功)", Thread.currentThread().getName());
         }
     }
 
@@ -127,10 +134,10 @@ public class DistributedLock {
             if (interProcessMutex != null && interProcessMutex.isAcquiredInThisProcess()) {
                 interProcessMutex.release();
                 curatorFramework.delete().inBackground().forPath(root + lockName);
-                log.info("Thread:" + Thread.currentThread().getName() + " release distributed lock success(锁释放成功)");
+                log.info("Thread:{} release distributed lock success(锁释放成功)", Thread.currentThread().getName());
             }
         } catch (Exception e) {
-            log.info("Thread:" + Thread.currentThread().getName() + " release distributed lock exception", e);
+            log.info("Thread:{} release distributed lock exception", Thread.currentThread().getName(), e);
         }
     }
 

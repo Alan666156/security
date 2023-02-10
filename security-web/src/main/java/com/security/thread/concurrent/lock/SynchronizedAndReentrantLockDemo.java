@@ -14,7 +14,6 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class SynchronizedAndReentrantLockDemo {
 
-
     public static void main(String[] args) {
         ShareResource shareResource = new ShareResource();
         new Thread(() -> {

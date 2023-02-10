@@ -9,6 +9,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * wait和notify必须在同步代码块或同一方法中 必须先等待后唤醒，线程才能够被唤醒
+ *
+ * @author fuhongxing
  */
 public class LockSupportDemo {
 
@@ -76,7 +78,7 @@ public class LockSupportDemo {
                 condition.await();
             } catch (Exception e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 lock.unlock();
             }
             System.out.println(Thread.currentThread().getName() + " ==>被唤醒");
@@ -107,7 +109,7 @@ public class LockSupportDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            synchronized (object){
+            synchronized (object) {
                 try {
                     System.out.println(Thread.currentThread().getName() + " ==>come in");
                     object.wait();
@@ -120,7 +122,7 @@ public class LockSupportDemo {
         }, "t1").start();
 
         new Thread(() -> {
-            synchronized (object){
+            synchronized (object) {
                 try {
                     object.notify();
                     System.out.println(Thread.currentThread().getName() + " ==>notify通知");

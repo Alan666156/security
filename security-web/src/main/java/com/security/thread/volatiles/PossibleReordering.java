@@ -2,6 +2,7 @@ package com.security.thread.volatiles;
 
 /**
  * 指令重排
+ *
  * @author fuhx
  */
 public class PossibleReordering {
@@ -24,6 +25,6 @@ public class PossibleReordering {
         other.start();
         one.join();
         other.join();
-        System.out.println(" ("+x + ", "+y + ")");
+        System.out.println(" (" + x + ", " + y + ")");
     }
 }

@@ -9,9 +9,9 @@ import com.security.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 
 /**
@@ -23,11 +23,11 @@ import java.math.BigDecimal;
 @RestController
 @RequestMapping("red/packet")
 public class RedPacketController {
-    @Autowired
+    @Resource
     private RedisUtil redisUtil;
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
-    @Autowired
+    @Resource
     private RedPacketService redPacketService;
 
     /**
@@ -39,7 +39,7 @@ public class RedPacketController {
         //1、先验证用户余额是否足够
 
         Result response = Result.success();
-        //同一时间用户只能成功发一个红包，涉及钱包不存在多平台登录的情况可以忽略
+        //同一时间同一用户只能成功发一个红包，涉及钱包不存在多平台登录的情况可以忽略
         RLock lock = redissonClient.getLock(StrUtil.format(SecurityConstants.RED_PACKET_USER, dto.getUserId()));
         try {
             if (lock.tryLock()) {

@@ -73,39 +73,12 @@ public class UseManyCondition {
 	}
 	
 	public static void main(String[] args) {
-		
-		
 		final UseManyCondition umc = new UseManyCondition();
-		Thread t1 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				umc.m1();
-			}
-		},"t1");
-		Thread t2 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				umc.m2();
-			}
-		},"t2");
-		Thread t3 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				umc.m3();
-			}
-		},"t3");
-		Thread t4 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				umc.m4();
-			}
-		},"t4");
-		Thread t5 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				umc.m5();
-			}
-		},"t5");
+		Thread t1 = new Thread(() -> umc.m1(),"t1");
+		Thread t2 = new Thread(() -> umc.m2(),"t2");
+		Thread t3 = new Thread(() -> umc.m3(),"t3");
+		Thread t4 = new Thread(() -> umc.m4(),"t4");
+		Thread t5 = new Thread(() -> umc.m5(),"t5");
 		
 		t1.start();	// c1
 		t2.start();	// c1
