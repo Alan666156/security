@@ -84,6 +84,7 @@ public class RedPacketController {
                 String redId = redPacketService.handOut(dto);
                 response = Result.success(redId);
             } else {
+                log.warn("[{}]并发请求！", dto.getUserId());
                 response = Result.failure("并发请求！");
             }
 

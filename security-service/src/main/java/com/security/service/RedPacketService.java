@@ -50,7 +50,7 @@ public class RedPacketService {
         if (dto.getQuantity() > 0 && dto.getAmount() > 0) {
             //生成随机金额, 二倍均值法计算
             List<Integer> list = RedPacketUtil.divideRedPackage2(dto.getAmount(), dto.getQuantity());
-            log.info("开始发红包啦！[{}]生成随机红包金额列表:{}", dto.getUserId(), list);
+            log.debug("开始发红包啦！[{}]生成随机红包金额列表:{}", dto.getUserId(), list);
             //生成红包全局唯一标识,并将随机金额、个数入缓存
             String redId = StrUtil.format(SecurityConstants.RED_PACKET_SEND, dto.getUserId(), IdUtil.fastUUID());
             //使用redis中的list，所以取走一个少一个，不会存在多人拿到同一个的情况，所以可以忽略超发问题
