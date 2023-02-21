@@ -12,7 +12,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <itextpdf.version>5.2.0</itextpdf.version>
-    <apache.pdfbox.version>1.8.3</apache.pdfbox.version>
+    <apache.pdfbox.version>1.8.16</apache.pdfbox.version>
   </properties>
   <dependencies>
     <dependency>
