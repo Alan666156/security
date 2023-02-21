@@ -14,23 +14,11 @@
 	    	<groupId>com.security</groupId>
 	        <artifactId>security-domain</artifactId>
 	        <version>${version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-					<groupId>org.springframework.boot</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	    <dependency>
 	    	<groupId>com.security</groupId>
 	        <artifactId>security-service</artifactId>
 	        <version>${version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-					<groupId>org.springframework.boot</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	  <dependency>
 		  <groupId>org.springframework.boot</groupId>
