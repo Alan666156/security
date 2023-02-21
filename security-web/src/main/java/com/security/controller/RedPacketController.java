@@ -63,7 +63,10 @@ public class RedPacketController {
             if (lock.tryLock()) {
                 String redId = redPacketService.handOut(dto);
                 response = Result.success(redId);
+            } else {
+                response = Result.failure("并发请求！");
             }
+
         } catch (Exception e) {
             log.error("[{}]发红包异常", dto.getUserId(), e);
             response = Result.failure("发红包异常!");
@@ -73,7 +76,7 @@ public class RedPacketController {
             }
         }
         long interval = System.currentTimeMillis() - start;
-        log.info("[{}]发红包总耗时: {}", dto.getUserId(), interval);
+        log.debug("[{}]发红包总耗时: {}", dto.getUserId(), interval);
         return response;
     }
 
