@@ -9,8 +9,9 @@ import java.util.Map;
 
 /**
  * 负载均衡基本参数信息
- * @Author: fuhongxing
- * @Date: 2021/3/16
+ *
+ * @author: fuhongxing
+ * @date: 2021/3/16
  **/
 @Data
 public class ServerIps {

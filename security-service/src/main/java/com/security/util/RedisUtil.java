@@ -448,7 +448,7 @@ public class RedisUtil {
     }
 
     /**
-     * 在变量左边添加元素值
+     * 原子队列，在变量左边添加元素值
      * @param key
      * @param value
      * @return
@@ -458,13 +458,23 @@ public class RedisUtil {
     }
 
     /**
-     * 移除集合中的右边第一个元素
+     * 原子队列，移除集合中的右边第一个元素
      * @param key
      * @return
      */
     public Object rightPop(String key) {
         return redisTemplate.opsForList().rightPop(key);
     }
+
+    /**
+     * 获取队列长度
+     * @param key
+     * @return
+     */
+    public Long size(String key) {
+        return redisTemplate.opsForList().size(key);
+    }
+
     /**
      * 移除并返回集合中左边的元素
      * 移除集合中左边的元素在等待的时间里，如果超过等待的时间仍没有元素则退出

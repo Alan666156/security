@@ -1,5 +1,10 @@
 package com.security.util;
 
+import cn.hutool.core.util.RandomUtil;
+import lombok.extern.slf4j.Slf4j;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,16 +17,50 @@ import java.util.Random;
  * @author: fuhx
  * @date: 2020/3/15
  */
+@Slf4j
 public class RedPacketUtil {
 
+    public static final BigDecimal ONE = BigDecimal.valueOf(1);
+    public static final BigDecimal TWO = BigDecimal.valueOf(2);
+
     /**
-     * 二倍均值法，金额以分为单位
+     * 二倍均值法，金额单位为元
      *
      * @param totalAmount    红包总金额
      * @param totalPeopleNum 红包总个数
      * @return
      */
-    public static List<Integer> divideRedPackage(Integer totalAmount, Integer totalPeopleNum) {
+    public static List<BigDecimal> divideRedPackage(BigDecimal totalAmount, Integer totalPeopleNum) {
+        List<BigDecimal> amountList = new ArrayList<>(totalPeopleNum);
+        if (totalAmount.compareTo(BigDecimal.ZERO) > 0 && totalPeopleNum > 0) {
+            // 剩余总金额
+            BigDecimal restAmount = totalAmount;
+            // 剩余总人数
+            BigDecimal restPeopleNum = BigDecimal.valueOf(totalPeopleNum);
+
+            for (int i = 0; i < totalPeopleNum - 1; i++) {
+                // 随机范围：[1，剩余人均金额的两倍)，左闭右开
+                // 计算边界值，保留2位小数，四舍五入
+                BigDecimal temp = restAmount.divide(restPeopleNum, 2, RoundingMode.HALF_UP).multiply(TWO).subtract(ONE);
+                BigDecimal amount = RandomUtil.randomBigDecimal(temp).add(ONE);
+                restAmount = restAmount.subtract(amount);
+                restPeopleNum = restPeopleNum.subtract(ONE);
+                amountList.add(amount);
+            }
+            amountList.add(restAmount);
+        }
+        return amountList;
+    }
+
+    /**
+     * 二倍均值法，金额以分为单位，金额都为整数型
+     * ps:传值需要注意：假设发10个红包，金额如果为5(说明只有5分钱)，那么此时金额是无法拆分为10份的，产生随机数时会异常
+     *
+     * @param totalAmount    红包总金额
+     * @param totalPeopleNum 红包总个数
+     * @return
+     */
+    public static List<Integer> divideRedPackage2(Integer totalAmount, Integer totalPeopleNum) {
         List<Integer> amountList = new ArrayList<>(totalPeopleNum);
         if (totalAmount > 0 && totalPeopleNum > 0) {
             // 剩余总金额
@@ -31,7 +70,8 @@ public class RedPacketUtil {
             Random random = new Random();
             for (int i = 0; i < totalPeopleNum - 1; i++) {
                 // 随机范围：[1，剩余人均金额的两倍)，左闭右开
-                int amount = random.nextInt(restAmount / restPeopleNum * 2 - 1) + 1;
+                int amount = 0;
+                amount = random.nextInt(restAmount / restPeopleNum * 2 - 1) + 1;
                 restAmount -= amount;
                 restPeopleNum--;
                 amountList.add(amount);

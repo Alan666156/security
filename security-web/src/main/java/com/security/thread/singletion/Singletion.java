@@ -2,6 +2,9 @@ package com.security.thread.singletion;
 
 /**
  * 单例模式（懒汉式、饿汉式、双重检索）
+ * 单例碰到的问题：
+ *  1.《effective java》中只简单的提了几句话：“享有特权的客户端可以借助AccessibleObject.setAccessible方法，通过反射机制调用私有构造器。如果需要低于这种攻击，可以修改构造器，让它在被要求创建第二个实例的时候抛出异常。
+ *  2.序列化问题:任何一个readObject方法，不管是显式的还是默认的，它都会返回一个新建的实例，这个新建的实例不同于该类初始化时创建的实例。”当然，这个问题也是可以解决的，想详细了解的同学可以翻看《effective java》第77条：对于实例控制，枚举类型优于readResolve
  *
  * @author fhx
  * @date 2019年12月6日
@@ -45,10 +48,10 @@ public class Singletion {
      * @return
      */
     public static Singletion getDSL() {
-        if (instance == null) {
+        if (Singletion.instance == null) {
             synchronized (Singletion.class) {
-                if (instance == null) {
-                    instance = new Singletion();
+                if (Singletion.instance == null) {
+                    Singletion.instance = new Singletion();
                 }
             }
         }
@@ -66,7 +69,7 @@ public class Singletion {
 //				}
 //			}
 //		}
-        return instance;
+        return Singletion.instance;
     }
 
 }

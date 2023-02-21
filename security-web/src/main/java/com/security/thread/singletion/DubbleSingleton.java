@@ -42,6 +42,11 @@ public class DubbleSingleton {
     }
 
     public static void main(String[] args) {
+        SingletonEnum.INSTANCE.doSomething();
+        System.out.println(User.getInstance() == User.getInstance());
+        System.out.println(User.getInstance());
+        System.out.println(User.getInstance());
+        System.out.println(User.getInstance() == User.getInstance());
         for (int i = 0; i < 10; i++) {
             new Thread(() -> System.out.println(DubbleSingleton.getDs().hashCode()), String.valueOf(i)).start();
 

@@ -5,6 +5,7 @@ import java.util.Map;
 
 /**
  * 平滑轮询
+ *
  * @Author: fuhongxing
  * @Date: 2021/3/16
  **/
@@ -12,15 +13,15 @@ public class WeigthRoundRobin {
 
     private static Map<String, Weigth> weigthMap = new HashMap<>();
 
-    public static String getServer(){
+    public static String getServer() {
 
         int totalWeigth = 0;
         for (Integer weigth : ServerIps.weigth.values()) {
             totalWeigth += weigth;
         }
 
-        if(weigthMap.isEmpty()){
-            ServerIps.weigth.forEach((ip, weigth) ->{
+        if (weigthMap.isEmpty()) {
+            ServerIps.weigth.forEach((ip, weigth) -> {
                 weigthMap.put(ip, new Weigth(ip, weigth, 0));
             });
         }
@@ -33,7 +34,7 @@ public class WeigthRoundRobin {
 
         Weigth maxWeigth = null;
         for (Weigth weigth : weigthMap.values()) {
-            if(maxWeigth == null || weigth.getCurrentWeigth() > maxWeigth.getCurrentWeigth()){
+            if (maxWeigth == null || weigth.getCurrentWeigth() > maxWeigth.getCurrentWeigth()) {
                 maxWeigth = weigth;
             }
         }

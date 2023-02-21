@@ -36,6 +36,10 @@ public class SecurityConstants {
 	 * 抢红包集合标识
 	 */
 	public static final String RED_PACKET_ROB ="red:packet:rob:{}";
+	/**
+	 * 抢红包锁标识(锁粒度：红包编码)
+	 */
+	public static final String RED_PACKET_ROB_lock ="red:packet:rob:lock:{}";
 
 
 }

@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 红包service
+ *
  * @author fuhongxing
  * @date 2021/4/5 13:44
  */
@@ -45,7 +47,7 @@ public class RedService {
         RedRecord redRecord = new RedRecord();
         redRecord.setUserId(dto.getUserId());
         redRecord.setRedPacket(redId);
-        redRecord.setTotal(dto.getTotal());
+        redRecord.setTotal(dto.getQuantity());
         redRecord.setAmount(BigDecimal.valueOf(dto.getAmount()));
         redRecordDao.save(redRecord);
 
@@ -55,18 +57,20 @@ public class RedService {
             detail = new RedDetail();
             detail.setRecordId(redRecord.getId());
             detail.setAmount(BigDecimal.valueOf(i));
+            detail.setActive(0);
             redDetailDao.save(detail);
         }
     }
 
     /**
-     * 抢红包记录
+     * 生成抢红包记录
      *
      * @param userId 用户id
      * @param redId  红包key
      * @param amount 金额
      */
     @Async
+    @Transactional(rollbackFor = Exception.class)
     public void recordRobRedPacket(Long userId, String redId, BigDecimal amount) {
         RedRobRecord redRobRecord = new RedRobRecord();
         redRobRecord.setUserId(userId);
@@ -74,5 +78,9 @@ public class RedService {
         redRobRecord.setAmount(amount);
         redRobRecord.setRobTime(new Date());
         redRobRecordDao.save(redRobRecord);
+        // 核销红包明细是否需要关联？通过发红包主表的id + 金额匹配，如果金额一致排序后，随机取一条即可
+
     }
+
+
 }

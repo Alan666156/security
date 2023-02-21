@@ -1,8 +1,14 @@
 package com.security.jvm;
 
+import lombok.Data;
+
+/**
+ * @author FUHONGXING
+ */
+@Data
 public class User {
-    int uid;
-    String info;
+    private int uid;
+    private String info;
 
     public User() {
     }
@@ -12,19 +18,4 @@ public class User {
         this.info = info;
     }
 
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
 }

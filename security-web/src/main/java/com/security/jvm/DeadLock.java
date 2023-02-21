@@ -1,6 +1,9 @@
 package com.security.jvm;
 
-
+/**
+ * 死锁
+ * @author fuhongxing
+ */
 public class DeadLock {
 
     private static Object lock1 = new Object();
@@ -8,28 +11,28 @@ public class DeadLock {
 
     public static void main(String[] args) {
         new Thread(() -> {
-            synchronized (lock1){
+            synchronized (lock1) {
                 try {
                     System.out.println("thread1 start");
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                synchronized (lock2){
+                synchronized (lock2) {
                     System.out.println("thread1 end");
                 }
             }
         }).start();
 
         new Thread(() -> {
-            synchronized (lock2){
+            synchronized (lock2) {
                 try {
                     System.out.println("thread2 start");
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                synchronized (lock1){
+                synchronized (lock1) {
                     System.out.println("thread2 end");
                 }
             }
@@ -39,3 +42,4 @@ public class DeadLock {
     }
 
 }
+

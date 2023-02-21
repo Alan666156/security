@@ -27,8 +27,8 @@ import com.security.vo.PageFormVo;
 @Controller
 public class ClientDetailsController {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
-	
+    private final static Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+
     @Autowired
     private OauthClientDetailsService oauthService;
 
@@ -38,62 +38,63 @@ public class ClientDetailsController {
 
     @RequestMapping("clientdetails")
     public String clientDetails(Model model) {
-    	LOGGER.info("加载用户信息");
-    	Page<OauthClientDetails> page = oauthService.findAll(null, new PageFormVo());
-    	LOGGER.info(JSON.toJSONString(page.getContent().get(0)));
+        LOGGER.info("加载用户信息");
+        Page<OauthClientDetails> page = oauthService.findAll(null, new PageFormVo());
+        LOGGER.info(JSON.toJSONString(page.getContent().get(0)));
         model.addAttribute("clientDetailsList", page.getContent());
         return "clientdetails";
     }
 
 
-    /*
-    * Logic delete
-    * */
+    /**
+     * Logic delete
+     */
     @RequestMapping("archive_client/{clientId}")
     public String archiveClient(@PathVariable("clientId") String clientId) {
 //        oauthService.archiveOauthClientDetails(clientId);
         return "redirect:../clientdetails";
     }
 
-    /*
-    * Test client
-    * */
-    @RequestMapping("test_client/{clientId}")
-    public String testClient(@PathVariable("clientId") String clientId, Model model) {
-//        OauthClientDetailsDto clientDetailsDto = oauthService.loadOauthClientDetailsDto(clientId);
-//        model.addAttribute("clientDetailsDto", clientDetailsDto);
-        return "clientdetails/test_client";
-    }
-
-
-    /*
+    /**
+     * Test client
+     * <p>
+     * * /
+     *
+     * @RequestMapping("test_client/{clientId}") public String testClient(@PathVariable("clientId") String clientId, Model model) {
+     * //        OauthClientDetailsDto clientDetailsDto = oauthService.loadOauthClientDetailsDto(clientId);
+     * //        model.addAttribute("clientDetailsDto", clientDetailsDto);
+     * return "clientdetails/test_client";
+     * }
+     * <p>
+     * <p>
+     * /**
      * 跳转注册页面
-    * Register client
-    * */
+     * Register client
+     */
     @RequestMapping(value = "registerClient")
     public String registerClient(Model model) {
-    	OauthClientDetails formDto = new OauthClientDetails();
-    	formDto.setClientId(Generate.generateUUID());
-    	formDto.setClientSecret(Generate.generateClientSecret());
+        OauthClientDetails formDto = new OauthClientDetails();
+        formDto.setClientId(Generate.generateUUID());
+        formDto.setClientSecret(Generate.generateClientSecret());
         model.addAttribute("formDto", formDto);
         return "registerClient";
     }
 
 
-    /*
-    * Submit register client
-    * */
+    /**
+     * Submit register client
+     */
     @RequestMapping(value = "addClient", method = RequestMethod.POST)
     public String submitRegisterClient(@ModelAttribute("formDto") OauthClientDetails formDto) {
 //        clientDetailsDtoValidator.validate(formDto, result);
-    	LOGGER.info("register client");
+        LOGGER.info("register client");
 //    	formDto.setClientId(Generate.generateUUID());
 //    	formDto.setClientSecret(Generate.generateClientSecret());
         oauthService.save(formDto);
         return "redirect:clientdetails";
     }
-    
-    /*
+
+    /**
      * Submit register client
      * */
 //     @RequestMapping(value = "register_client", method = RequestMethod.POST)

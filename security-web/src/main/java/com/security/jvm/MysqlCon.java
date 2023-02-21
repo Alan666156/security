@@ -5,6 +5,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * 获取一个数据库链接
+ * @author fuhongxing
+ */
 public class MysqlCon {
 
     public static void main(String[] args) throws SQLException {

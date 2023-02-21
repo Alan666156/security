@@ -1,14 +1,10 @@
 package com.security.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.google.common.util.concurrent.RateLimiter;
-import com.security.annotation.RateLimitLua;
 import com.security.annotation.UseLog;
-import com.security.common.SecurityConstants;
 import com.security.service.OauthCodeService;
 import com.security.util.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
