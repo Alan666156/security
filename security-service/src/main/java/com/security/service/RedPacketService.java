@@ -59,7 +59,7 @@ public class RedPacketService {
 //            redisUtil.set(redId + ":total", dto.getQuantity(), 30L, TimeUnit.MINUTES);
 
             //异步记录红包发出的记录-包括个数与随机金额
-//            redService.recordRedPacket(dto, redId, list);
+            redService.recordRedPacket(dto, redId, list);
             //生成一个抢红包的缓存集合，存放抢红包的用户id和红包金额，默认24小时过期
             RMap<Long, Object> rMap = redissonClient.getMap(redId + "rob");
             return redId;
