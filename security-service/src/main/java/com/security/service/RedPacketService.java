@@ -82,20 +82,16 @@ public class RedPacketService {
         }
         // 此处需要验证一下红包的真实性，如果缓存中为匹配到，还需到数据库去核对一下
 
-
         //点红包
         if (!click(dto.getRedId())) {
             return null;
         }
-
         //一个红包每个人只能抢一次随机金额；一个人每次只能抢到红包的一次随机金额  即要永远保证 1对1 的关系
         RLock lock = redissonClient.getLock(dto.getRedId() + ":lock");
         try {
             if (lock.tryLock(1, 10, TimeUnit.SECONDS)) {
-
                 // 方案一：通过队列长度获取剩余的红包个数
                 Long currentTotal = redisUtil.size(dto.getRedId());
-
                 // 方案二：通过decr的方式扣减；
 //                String redTotalKey = dto.getRedId() + ":total";
 //                Object obj = redisUtil.get(redTotalKey);

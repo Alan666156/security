@@ -41,6 +41,7 @@ public class RedPacketController {
      */
     @PostMapping("/send")
     public Result handOut(@RequestBody RedPacketDto dto) {
+        final long start = System.currentTimeMillis();
         //1、验证用户，正常情况用户进入发红包页面说明都是已经登录成功的用户
         User user = userService.findById(dto.getUserId());
         if (Objects.isNull(user)) {
@@ -71,7 +72,18 @@ public class RedPacketController {
                 lock.unlock();
             }
         }
+        long interval = System.currentTimeMillis() - start;
+        log.info("[{}]发红包总耗时: {}", dto.getUserId(), interval);
         return response;
+    }
+
+    /**
+     * 抢红包
+     */
+    @PostMapping("/test")
+    public Result test(@RequestBody RedPacketDto dto) {
+        log.info("test---->{}", Thread.currentThread().getName());
+        return Result.success();
     }
 
 
