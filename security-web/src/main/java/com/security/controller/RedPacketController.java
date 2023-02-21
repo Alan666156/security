@@ -13,6 +13,7 @@ import com.security.service.UserService;
 import com.security.util.RedisUtil;
 import com.security.util.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RAtomicLong;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 抢红包
@@ -85,6 +87,9 @@ public class RedPacketController {
                 response = Result.success(redId);
             } else {
                 log.warn("[{}]并发请求！", dto.getUserId());
+                RAtomicLong atomicLong = redissonClient.getAtomicLong("redpacket_fail");
+                atomicLong.expire(15, TimeUnit.MINUTES);
+                atomicLong.incrementAndGet();
                 response = Result.failure("并发请求！");
             }
 
