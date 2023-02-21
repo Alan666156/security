@@ -32,6 +32,7 @@ public class SecurityConstants {
 	 * 发红包用户
 	 */
 	public static final String RED_PACKET_USER ="red:packet:user:{}";
+	public static final String RED_PACKET_USER_LOCK ="red:packet:user:lock:{}";
 	/**
 	 * 抢红包集合标识
 	 */
@@ -39,7 +40,7 @@ public class SecurityConstants {
 	/**
 	 * 抢红包锁标识(锁粒度：红包编码)
 	 */
-	public static final String RED_PACKET_ROB_lock ="red:packet:rob:lock:{}";
+	public static final String RED_PACKET_ROB_LOCK ="red:packet:rob:lock:{}";
 
 
 }
