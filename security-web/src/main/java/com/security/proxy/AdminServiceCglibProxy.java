@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
  * 当加入Spring中的target是接口的实现时，就使用JDK动态代理，否是就使用Cglib代理。Spring也可以通过<aop:config proxy-target-class="true">强制使用Cglib代理，使用Java字节码编辑类库ASM操作字节码来实现，
  * 直接以二进制形式动态地生成 stub 类或其他代理类，性能比JDK更强
  *
+ * @author fuhongxing
  */
 @Slf4j
 public class AdminServiceCglibProxy implements MethodInterceptor {

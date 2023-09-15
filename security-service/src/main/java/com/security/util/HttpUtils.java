@@ -26,6 +26,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import com.alibaba.fastjson2.JSON;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
@@ -46,9 +47,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import com.alibaba.fastjson2.JSONObject;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 
 /**
  * 基于 httpclient http工具类
@@ -228,8 +228,7 @@ public class HttpUtils {
     /**
 	 * 请求第三方接口
 	 * 
-	 * @param url 请求目标地址
-	 * @param mediaType 头文件信息
+	 * @param requestUrl 请求目标地址
 	 * @param param 请求参数
 	 * @param type 响应数据类型
 	 * @return

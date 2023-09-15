@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-import static com.alibaba.fastjson.JSON.toJSONString;
+import static com.alibaba.fastjson2.JSON.toJSONString;
 
 /**
  * kafka生产者类工具类
@@ -48,6 +48,7 @@ public class KafkaProducerUtils {
     public void createTopic(String topicName, int partitionNum, int replicaNum) {
         KafkaFuture<Set<String>> topics = adminClient.listTopics().names();
         try {
+            // topic 是否存在
             if (topics.get().contains(topicName)) {
                 return;
             }

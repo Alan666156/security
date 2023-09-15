@@ -22,7 +22,7 @@ import java.util.List;
  * 选择一个根节点（与其他业务隔离），比如/jobMaster，多台机器同时在此节点下面创建一个子节点/jobMaster/lock，zookeeper保证了最终只有一台机器能够创建成功，那么这台机器将成为Master。由它来执行业务操作
  *
  * 参考：https://blog.csdn.net/wo541075754/article/details/70216046
- * @author fuhx
+ * @author fuhongxing
  */
 @Slf4j
 public class LeaderLatchTest {

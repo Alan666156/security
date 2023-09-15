@@ -2,7 +2,7 @@ package com.security.controller;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.security.annotation.RateLimitLua;
 import com.security.common.SecurityConstants;
 import com.security.domain.User;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -77,7 +78,7 @@ public class RedissonController {
 	 * @return
 	 */
 	@GetMapping("/deduct-stock")
-	public Result deductStock(HttpServletRequest request){
+	public Result<Void> deductStock(HttpServletRequest request){
 		Object result = redisUtil.get("stock");
 		//synchronized是基于jvm，如果在分布式多台服务器环境下，出现并发是无法锁住，需要借助分布式锁
 		//可以使用redis的setnx命令，这里某个线程逻辑处理时间较长，超过了10秒，就会出现key会被删除的情况
@@ -365,13 +366,34 @@ public class RedissonController {
 	 * 分布式布隆过滤器（Bloom Filter）。所含最大比特数量为2^32
 	 */
 	@GetMapping("/bloomFilter")
-	public void bloomFilter(){
+	public Result<Void> bloomFilter(){
 		RBloomFilter<User> bloomFilter = redissonClient.getBloomFilter("sample");
 		// 初始化布隆过滤器，预计统计元素数量为55000000，期望误差率为0.03
 		bloomFilter.tryInit(55000000L, 0.03);
 		bloomFilter.add(new User("field1Value", "field2Value"));
 		bloomFilter.add(new User("field5Value", "field8Value"));
 		bloomFilter.contains(new User("field1Value", "field8Value"));
+		return Result.success();
+	}
+
+	/**
+	 * 查找附近的地理位置
+	 */
+	@GetMapping("/geo")
+	public Result<Void> geo(){
+		RIdGenerator idGenerator = redissonClient.getIdGenerator("sample");
+		idGenerator.nextId();
+		RGeo<Object> geo = redissonClient.getGeo("stark:food");
+		GeoEntry f1 = new GeoEntry(110.50, 27.33, "f1");
+		GeoEntry f2 = new GeoEntry(111.50, 26.33, "f2");
+		GeoEntry f3 = new GeoEntry(112.50, 25.33, "f3");
+		GeoEntry f4 = new GeoEntry(113.50, 24.33, "f4");
+		geo.add(f1, f2, f3, f4);
+		Map<Object, GeoPosition> geoPositionMap = geo.pos("f1", "f2", "f3", "f4");
+
+		// 根据传入的位置坐标，获取最近的
+		geo.radiusWithDistanceAsync(111.88, 26.3, 100, GeoUnit.KILOMETERS);
+		return Result.success();
 	}
 
 	/**

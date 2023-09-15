@@ -16,7 +16,7 @@ import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * AOP通过redis进行限流操作
@@ -69,7 +69,7 @@ public class RedisLuaLimiterHandler {
             //限制时间
             long expire = 60;
             //执行lua
-            Long res = redissonClient.getScript(IntegerCodec.INSTANCE).eval(RScript.Mode.READ_WRITE, defaultRedisScript.getScriptAsString(), RScript.ReturnType.INTEGER, Arrays.asList(limitKey), limit, expire);
+            Long res = redissonClient.getScript(IntegerCodec.INSTANCE).eval(RScript.Mode.READ_WRITE, defaultRedisScript.getScriptAsString(), RScript.ReturnType.INTEGER, Collections.singletonList(limitKey), limit, expire);
             if(res == 0){
                 log.warn("请求过于频繁，请稍后再试");
                 return Result.failure("请求过于频繁，请稍后再试");

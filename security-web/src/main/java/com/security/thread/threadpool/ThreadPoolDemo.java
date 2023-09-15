@@ -86,6 +86,7 @@ public class ThreadPoolDemo {
      * ThreadPoolExecutor.DiscardPolicy：丢弃任务，但是不抛出异常。如果线程队列已满，则后续提交的任务都会被丢弃，且是静默丢弃。
      * ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新提交被拒绝的任务。
      * ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务，如果任务被拒绝了，则由调用线程（提交任务的线程）直接执行此任务
+     * 当流量比较大的时候，由于任务没有设置超时时间，处理线程会一直hang住，导致线程池被打满的时候触发饱和策略CallerRunsPolicy，由主线程去处理任务，而任务又是阻塞的，主线程hang主，从而导致主流程超时，发生故障。所以在使用饱和策略的时候需要考虑一下场景，看看是否合适，以免踩坑。
      */
     public static void myThreadPool() {
         //maximumPoolSize=5, ArrayBlockingQueue=3，这里最多能容纳8个，执行默认的拒绝策略超过就会抛出异常

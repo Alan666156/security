@@ -30,7 +30,7 @@ public class KafkaTopicDto implements Serializable {
     private Integer partitionNum;
 
     /**
-     * 红包编码
+     * 副本数量
      */
     private Integer replicaNum = 1;
 
