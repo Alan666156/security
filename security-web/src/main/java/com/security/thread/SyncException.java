@@ -26,12 +26,7 @@ public class SyncException {
 	public static void main(String[] args) {
 		
 		final SyncException se = new SyncException();
-		Thread t1 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				se.operation();
-			}
-		},"t1");
+		Thread t1 = new Thread(() -> se.operation(),"t1");
 		t1.start();
 	}
 	
